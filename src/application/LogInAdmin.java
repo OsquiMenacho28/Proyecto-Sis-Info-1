@@ -16,13 +16,10 @@ public class LogInAdmin extends LogIn {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LogIn_B.setOnAction((e) -> {
             open();
-            System.out.println("hola");
             origin.dispose();
         });
 
-        Back_B.setOnAction((e) -> {
-            backDispose();
-        });
+        Back_B.setOnAction((e) -> backDispose());
 
         this.setOnKeyReleased((e) -> {
             KeyCode pKey = e.getCode();
