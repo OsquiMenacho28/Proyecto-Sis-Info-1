@@ -1,0 +1,31 @@
+.NumberKey{
+	-fx-alignment : center;
+	-fx-background-color :  #F0F0F0F0;
+	-fx-padding : 0.5em;
+	-fx-min-width : 2em;
+	-fx-min-height : 2em;
+	-fx-max-width : Infinity;
+	-fx-max-height : Infinity;
+	-fx-text-fill :  black;
+	-fx-font-family: 'Metropolis Semi Bold';
+	-fx-font-style : normal;
+	-fx-font-weight : normal;
+	-fx-font-size :  150%;
+}
+
+.NumberKey :hover{
+	-fx-background-color : #FAFAFAFA;
+}
+
+.NumberKey :pressed{
+	-fx-background-color : black;
+	-fx-text-fill : white;
+}
+
+#Matrix{
+	-fx-background-color : transparent;
+	-fx-alignment : center;
+	-fx-vgap : 1em;
+	-fx-hgap : 1em;
+	-fx-grid-lines-visible : false;
+}

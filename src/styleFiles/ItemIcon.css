@@ -1,0 +1,52 @@
+.Container{
+	-fx-background-color : rgba(196,196,196,.07);
+	-fx-background-radius: 0.4em;
+}
+
+.Container:hover{
+	-fx-background-color : rgba(196,196,196,.3);
+	-fx-effect : dropshadow(gaussian , white , 30, 0 , 1 , 1 );
+	-fx-background-radius: 0.4em;
+	
+}
+.AtributeTab{
+ 	-fx-background-color : transparent;
+ }
+
+
+.AtributeTab :hover,
+.AtributeTab :pressed{
+	-fx-background-color: blue;  
+}
+
+
+.DescriptionTab{
+	-fx-background-color : transparent;
+}
+
+.DescriptionTab :hover,
+.DescriptionTab :pressed{
+	-fx-background-color: transparent;   
+}
+
+.ProductTag{
+	-fx-text-fill : white;
+	-fx-font-family : 'Metropolis Semi Bold';
+	-fx-font-size : 22px;
+}
+
+.ItemTag{
+	-fx-text-fill : white;
+	-fx-opacity : 1;
+	-fx-font-family : 'Metropolis';
+	-fx-font-size : 17px;
+}
+
+
+.menu-item{
+	-fx-text-fill : white;
+	-fx-background-color : #252525;
+	-fx-font-family : 'Metropolis Semi Bold';
+	-fx-font-size : 15px;
+}
+

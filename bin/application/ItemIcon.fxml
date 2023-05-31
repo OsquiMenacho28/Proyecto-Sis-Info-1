@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root id="Container" fx:id="LayoutTab" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" nodeOrientation="INHERIT" prefHeight="130.0" prefWidth="400.0" spacing="15.0" styleClass="Container" stylesheets="@../styleFiles/ItemIcon.css" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="ProductImage" fitHeight="98.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../bin/img/ImageIcon.png" />
+         </image>
+         <HBox.margin>
+            <Insets left="15.0" />
+         </HBox.margin>
+      </ImageView>
+      <VBox fx:id="DescriptionTab" alignment="CENTER_LEFT" prefHeight="130.0" prefWidth="209.0" styleClass="DescriptionTab">
+         <children>
+            <Label fx:id="ProductLabel" alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="36.0" prefWidth="209.0" styleClass="ProductTag" text="Producto" textAlignment="RIGHT" textFill="WHITE">
+               <font>
+                  <Font name="MyriadPro-Black" size="21.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <VBox fx:id="AtributeTab" alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="209.0" styleClass="AtributeTab">
+               <children>
+                  <Label fx:id="PriceLabel" prefHeight="27.0" prefWidth="203.0" styleClass="ItemTag" text="Precio Unitario:" textFill="WHITE">
+                     <font>
+                        <Font name="MyriadPro-Regular" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="StockLabel" prefHeight="22.0" prefWidth="225.0" styleClass="ItemTag" text="Stock:" textFill="WHITE">
+                     <font>
+                        <Font name="MyriadPro-Regular" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="BrandLabel" prefHeight="22.0" prefWidth="236.0" styleClass="ItemTag" text="Marca:" textFill="WHITE">
+                     <font>
+                        <Font name="MyriadPro-Regular" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets bottom="15.0" right="20.0" top="15.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</fx:root>

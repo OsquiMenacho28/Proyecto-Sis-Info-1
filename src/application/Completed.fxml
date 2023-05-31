@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../styleFiles/PrompWindows.css" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" styleClass="Container">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" percentWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="NITLabel" layoutX="315.0" layoutY="124.0" styleClass="TitleLabel" text="NIT:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Encode Sans Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="TotalLabel" alignment="CENTER_RIGHT" layoutX="40.0" layoutY="264.0" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="494.0" styleClass="TitleLabel" text="Total :" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Encode Sans Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="CloseButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="51.0" prefWidth="274.0" styleClass="MainButton" text="CONTINUAR" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
+               <font>
+                  <Font name="MyriadPro-Black" size="37.0" />
+               </font>
+            </Button>
+            <HBox prefHeight="59.0" prefWidth="607.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="55.0" styleClass="FlowButton">
+                     <graphic>
+                        <ImageView fitHeight="51.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../bin/img/LastButtonWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="TitleLabel" text="Compra Completada!!!" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Metropolis-Black" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="NameLabel" layoutX="448.0" layoutY="143.0" styleClass="TitleLabel" text="Cliente:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Encode Sans Bold" size="24.0" />
+               </font>
+            </Label>
+            <TableView fx:id="CartList" prefHeight="200.0" prefWidth="200.0" styleClass="PTable" GridPane.rowIndex="3">
+              <columns>
+                <TableColumn fx:id="ProductColumn" prefWidth="126.0" text="Producto" />
+                <TableColumn fx:id="CantColumn" minWidth="0.0" prefWidth="146.0" text="Cantidad" />
+                  <TableColumn fx:id="PriceColumn" prefWidth="153.0" text="P. Unitario" />
+                  <TableColumn fx:id="TPriceColumn" prefWidth="181.0" text="P. Parcial" />
+              </columns>
+            </TableView>
+         </children>
+         <stylesheets>
+            <URL value="@../styleFiles/PrompWindows.css" />
+            <URL value="@../styleFiles/FlowButton.css" />
+         </stylesheets>
+      </GridPane>
+   </children>
+</fx:root>

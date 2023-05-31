@@ -1,0 +1,196 @@
+
+.Container{
+	-fx-background-color : white;
+}
+
+.RightPane{
+	-fx-background-color :  #01516e;
+	-fx-background-radius : 1em 0em 0em 1em;
+	-fx-background-padding: 2em 2em 2em 2em;
+}
+
+.OrderList{
+	-fx-background-color :  transparent;
+	-fx-border-color :  transparent;
+}
+
+.OrderList .column-header-background{
+	-fx-background-color :  transparent;
+	-fx-border-color :  transparent;
+}
+
+.SearchBar{
+	-fx-background-color : white;
+	-fx-background-radius : 5em;
+	-fx-alignment : center-left;
+}
+
+.SearchBar *{
+	-fx-background-color : white;
+	-fx-alignment : center-left;
+	
+	-fx-font-family : 'Metropolis';
+	-fx-font-size : 15px;
+	-fx-prompt-text-fill : black;
+}
+
+.ProductList{
+	-fx-background-color : transparent;
+	-fx-padding : 2em 2em 0 2em;
+	-fx-opacity: 1 ;
+	-fx-row-valignment : center;
+	-fx-hgap : 5em;
+	-fx-vgap : 2em;
+}
+
+
+.ListScroll{
+	-fx-background-color : transparent;
+	-fx-alignment : left-bottom;
+	-fx-opacity: 1;
+}
+
+.ListScroll .viewport {
+   -fx-background-color: transparent;
+   -fx-opacity : 1;
+}
+
+.ListScroll{
+	-fx-hbar-policy: never;
+	-fx-vbar-policy: always;
+}
+
+.ListScroll .scroll-bar{
+	-fx-background-color : transparent;
+	-fx-pref-width: 1.5em;
+	-fx-opacity: 1;
+}
+
+.ListScroll .scroll-bar: vertical .thumb{
+	-fx-background-color : rgba(196,196,196,0.4);
+	-fx-pref-height: 10em;
+	-fx-shape: "";
+	-fx-background-radius : 0em;
+}
+.ListScroll .scroll-bar: vertical .track{
+	-fx-background-color: transparent;
+	-fx-opacity:1;
+}
+
+.ListScroll .scroll-bar :vertical .increment-button,
+.ListScroll .scroll-bar :vertical .decrement-button{
+	-fx-background-color: transparent;
+	-fx-opacity: 0;
+	-fx-border-color: black;
+}
+
+.ListScroll .scroll-bar .increment-arrow,
+.ListScroll .scroll-bar .decrement-arrow{
+	-fx-background-color: transparent;
+	-fx-opacity: 0;
+	-fx-border-color: black;
+}
+
+.ListScroll .scroll-bar .thumb:hover,
+.ListScroll .scroll-bar .thumb:pressed{
+    -fx-background-color: rgba(196,196,196,0.7);
+    -fx-opacity: 1;
+}
+
+
+.table-row-cell:odd,
+.table-row-cell:even{
+	-fx-background-insets : 1px;
+
+	
+	-fx-background-color : #E4E4E4;
+	-fx-pref-width : 2em;
+	-fx-min-width : 2em;
+	
+	-fx-font-family : 'Metropolis Semi Bold';
+	-fx-font-size : 15px;
+	-fx-text-fill : black;
+}
+
+.table-row-cell:hover{
+	-fx-background-insets : 1px;
+
+	
+	-fx-background-color : white;
+	-fx-pref-width : 2em;
+	-fx-min-width : 2em;
+	
+	-fx-font-family : 'Metropolis Semi Bold';
+	-fx-font-size : 15px;
+	-fx-text-fill : #AAAAAA;
+}
+
+.column-resize-line {
+	-fx-border-width : 0;
+}
+
+.table-column{
+	-fx-alignment : center;
+}
+
+.column-header,
+.column-header-background,
+.column-header-background .filler{
+	-fx-background-color : transparent;
+	-fx-alignment : center;
+
+	-fx-font-family : 'Metropolis Semi Bold';
+	-fx-font-size : 15px;
+	-fx-text-fill : black;
+}
+
+.table-view .placeholder, 
+.table-view .placeholder .label{
+	-fx-background-color : transparent;
+	-fx-text-fill : transparent;
+	-fx-border-width : 0;
+}
+
+
+.button:hover{
+	-fx-effect : dropshadow(gaussian, black, 3, 0, 1, 1);
+}
+
+.button:pressed{
+	-fx-background-color  : black;
+	-fx-text-fill : white;
+}
+
+
+
+
+.combo-box-popup .list-view
+{
+    -fx-background-color: white;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.combo-box-popup .list-view .list-cell
+{
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
+{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover
+{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-base:focused {
+    -fx-background-color: orange;
+    -fx-max-height : Infinity;
+	-fx-background-radius : 10em;
+}
+

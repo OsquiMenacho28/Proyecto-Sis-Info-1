@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="361.0" prefWidth="533.0" styleClass="Container">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.halignment="LEFT">
+               <children>
+                  <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="71.0" styleClass="FlowButton">
+                     <graphic>
+                        <ImageView fitHeight="51.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/LastButtonWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="TitleLabel" text="Historial de Ventas " HBox.hgrow="NEVER">
+                     <padding>
+                        <Insets left="20.0" right="30.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <TextField fx:id="NameField" maxWidth="-Infinity" prefHeight="45.0" prefWidth="290.0" promptText="Nombre Cliente" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <TextField fx:id="NITField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="293.0" promptText="NIT Cliente" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <TextField fx:id="PriceField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="297.0" promptText="Monto" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <DatePicker fx:id="DateField" prefHeight="45.0" prefWidth="293.0" promptText="Fecha" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <TableView fx:id="Table" maxWidth="1.7976931348623157E308" prefHeight="361.0" styleClass="PTable">
+        <columns>
+          <TableColumn fx:id="NameColumn" prefWidth="214.0" text="Nombre Cliente" />
+          <TableColumn fx:id="PriceColumn" prefWidth="217.0" text=" Monto Total" />
+        </columns>
+      </TableView>
+   </children>
+   <stylesheets>
+      <URL value="@../styleFiles/PrompWindows.css" />
+      <URL value="@../styleFiles/FlowButton.css" />
+   </stylesheets>
+</fx:root>

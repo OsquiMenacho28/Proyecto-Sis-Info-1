@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../styleFiles/PrompWindows.css" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="404.0" prefWidth="477.0" styleClass="Container">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" percentWidth="70.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" percentWidth="30.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+         </rowConstraints>
+         <children>
+            <TextField fx:id="CashierField" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="24.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </TextField>
+            <Label layoutX="315.0" layoutY="124.0" styleClass="SubTitleLabel" text="Monto de Apertura : " GridPane.rowIndex="2">
+               <font>
+                  <Font name="Encode Sans Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="264.0" prefHeight="32.0" prefWidth="217.0" styleClass="SubTitleLabel" text="Total ventas :" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Encode Sans Bold" size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="CloseButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="51.0" prefWidth="274.0" styleClass="MainButton" text="CERRAR CAJA" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
+               <font>
+                  <Font name="MyriadPro-Black" size="37.0" />
+               </font>
+            </Button>
+            <HBox prefHeight="59.0" prefWidth="607.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="55.0" styleClass="FlowButton">
+                     <graphic>
+                        <ImageView fitHeight="51.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../bin/img/LastButtonWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="TitleLabel" text="Cierre de Caja" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Metropolis-Black" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="TotalSalesLabel" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="GeneralLabel" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="OpeningLabel" layoutX="367.0" layoutY="447.0" styleClass="GeneralLabel" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label layoutX="448.0" layoutY="143.0" styleClass="SubTitleLabel" text="Conteo en Caja : " GridPane.rowIndex="1">
+               <font>
+                  <Font name="Encode Sans Bold" size="24.0" />
+               </font>
+            </Label>
+            <Line endX="305.19989013671875" startX="184.89991760253906" startY="5.958676338195801E-4" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+         <stylesheets>
+            <URL value="@../styleFiles/PrompWindows.css" />
+            <URL value="@../styleFiles/FlowButton.css" />
+         </stylesheets>
+      </GridPane>
+   </children>
+</fx:root>

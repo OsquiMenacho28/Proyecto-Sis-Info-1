@@ -1,0 +1,60 @@
+.button{
+	-fx-background-radius : 0.3em;
+}
+
+.button :hover{
+	-fx-background-color : blue;
+	-fx-effect : dropshadow(gaussian , black , 10, 0 , 0 , 0 );
+}
+
+
+#Panel{
+	-fx-background-color : #C4C4C4;
+}
+
+
+.ControlButton{
+	-fx-max-width : Infinity;
+	-fx-max-height : Infinity;
+	-fx-background-color :  #F0F0F0F0;
+	-fx-text-fill : black;
+	-fx-alignment : center;
+	-fx-font-family : 'Metropolis Semi Bold';
+	-fx-font-size: 350%;
+}
+
+.button:hover{
+	-fx-effect : dropshadow(gaussian , black , 7, 0 , 1 , 1 );
+}
+
+.button:pressed{
+	-fx-background-color : #A0A0A0;
+}
+
+.button :hover{
+	-fx-effect : null;
+}
+
+
+.PaymentButton{
+	-fx-background-color :  #FF6B00;
+}
+
+#CancelButton{
+	-fx-background-color : #0061A8;
+	-fx-font-family : 'Metropolis Semi Bold';
+	
+	-fx-font-size: 200%;
+	-fx-text-fill : white;
+	-fx-underline : false;
+}
+
+#CancelButton:hover{
+	-fx-effect : dropshadow(gaussian, black, 7, 0, 1, 1);
+}
+
+
+#CancelButton:pressed{
+	-fx-background-color : black;
+	-fx-text-fill : white;
+}

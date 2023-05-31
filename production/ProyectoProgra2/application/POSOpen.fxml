@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root fx:id="Window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" styleClass="Container" type="HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="LeftPane" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="474.0" styleClass="LeftPane" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox fx:id="tableBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="483.0" prefWidth="452.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" />
+                  <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="87.0">
+                     <children>
+                        <Button fx:id="BackButton" mnemonicParsing="false" styleClass="FlowButton">
+                           <graphic>
+                              <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/LastButtonBlack.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label fx:id="TotalLabel" contentDisplay="RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Encode Sans Bold" size="21.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <TableView fx:id="CartList" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="375.0" styleClass="OrderList" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="ItemColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="97.0" text="Item" />
+                        <TableColumn fx:id="PriceColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="123.0" text="Precio Unitario" />
+                        <TableColumn fx:id="CantColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="84.0" text="# " />
+                        <TableColumn fx:id="PartialPriceColumn" maxWidth="1.7976931348623157E308" prefWidth="141.0" text="Precio Parcial" />
+                     </columns>
+                  </TableView>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <VBox fx:id="RightPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0" styleClass="RightPane" HBox.hgrow="ALWAYS">
+         <children>
+            <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="636.0" />
+            <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" VBox.vgrow="NEVER">
+               <children>
+                  <HBox fx:id="SearchBar" layoutX="31.0" layoutY="52.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="300.0" styleClass="SearchBar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="26.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/LensIcon.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="SearchTextField" maxHeight="-Infinity" prefHeight="31.0" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets left="12.0" />
+                     </padding>
+                  </HBox>
+                  <Button fx:id="NextButton" layoutX="548.0" layoutY="48.0" mnemonicParsing="false" prefHeight="40.0" styleClass="FlowButton" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                     <graphic>
+                        <ImageView fitHeight="47.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/NextButtonWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" spacing="30.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ComboBox fx:id="CategoryFilter" prefWidth="170.0" promptText="Categoría" />
+                  <Button fx:id="AgButton" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="184.0" styleClass="MainButton" text="Agregar Producto" />
+                  <Button fx:id="HistButton" alignment="CENTER" layoutX="210.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="184.0" styleClass="MainButton" text="Historial Ventas" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <ScrollPane fx:id="ListScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="ListScroll" VBox.vgrow="ALWAYS">
+               <content>
+                  <FlowPane fx:id="ProductList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="537.0" prefWidth="613.0" styleClass="ProductList" stylesheets="@../styleFiles/POSOpen.css" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../bin/styleFiles/POSOpen.css" />
+      <URL value="@../../bin/styleFiles/FlowButton.css" />
+   </stylesheets>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</fx:root>
