@@ -75,14 +75,12 @@ public class POSOpening extends PromptWindow implements Initializable{
 		HisButton.setOnAction(e -> {try {
 			ses.SalesHist(this);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		BackButton.setOnAction(e -> {back();});
 		CloseButton.setOnAction(e -> { if(flag) {try {
 			close();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}} });
 	}

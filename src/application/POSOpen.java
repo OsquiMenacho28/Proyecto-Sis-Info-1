@@ -141,7 +141,6 @@ public class POSOpen extends PromptWindow implements Initializable{
 		Options_B.setOnAction(e -> {try {
 			POSClosure();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		
@@ -172,7 +171,6 @@ public class POSOpen extends PromptWindow implements Initializable{
 			try {
 				refreshProducts();
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});

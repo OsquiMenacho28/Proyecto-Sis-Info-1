@@ -55,7 +55,6 @@ public class LogInAtCl extends LogIn {
                 new Sesion(inputUser, this);
                 dispose();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (Exception e) {
                 throw new RuntimeException(e);

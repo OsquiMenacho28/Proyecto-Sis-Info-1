@@ -5,7 +5,6 @@ public class Float_Value extends Value {
 	public Float_Value(float value) {
 		super(DataType.FLOAT_TYPE);
 		this.value = value;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public float get_value() {

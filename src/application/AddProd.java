@@ -92,42 +92,36 @@ public class AddProd extends PromptWindow implements Initializable{
 		ProductField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		
 		BrandField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		
 		PriceField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		
 		ColorField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		
 		CategoryField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		
 		SerialNumberField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 		
@@ -167,7 +161,6 @@ public class AddProd extends PromptWindow implements Initializable{
 		MainButton.setOnAction(e -> {try {
 			add();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}});
 	}
