@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Completed extends PromptWindow implements Initializable{
+public class Completed extends PromptWindow implements Initializable {
 
 	@FXML
 	private TableView<AddedProduct> CartList;
@@ -53,10 +53,8 @@ public class Completed extends PromptWindow implements Initializable{
     String name;
     int NIT;
     
-	public Completed(Sale sale,
-                     SesionAtCl ses, CashPayment origin) throws IOException {
+	public Completed(Sale sale, SesionAtCl ses, CashPayment origin) throws IOException {
 		super(ses, "Completed.fxml", origin);
-		
 		this.sale = sale;
 		this.name = sale.getName();
 		this.NIT = sale.getNIT();
@@ -65,11 +63,10 @@ public class Completed extends PromptWindow implements Initializable{
 		show();
 	}
 
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		BackButton.setOnAction(e -> {back();});
+		BackButton.setOnAction(e -> backDispose());
 		CloseButton.setOnAction(e -> {
 			dispose();});
 		
@@ -89,5 +86,4 @@ public class Completed extends PromptWindow implements Initializable{
 		
 		
 	}
-
 }

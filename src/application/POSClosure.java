@@ -57,7 +57,7 @@ public class POSClosure extends PromptWindow implements Initializable{
 		OpeningLabel.setText(String.valueOf(OpeningCount));
 		TotalSalesLabel.setText(String.valueOf(TotalSalesCount.getValue()));
 
-		BackButton.setOnAction(e -> {back();});
+		BackButton.setOnAction(e -> backDispose());
 		CashierField.textProperty().addListener(e -> {
 			
 			String input = CashierField.getText();

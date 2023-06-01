@@ -3,12 +3,13 @@ package application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public abstract class LogIn  extends PromptWindow implements Initializable {
+public abstract class LogIn extends PromptWindow implements Initializable {
     @FXML
     Button LogIn_B;
     @FXML
@@ -16,7 +17,7 @@ public abstract class LogIn  extends PromptWindow implements Initializable {
     @FXML
     TextField User_F;
     @FXML
-    TextField Password_F;
+    PasswordField Password_F;
 
     final User userManager = new User(null, null, null);
     public LogIn(SesionAtCl ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {

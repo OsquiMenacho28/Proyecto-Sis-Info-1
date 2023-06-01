@@ -106,18 +106,16 @@ public class PromptWindow extends GridPane {
 
 	public void backDispose() {
 		stage.hide();
-		if(origin != null)
-		{
+		if (origin != null) {
 			origin.show();
 		}
 	}
 
-	public void back() {
+	/*public void back() {
 		stage.hide();
-		if(origin != null)
-		{
-			ses2.show(origin);
+		if (origin != null) {
+			ses1.show(origin);
 		}
-	}
+	}*/
 }
 

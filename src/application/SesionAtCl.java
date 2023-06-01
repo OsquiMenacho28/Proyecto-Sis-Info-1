@@ -1,9 +1,7 @@
 package application;
 
-import DataBase.DBManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,7 +10,6 @@ import java.sql.SQLException;
 public class SesionAtCl {
 	User LogedUser;
 	Stage Window;
-	Scene scene;
 	
 	POSOpening POSOpening;
 	POSClosure POSClosure;
@@ -20,8 +17,7 @@ public class SesionAtCl {
 	AddProd AddProd;
 	CashPayment cpp;
 	SalesHist sH;
-	
-	DBManager DataBase;
+
 	Float sum = (float) 0.0;
 	
 	private ObservableList<Sale> sales = FXCollections.observableArrayList();
@@ -29,13 +25,11 @@ public class SesionAtCl {
 	private ObservableList<Product> products = FXCollections.observableArrayList();
 	
 	public SesionAtCl(User inputUser, LogIn x) throws Exception {
-		//this.DataBase = new DBManager("jdbc:mysql://localhost:2808/ferreteria_dimaco_database", "root", "osquimenacho28");
 		this.LogedUser = inputUser;
 		this.Window = new Stage();
 		
 		POSOpening = new POSOpening(this, x);
 		POSOpening.show();
-
 	}
 	
 	public void addProd(POSOpen x) throws IOException {
@@ -98,5 +92,4 @@ public class SesionAtCl {
 		System.out.println("Saved");
 		new Completed(aux, this, null);
 	}
-	
 }

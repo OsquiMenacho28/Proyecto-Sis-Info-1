@@ -20,9 +20,7 @@ public class LogInAtCl extends LogIn {
             origin.dispose();
         });
 
-        Back_B.setOnAction((e) -> {
-            backDispose();
-        });
+        Back_B.setOnAction((e) -> backDispose());
 
         this.setOnKeyReleased((e) -> {
             KeyCode pKey = e.getCode();

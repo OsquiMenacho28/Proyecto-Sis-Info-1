@@ -65,7 +65,7 @@ public class POSOpening extends PromptWindow implements Initializable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}});
-		BackButton.setOnAction(e -> {back();});
+		BackButton.setOnAction(e -> backDispose());
 		CloseButton.setOnAction(e -> { if(flag) {try {
 			close();
 		} catch (IOException e1) {

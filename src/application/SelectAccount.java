@@ -19,7 +19,6 @@ public class SelectAccount extends PromptWindow implements Initializable {
         super((SesionAdmin) null,"SelectAccount.fxml", null);
         stage.setTitle("FERRETERÍA DIMACO");
         this.load();
-        stage.centerOnScreen();
     }
 
     @Override
