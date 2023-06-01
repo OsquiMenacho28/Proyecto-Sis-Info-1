@@ -1,17 +1,15 @@
 package application;
 
-import java.io.IOException; 
-import java.sql.SQLException;
-
-import java.sql.Connection;
-
 import DataBase.DBManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Sesion {
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class SesionAtCl {
 	User LogedUser;
 	Stage Window;
 	Scene scene;
@@ -30,7 +28,7 @@ public class Sesion {
 	private ObservableList<Client> clients = FXCollections.observableArrayList();
 	private ObservableList<Product> products = FXCollections.observableArrayList();
 	
-	public Sesion(User inputUser, LogIn x) throws Exception {
+	public SesionAtCl(User inputUser, LogIn x) throws Exception {
 		//this.DataBase = new DBManager("jdbc:mysql://localhost:2808/ferreteria_dimaco_database", "root", "osquimenacho28");
 		this.LogedUser = inputUser;
 		this.Window = new Stage();

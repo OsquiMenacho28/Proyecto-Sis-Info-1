@@ -1,29 +1,44 @@
 package application;
-import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public class PromptWindow extends GridPane {
 	Stage stage;
 
 	Scene scene;
-	Sesion ses;
+
+	SesionAdmin ses1;
+	SesionAtCl ses2;
 	String FXMLname;
 	PromptWindow origin;
 	FXMLLoader loader;
-	
-	public PromptWindow(Sesion ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
+
+	public PromptWindow(SesionAdmin ses1, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
 		this.stage = stage;
 		stage.setResizable(true);
-		this.ses = ses;
+		this.ses1 = ses1;
+		this.FXMLname = FXMLname;
+		this.origin = origin;
+
+		this.loader = new FXMLLoader(this.getClass().getResource(FXMLname));
+		loader.setRoot(this);
+		loader.setController(this);
+
+		scene = new Scene(this);
+		this.stage.setScene(scene);
+		//stage.sizeToScene();
+		stage.show();
+	}
+	
+	public PromptWindow(SesionAtCl ses2, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
+		this.stage = stage;
+		stage.setResizable(true);
+		this.ses2 = ses2;
 		this.FXMLname = FXMLname;
 		this.origin = origin;
 		
@@ -36,9 +51,23 @@ public class PromptWindow extends GridPane {
 		//stage.sizeToScene();
 		stage.show();
 	}
+
+	public PromptWindow(SesionAdmin ses1, String FXMLname, PromptWindow origin) throws IOException {
+		this.ses1 = ses1;
+		this.FXMLname = FXMLname;
+		this.origin = origin;
+
+		this.loader = new FXMLLoader(this.getClass().getResource(FXMLname));
+		loader.setRoot(this);
+		loader.setController(this);
+
+
+		createWindow();
+		stage.show();
+	}
 	
-	public PromptWindow(Sesion ses, String FXMLname, PromptWindow origin) throws IOException {
-		this.ses = ses;
+	public PromptWindow(SesionAtCl ses2, String FXMLname, PromptWindow origin) throws IOException {
+		this.ses2 = ses2;
 		this.FXMLname = FXMLname;
 		this.origin = origin;
 		
@@ -83,11 +112,19 @@ public class PromptWindow extends GridPane {
 		}
 	}
 
-	public void back() {
+	public void back1() {
 		stage.hide();
 		if(origin != null)
 		{
-			ses.show(origin);
+			ses2.show(origin);
+		}
+	}
+
+	public void back2() {
+		stage.hide();
+		if(origin != null)
+		{
+			//ses1.show(origin);
 		}
 	}
 }

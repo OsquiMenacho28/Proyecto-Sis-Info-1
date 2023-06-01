@@ -7,9 +7,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LogInAdmin extends LogIn {
+public class LogInAdmin extends PromptWindow{
+
+    SesionAtCl log;
+    private Stage stage;
+
     public  LogInAdmin(Stage stage, PromptWindow origin) throws IOException {
-        super(null, stage, "LogInAdmin.fxml", origin);
+
+        super(log, stage, "LogInAdmin.fxml", origin);
     }
 
     @Override
@@ -44,7 +49,7 @@ public class LogInAdmin extends LogIn {
         User inputUser = validate();
         if(inputUser != null) {
             try {
-                new Sesion(inputUser, this);
+                new SesionAdmin(inputUser, this);
                 dispose();
             } catch (IOException e) {
                 e.printStackTrace();

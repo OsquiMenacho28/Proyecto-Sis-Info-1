@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 
 public class POSOpen extends PromptWindow implements Initializable{
 
+	SesionAtCl ses;
 
 	@FXML
 	private Button Mode_B;
@@ -106,7 +107,7 @@ public class POSOpen extends PromptWindow implements Initializable{
 	
 	
 	public POSOpen(float OpeningCount, ObservableList<Product> products,
-			Sesion ses,  PromptWindow origin) throws IOException {
+				   SesionAtCl ses, PromptWindow origin) throws IOException {
 		super(ses, "POSOpen.fxml", origin);
 		super.stage.setResizable(true);
 		super.stage.setMaximized(true);
@@ -130,7 +131,7 @@ public class POSOpen extends PromptWindow implements Initializable{
 			e1.printStackTrace();
 		}});
 		
-		Back_B.setOnAction(e -> {back();});
+		Back_B.setOnAction(e -> {back1();});
 		
 		cart.addListener(new ListChangeListener<AddedProduct>() {
 			@Override

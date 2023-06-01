@@ -1,37 +1,23 @@
 package application;
 
-import java.io.IOException; 
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.ResourceBundle;
-
-import java.sql.Connection;
-import java.sql.Statement;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-import javafx.util.converter.FloatStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
 public class AddProd extends PromptWindow implements Initializable{
+
+	SesionAtCl ses;
 	
 	@FXML
 	Button BackButton;
@@ -71,7 +57,7 @@ public class AddProd extends PromptWindow implements Initializable{
 	
 	ObservableList<Product> products = FXCollections.observableArrayList();
 	
-	public AddProd(ObservableList<Product> products, Sesion ses, POSOpen origin) throws IOException {	
+	public AddProd(ObservableList<Product> products, SesionAtCl ses, POSOpen origin) throws IOException {
 		super(ses, "AddProd.fxml", origin);
 		this.products = products;
 		load();

@@ -19,7 +19,7 @@ public abstract class LogIn  extends PromptWindow implements Initializable {
     TextField Password_F;
 
     final User userManager = new User(null, null, null);
-    public LogIn(Sesion ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
+    public LogIn(SesionAtCl ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
         super(ses, FXMLname, origin);
         this.load();
         this.show();

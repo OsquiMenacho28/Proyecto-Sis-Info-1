@@ -1,34 +1,18 @@
 package application;
 
-import java.io.IOException;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.ResourceBundle;
-
-import java.sql.Connection;
-import java.sql.Statement;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import javafx.util.converter.FloatStringConverter;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SalesHist extends PromptWindow implements Initializable{
 	
@@ -58,7 +42,7 @@ public class SalesHist extends PromptWindow implements Initializable{
 	
 	ObservableList<Sale> sales = FXCollections.observableArrayList();
 	
-	public SalesHist(ObservableList<Sale> sales, Sesion ses, PromptWindow origin) throws IOException {
+	public SalesHist(ObservableList<Sale> sales, SesionAtCl ses, PromptWindow origin) throws IOException {
 		super(ses, "SalesHist.fxml", origin);
 		this.sales = sales;
 		load();

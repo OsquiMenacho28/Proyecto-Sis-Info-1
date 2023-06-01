@@ -1,9 +1,5 @@
 package application;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -52,7 +48,7 @@ public class LogInAtCl extends LogIn {
         User inputUser = validate();
         if(inputUser != null) {
             try {
-                new Sesion(inputUser, this);
+                new SesionAtCl(inputUser, this);
                 dispose();
             } catch (IOException e) {
                 e.printStackTrace();
