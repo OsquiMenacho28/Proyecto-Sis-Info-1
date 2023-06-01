@@ -54,7 +54,7 @@ public class CashPayment extends PromptWindow implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Table.setEditable(false);
-		BackButton.setOnAction(e -> {back1();});
+		BackButton.setOnAction(e -> {back();});
 		
 		NITField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		

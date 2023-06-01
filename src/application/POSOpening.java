@@ -13,8 +13,6 @@ import java.util.ResourceBundle;
 
 
 public class POSOpening extends PromptWindow implements Initializable{
-
-	SesionAtCl ses;
 	
 	@FXML
 	Button HisButton;
@@ -29,6 +27,7 @@ public class POSOpening extends PromptWindow implements Initializable{
 	Button CloseButton;
 
 	Boolean flag;
+
 	Float OpeningCount;
 	
 	public POSOpening(SesionAtCl ses, PromptWindow origin) throws IOException {
@@ -62,21 +61,20 @@ public class POSOpening extends PromptWindow implements Initializable{
 		CashierField.setText(String.valueOf(OpeningCount));
 		
 		HisButton.setOnAction(e -> {try {
-			ses.SalesHist(this);
+			ses2.SalesHist(this);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}});
-		BackButton.setOnAction(e -> {back1();});
+		BackButton.setOnAction(e -> {back();});
 		CloseButton.setOnAction(e -> { if(flag) {try {
 			close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}} });
 	}
-	
-	
+
 	public void close() throws IOException{
 		dispose();
-		ses.POSOpen(OpeningCount);
+		ses2.POSOpen(OpeningCount);
 	}
 }

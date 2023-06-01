@@ -3,7 +3,6 @@ package application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,7 +16,7 @@ public class SelectAccount extends PromptWindow implements Initializable {
     Button AtCl_B;
 
     public SelectAccount() throws IOException {
-        super(null,"SelectAccount.fxml", null);
+        super((SesionAdmin) null,"SelectAccount.fxml", null);
         stage.setTitle("FERRETERÍA DIMACO");
         this.load();
         stage.centerOnScreen();

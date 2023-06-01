@@ -24,4 +24,10 @@ public abstract class LogIn  extends PromptWindow implements Initializable {
         this.load();
         this.show();
     }
+
+    public LogIn(SesionAdmin ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
+        super(ses, FXMLname, origin);
+        this.load();
+        this.show();
+    }
 }

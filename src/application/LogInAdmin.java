@@ -7,14 +7,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LogInAdmin extends PromptWindow{
-
-    SesionAtCl log;
-    private Stage stage;
+public class LogInAdmin extends LogIn {
 
     public  LogInAdmin(Stage stage, PromptWindow origin) throws IOException {
-
-        super(log, stage, "LogInAdmin.fxml", origin);
+        super((SesionAdmin) null, stage, "LogInAdmin.fxml", origin);
     }
 
     @Override

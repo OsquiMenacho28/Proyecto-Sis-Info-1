@@ -9,9 +9,8 @@ import java.util.ResourceBundle;
 
 public class LogInAtCl extends LogIn {
 
-    final User userManager = new User(null, null, null);
     public  LogInAtCl(Stage stage, PromptWindow origin) throws IOException {
-        super(null, stage, "LogInAtCl.fxml", origin);
+        super((SesionAtCl) null, stage, "LogInAtCl.fxml", origin);
     }
 
     @Override

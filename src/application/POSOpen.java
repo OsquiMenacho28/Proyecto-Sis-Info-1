@@ -131,7 +131,7 @@ public class POSOpen extends PromptWindow implements Initializable{
 			e1.printStackTrace();
 		}});
 		
-		Back_B.setOnAction(e -> {back1();});
+		Back_B.setOnAction(e -> {back();});
 		
 		cart.addListener(new ListChangeListener<AddedProduct>() {
 			@Override

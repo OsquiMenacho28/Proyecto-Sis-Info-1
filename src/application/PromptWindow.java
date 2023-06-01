@@ -112,19 +112,11 @@ public class PromptWindow extends GridPane {
 		}
 	}
 
-	public void back1() {
+	public void back() {
 		stage.hide();
 		if(origin != null)
 		{
 			ses2.show(origin);
-		}
-	}
-
-	public void back2() {
-		stage.hide();
-		if(origin != null)
-		{
-			//ses1.show(origin);
 		}
 	}
 }
