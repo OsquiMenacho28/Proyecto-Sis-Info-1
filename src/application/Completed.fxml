@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.*?>
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="162.66662597656247" minWidth="-Infinity" prefWidth="129.99999999999997" />
-      <ColumnConstraints hgrow="ALWAYS" maxWidth="203.00002034505212" minWidth="-Infinity" prefWidth="152.33333333333337" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="154.0" minWidth="-Infinity" prefWidth="149.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="162.66662597656247" minWidth="-Infinity" prefWidth="136.66666666666663" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="203.00002034505212" minWidth="-Infinity" prefWidth="166.66666666666663" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="74.66666666666666" minHeight="-Infinity" prefHeight="65.99999491373698" vgrow="ALWAYS" />
@@ -46,7 +46,7 @@
          <Insets bottom="20.0" left="20.0" top="20.0" />
       </GridPane.margin>
    </Button>
-   <Button fx:id="LogIn_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="151.0" style="-fx-background-color: #ff8500; -fx-border-radius: 10px;" text="CONFIRMAR PAGO" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5">
+   <Button fx:id="Confirm_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="151.0" style="-fx-background-color: #ff8500; -fx-border-radius: 10px;" text="CONFIRMAR PAGO" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="5">
       <font>
          <Font name="Nirmala UI Bold" size="13.0" />
       </font>
@@ -58,16 +58,25 @@
       <children>
          <AnchorPane prefHeight="39.0" prefWidth="478.0">
             <children>
-               <Label layoutX="22.0" layoutY="6.0" prefHeight="27.0" prefWidth="74.0" text="Label" />
-               <Label layoutX="427.0" layoutY="11.0" text="Label" />
+               <Label layoutX="22.0" layoutY="6.0" prefHeight="27.0" prefWidth="237.0" text="Total a pagar:">
+                  <font>
+                     <Font size="17.0" />
+                  </font></Label>
+               <Label layoutX="427.0" layoutY="7.0" text="0.0">
+                  <font>
+                     <Font size="17.0" />
+                  </font></Label>
             </children>
          </AnchorPane>
       </children>
    </VBox>
-   <Label text="Label" GridPane.rowIndex="2">
+   <Label text="Nombre Cliente:" GridPane.rowIndex="2">
       <GridPane.margin>
          <Insets left="20.0" />
       </GridPane.margin>
+      <font>
+         <Font size="15.0" />
+      </font>
    </Label>
    <ScrollPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4">
      <content>
@@ -94,10 +103,13 @@
          <Insets right="20.0" />
       </GridPane.margin>
    </TextField>
-   <Label text="Label" GridPane.rowIndex="3">
+   <Label text="NIT Cliente:" GridPane.rowIndex="3">
       <GridPane.margin>
          <Insets left="20.0" />
       </GridPane.margin>
+      <font>
+         <Font size="15.0" />
+      </font>
    </Label>
    <TextField maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="289.0" promptText="NIT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
       <GridPane.margin>

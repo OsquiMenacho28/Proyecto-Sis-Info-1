@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
@@ -28,9 +29,9 @@ import java.util.ResourceBundle;
 
 
 
-public class POSOpen extends PromptWindow implements Initializable{
+public class POSOpen extends PromptWindow implements Initializable {
 
-	SesionAtCl ses;
+	Completed completed;
 
 	@FXML
 	private Button Mode_B;
@@ -105,7 +106,6 @@ public class POSOpen extends PromptWindow implements Initializable{
 	private AddedProduct focusedItem;
 	private ObservableList<AddedProduct> selectedItems;
 	
-	
 	public POSOpen(float OpeningCount, ObservableList<Product> products,
 				   SesionAtCl ses, PromptWindow origin) throws IOException {
 		super(ses, "POSOpen.fxml", origin);
@@ -114,7 +114,6 @@ public class POSOpen extends PromptWindow implements Initializable{
 		super.stage.setTitle("PUNTO DE VENTA");
 		this.OpeningCount = OpeningCount;
 		this.products = products;
-
 		this.load();
 	}
 	
@@ -131,7 +130,27 @@ public class POSOpen extends PromptWindow implements Initializable{
 			e1.printStackTrace();
 		}});
 		
-		Back_B.setOnAction(e -> backDispose());
+		Back_B.setOnAction(e -> back());
+
+		Pay_B.setOnAction(actionEvent -> {
+			if (cart.isEmpty()) {
+				Alert alertDialog = new Alert(Alert.AlertType.ERROR);
+				alertDialog.setTitle("ERROR!");
+				alertDialog.setHeaderText("El Carrito de Compras se encuentra vacio!");
+				alertDialog.setContentText("Por favor, añada productos al Carrito de Compras");
+				alertDialog.initStyle(StageStyle.DECORATED);
+				java.awt.Toolkit.getDefaultToolkit().beep();
+				alertDialog.showAndWait();
+			}
+			else {
+				try {
+					Completed completed = new Completed(null, this);
+					completed.stage.setTitle("CONFIRMAR PAGO");
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
 		
 		cart.addListener(new ListChangeListener<AddedProduct>() {
 			@Override
@@ -189,7 +208,6 @@ public class POSOpen extends PromptWindow implements Initializable{
 					focusedItem = null;
 				}
 			}
-			
 		});
 		
 		CartList_T.setOnKeyReleased(e -> {
@@ -209,7 +227,7 @@ public class POSOpen extends PromptWindow implements Initializable{
 					focusedItem.Add();
 				}
 				if(pKey == KeyCode.MINUS) {
-						focusedItem.Sub();
+					focusedItem.Sub();
 				}
 				if(pKey == KeyCode.BACK_SPACE) {
 					focusedItem.setCant(focusedItem.getCant() / 10);
@@ -227,12 +245,6 @@ public class POSOpen extends PromptWindow implements Initializable{
 
 	}
 
-	
-	
-
-	
-	
-	
 	private Product getProductWithId(int id) {
 		int index;
 		for(index = 0; index <  products.size(); index++) {
@@ -351,24 +363,22 @@ public class POSOpen extends PromptWindow implements Initializable{
 		}	
 	}
 
-	
-	
 	private void deleteItem(int id){
 		products.remove(id);
 		ProductList.getChildren().remove(id);
 	}
 	
 	private void paymentRequest() throws IOException {
-		ses.cashPayment(FXCollections.observableArrayList(cart));
+		ses2.cashPayment(FXCollections.observableArrayList(cart));
 	}
 	
 	
 	private void AddProd() throws IOException{
-		ses.addProd(this);
+		ses2.addProd(this);
 	}
 	
 	private void POSClosure() throws IOException {
-		ses.POSClosure(OpeningCount, this);
+		ses2.POSClosure(OpeningCount, this);
 		dispose();
 	}
 	

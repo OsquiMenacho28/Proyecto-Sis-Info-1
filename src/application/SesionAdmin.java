@@ -1,19 +1,10 @@
 package application;
 
-import javafx.stage.Stage;
+public class SesionAdmin extends Sesion {
 
-public class SesionAdmin {
-
-    User LogedUser;
-    Stage Window;
-
-    public SesionAdmin(User inputUser, LogInAdmin x) throws Exception {
-        //this.DataBase = new DBManager("jdbc:mysql://localhost:2808/ferreteria_dimaco_database", "root", "osquimenacho28");
-        this.LogedUser = inputUser;
-        this.Window = new Stage();
-
-        InventoryManagement inventory = new InventoryManagement(this, x);
-        inventory.show();
+    public SesionAdmin(User InputUser) throws Exception {
+        super(InputUser);
+        super.mainWindow = new InventoryManagement(this, new SelectAccount());
     }
 
     public void show(PromptWindow origin) {

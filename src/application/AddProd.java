@@ -16,8 +16,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AddProd extends PromptWindow implements Initializable{
-
-	SesionAtCl ses;
 	
 	@FXML
 	Button BackButton;
@@ -172,7 +170,7 @@ public class AddProd extends PromptWindow implements Initializable{
 		
 		if(v(product) && v(brand) && v(price) && v(color) && v(cat) && v(stock) && v(id)) {
 			Product aux = new Product(Integer.parseInt(id), product, Float.parseFloat(price), Integer.parseInt(stock), brand, color, cat);
-			ses.addProduct(aux);
+			ses2.addProduct(aux);
 		}
 		
 	}

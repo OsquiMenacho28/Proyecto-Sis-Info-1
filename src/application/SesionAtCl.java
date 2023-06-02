@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class SesionAtCl {
+public class SesionAtCl extends Sesion {
 	User LogedUser;
 	Stage Window;
 	
@@ -23,13 +23,10 @@ public class SesionAtCl {
 	private ObservableList<Sale> sales = FXCollections.observableArrayList();
 	private ObservableList<Client> clients = FXCollections.observableArrayList();
 	private ObservableList<Product> products = FXCollections.observableArrayList();
-	
-	public SesionAtCl(User inputUser, LogIn x) throws Exception {
-		this.LogedUser = inputUser;
-		this.Window = new Stage();
-		
-		POSOpening = new POSOpening(this, x);
-		POSOpening.show();
+
+	public SesionAtCl(User InputUser) throws Exception {
+		super(InputUser);
+		super.mainWindow = new POSOpening(this, null);
 	}
 	
 	public void addProd(POSOpen x) throws IOException {
@@ -48,7 +45,7 @@ public class SesionAtCl {
 	}
 	
 	public void POSOpen(Float OpeningCount) throws IOException {
-		POSOpen = new POSOpen(OpeningCount, products, this, POSOpening);
+		POSOpen = new POSOpen(OpeningCount, products, this, mainWindow);
 		POSOpen.show();
 	}
 	
@@ -90,6 +87,6 @@ public class SesionAtCl {
 		sales.add(aux);
 		POSOpen.Ncart();
 		System.out.println("Saved");
-		new Completed(aux, this, null);
+		//new Completed(aux, this, null);
 	}
 }

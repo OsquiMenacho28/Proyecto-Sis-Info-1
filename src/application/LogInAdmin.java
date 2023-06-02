@@ -20,7 +20,7 @@ public class LogInAdmin extends LogIn {
             origin.dispose();
         });
 
-        Back_B.setOnAction((e) -> backDispose());
+        Back_B.setOnAction((e) -> back());
 
         this.setOnKeyReleased((e) -> {
             KeyCode pKey = e.getCode();
@@ -45,7 +45,7 @@ public class LogInAdmin extends LogIn {
         User inputUser = validate();
         if(inputUser != null) {
             try {
-                new SesionAdmin(inputUser, this);
+                new SesionAdmin(inputUser);
                 dispose();
             } catch (IOException e) {
                 e.printStackTrace();

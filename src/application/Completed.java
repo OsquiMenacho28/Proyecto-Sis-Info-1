@@ -25,10 +25,10 @@ public class Completed extends PromptWindow implements Initializable {
     private Label NITLabel;
 
     @FXML
-    private Button CloseButton;
+    private Button Confirm_B;
 
     @FXML
-    private Button BackButton;
+    private Button Back_B;
 
     @FXML
     private Label NameLabel;
@@ -53,22 +53,22 @@ public class Completed extends PromptWindow implements Initializable {
     String name;
     int NIT;
     
-	public Completed(Sale sale, SesionAtCl ses, CashPayment origin) throws IOException {
+	public Completed(/*Sale sale,*/ SesionAtCl ses, POSOpen origin) throws IOException {
 		super(ses, "Completed.fxml", origin);
-		this.sale = sale;
+		/*this.sale = sale;
 		this.name = sale.getName();
 		this.NIT = sale.getNIT();
-		this.cart = sale.getCart();
-		load();
-		show();
+		this.cart = sale.getCart();*/
+        stage.setTitle("CONFIRMAR PAGO");
+        load();
+        stage.centerOnScreen();
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		BackButton.setOnAction(e -> backDispose());
-		CloseButton.setOnAction(e -> {
-			dispose();});
+		Back_B.setOnAction(e -> back());
+		Confirm_B.setOnAction(e -> dispose());
 		
 		NameLabel.setText("Nombre Cliente : " + name);
 		NITLabel.setText("NIT : " + NIT);
@@ -83,7 +83,5 @@ public class Completed extends PromptWindow implements Initializable {
 		CantColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 	
 		CartList.setItems(cart);
-		
-		
 	}
 }
