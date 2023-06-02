@@ -4,9 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -57,7 +61,6 @@ public class PaymentRequest extends PromptWindow implements Initializable {
 		this.cart = cart;
         stage.setTitle("CONFIRMAR PAGO");
         load();
-        stage.centerOnScreen();
 	}
 
 	@Override
@@ -65,6 +68,17 @@ public class PaymentRequest extends PromptWindow implements Initializable {
 		
 		Back_B.setOnAction(e -> back());
 		Confirm_B.setOnAction(e -> dispose());
+
+        Name_F.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.DOWN) {
+                NIT_F.requestFocus();
+            }
+        });
+        NIT_F.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.UP) {
+                Name_F.requestFocus();
+            }
+        });
 
 		CartList_T.setEditable(false);
 		

@@ -22,6 +22,17 @@ public class LogInAtCl extends LogIn {
 
         Back_B.setOnAction((e) -> back());
 
+        User_F.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.DOWN) {
+                Password_F.requestFocus();
+            }
+        });
+        Password_F.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.UP) {
+                User_F.requestFocus();
+            }
+        });
+
         this.setOnKeyReleased((e) -> {
             KeyCode pKey = e.getCode();
             if (pKey == KeyCode.ENTER) {
@@ -30,7 +41,6 @@ public class LogInAtCl extends LogIn {
             }
         });
     }
-
 
     private User validate() {
         return userManager.searchDB(User_F.getText(), Password_F.getText());

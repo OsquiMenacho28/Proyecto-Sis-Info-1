@@ -22,14 +22,16 @@ public class LogInAdmin extends LogIn {
 
         Back_B.setOnAction((e) -> back());
 
-        if (User_F.isFocused()) {
-            this.setOnKeyReleased((e) -> {
-                KeyCode pKey = e.getCode();
-                if (pKey == KeyCode.DOWN) {
-                    Password_F.setFocusTraversable(true);
-                }
-            });
-        }
+        User_F.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.DOWN) {
+                Password_F.requestFocus();
+            }
+        });
+        Password_F.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.UP) {
+                User_F.requestFocus();
+            }
+        });
 
         this.setOnKeyReleased((e) -> {
             KeyCode pKey = e.getCode();
