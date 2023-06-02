@@ -41,29 +41,36 @@ public class POSOpening extends PromptWindow implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		this.setOnKeyReleased((e) -> {
-			KeyCode pKey = e.getCode();
-			if (pKey == KeyCode.ENTER) {
-				try {
-					open();
-				} catch (IOException ex) {
-					throw new RuntimeException(ex);
-				}
-			}
-		});
-
-		CashierField.textProperty().addListener(e -> {
+		CashierField.textProperty().addListener(ev -> {
 			if(CashierField.getText() != null) {
 				Float ninput = Float.parseFloat(CashierField.getText());
 				
-				if(ninput < 0) {
-					CashierField.setStyle("-fx-text-fill : black;");
+				if (ninput < 0) {
+					CloseButton.setDisable(true);
+					CashierField.setStyle("-fx-text-fill : white; -fx-background-color : red;");
+					java.awt.Toolkit.getDefaultToolkit().beep();
 					flag = false;
 				}
 				else {
-					OpeningCount = ninput;
-					CashierField.setStyle("-fx-text-fill : white;");
-					flag = true;
+					if (ninput > 0) {
+						CloseButton.setDisable(false);
+						this.setOnKeyReleased((e) -> {
+							KeyCode pKey = e.getCode();
+							if (pKey == KeyCode.ENTER) {
+								try {
+									open();
+								} catch (IOException ex) {
+									throw new RuntimeException(ex);
+								}
+							}
+						});
+						OpeningCount = ninput;
+						CashierField.setStyle("-fx-text-fill : white;");
+						flag = true;
+					}
+					else {
+						flag = false;
+					}
 				}		
 			}
 		});
