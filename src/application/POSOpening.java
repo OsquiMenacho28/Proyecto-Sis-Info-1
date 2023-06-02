@@ -8,6 +8,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.util.converter.FloatStringConverter;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,20 +44,19 @@ public class POSOpening extends PromptWindow implements Initializable{
 
 		CashierField.textProperty().addListener(ev -> {
 			if(CashierField.getText() != null) {
-				Float ninput = Float.parseFloat(CashierField.getText());
+				float numInput = Float.parseFloat(CashierField.getText());
 				
-				if (ninput < 0) {
+				if (numInput < 0) {
 					CloseButton.setDisable(true);
 					CashierField.setStyle("-fx-text-fill : white; -fx-background-color : red;");
-					java.awt.Toolkit.getDefaultToolkit().beep();
+					Toolkit.getDefaultToolkit().beep();
 					flag = false;
 				}
 				else {
-					if (ninput > 0) {
+					if (numInput > 0) {
 						CloseButton.setDisable(false);
 						this.setOnKeyReleased((e) -> {
-							KeyCode pKey = e.getCode();
-							if (pKey == KeyCode.ENTER) {
+							if (e.getCode() == KeyCode.ENTER) {
 								try {
 									open();
 								} catch (IOException ex) {
@@ -64,11 +64,12 @@ public class POSOpening extends PromptWindow implements Initializable{
 								}
 							}
 						});
-						OpeningCount = ninput;
+						OpeningCount = numInput;
 						CashierField.setStyle("-fx-text-fill : white;");
 						flag = true;
 					}
 					else {
+						Toolkit.getDefaultToolkit().beep();
 						flag = false;
 					}
 				}		
