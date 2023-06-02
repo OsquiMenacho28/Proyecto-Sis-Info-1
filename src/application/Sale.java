@@ -6,15 +6,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Sale {
-	String name;
+	private String name;
+	private int NIT;
+
+	private Date date;
 	private ObservableList<AddedProduct> cart = FXCollections.observableArrayList();
-	int NIT;
-	
+
 	public Sale(String name, int nIT, ObservableList<AddedProduct> cart) {
-		super();
 		this.cart = cart;
-		this.name = name;
-		NIT = nIT;
 	}
 	
 	
@@ -47,15 +46,13 @@ public class Sale {
 		}
 		return monto;
 	}
-
-	/**
-	 * @param monto the monto to set
-	 */
-
 	/**
 	 * @return the date
 	 */
 
+	public Date getDate(){
+		return this.date;
+	}
 	public String getName() {
 		return name;
 	}

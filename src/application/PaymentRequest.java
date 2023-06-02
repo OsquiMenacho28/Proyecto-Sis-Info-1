@@ -4,37 +4,35 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.GridPane;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Completed extends PromptWindow implements Initializable {
-
-	@FXML
-	private TableView<AddedProduct> CartList;
-	
-    @FXML
-    private Label NITLabel;
+public class PaymentRequest extends PromptWindow implements Initializable {
 
     @FXML
-    private Button Confirm_B;
+    private GridPane gridPane;
 
     @FXML
     private Button Back_B;
 
     @FXML
-    private Label NameLabel;
-    
+    private Button Confirm_B;
+
     @FXML
-    private Label TotalLabel;
+    private TableView<AddedProduct> CartList_T;
+
+    @FXML
+    private TextField Name_F;
+
+    @FXML
+    private TextField NIT_F;
 
     @FXML
     private TableColumn<AddedProduct, String> ProductColumn;
@@ -50,15 +48,13 @@ public class Completed extends PromptWindow implements Initializable {
 
     Sale sale;
     ObservableList<AddedProduct> cart = FXCollections.observableArrayList();
+
     String name;
     int NIT;
     
-	public Completed(/*Sale sale,*/ SesionAtCl ses, POSOpen origin) throws IOException {
-		super(ses, "Completed.fxml", origin);
-		/*this.sale = sale;
-		this.name = sale.getName();
-		this.NIT = sale.getNIT();
-		this.cart = sale.getCart();*/
+	public PaymentRequest(ObservableList<AddedProduct> cart, SesionAtCl ses, POSOpen origin) throws IOException {
+		super(ses, "PaymentRequest.fxml", origin);
+		this.cart = cart;
         stage.setTitle("CONFIRMAR PAGO");
         load();
         stage.centerOnScreen();
@@ -69,12 +65,8 @@ public class Completed extends PromptWindow implements Initializable {
 		
 		Back_B.setOnAction(e -> back());
 		Confirm_B.setOnAction(e -> dispose());
-		
-		NameLabel.setText("Nombre Cliente : " + name);
-		NITLabel.setText("NIT : " + NIT);
-		TotalLabel.setText("Total : " + sale.getMonto());
-		
-		CartList.setEditable(false);
+
+		CartList_T.setEditable(false);
 		
 		ProductColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, String>("name"));
 		PriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("price"));
@@ -82,6 +74,6 @@ public class Completed extends PromptWindow implements Initializable {
 		TPriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("tprice"));
 		CantColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 	
-		CartList.setItems(cart);
+		CartList_T.setItems(this.cart);
 	}
 }
