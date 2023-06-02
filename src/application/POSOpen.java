@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 
 public class POSOpen extends PromptWindow implements Initializable {
 
-	Completed completed;
+	PaymentRequest paymentRequest;
 
 	@FXML
 	private Button Mode_B;
@@ -144,8 +144,8 @@ public class POSOpen extends PromptWindow implements Initializable {
 			}
 			else {
 				try {
-					Completed completed = new Completed(null, this);
-					completed.stage.setTitle("CONFIRMAR PAGO");
+					PaymentRequest paymentRequest = new PaymentRequest(cart,null, this);
+					paymentRequest.stage.setTitle("CONFIRMAR PAGO");
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
