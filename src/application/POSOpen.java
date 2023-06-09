@@ -1,6 +1,5 @@
 package application;
 
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -27,20 +27,18 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-
-
 public class POSOpen extends PromptWindow implements Initializable {
 
 	PaymentRequest paymentRequest;
+
+	@FXML
+	private Button Notification_B;
 
 	@FXML
 	private Button Mode_B;
 
 	@FXML
 	private Button Close_B;
-
-	@FXML
-	private Button Notification_B;
 
 	@FXML
 	private Button Back_B;
@@ -61,7 +59,19 @@ public class POSOpen extends PromptWindow implements Initializable {
 	private ComboBox<String> CategoryFilter_C;
 
 	@FXML
-	private Button Options_B;
+	private MenuButton Menu_B;
+
+	@FXML
+	private MenuItem Sales_Opt;
+
+	@FXML
+	private MenuItem Inventory_Opt;
+
+	@FXML
+	private MenuItem Closure_Opt;
+
+	@FXML
+	private ImageView RightMenuButton;
 
 	@FXML
 	private ScrollPane ListScroll;
@@ -116,19 +126,31 @@ public class POSOpen extends PromptWindow implements Initializable {
 		this.products = products;
 		this.load();
 	}
-	
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Clear_B.setOnAction(actionEvent -> {
-			cart.clear();
+		Clear_B.setOnAction(actionEvent -> cart.clear());
+
+		Sales_Opt.setOnAction(actionEvent -> {
+			try {
+				Sales sales = new Sales((SesionAtCl) null, this);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		});
-		
-		Options_B.setOnAction(e -> {try {
-			POSClosure();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}});
+
+		Inventory_Opt.setOnAction(actionEvent -> {
+			try {
+				Inventory inventory = new Inventory((SesionAtCl) null, this);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+
+		});
+
+		Closure_Opt.setOnAction(actionEvent -> {
+
+		});
 		
 		Back_B.setOnAction(e -> back());
 

@@ -13,8 +13,16 @@ public class Sales extends PromptWindow implements Initializable {
     @FXML
     Button OK_B;
 
+    public Sales(SesionAdmin ses1, PromptWindow origin) throws IOException {
+        super(ses1, "Sales.fxml", origin);
+        stage.setTitle("FERRETERÍA DIMACO - VENTAS");
+        this.load();
+    }
+
     public Sales(SesionAtCl ses2, PromptWindow origin) throws IOException {
         super(ses2, "Sales.fxml", origin);
+        stage.setTitle("FERRETERÍA DIMACO - VENTAS");
+        this.load();
     }
 
     @Override

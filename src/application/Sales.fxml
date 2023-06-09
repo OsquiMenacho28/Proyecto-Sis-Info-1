@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -19,7 +19,7 @@
       <children>
          <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="460.0" HBox.hgrow="ALWAYS">
             <children>
-               <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="413.0" text="FERRETERIA DIMACO" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="413.0" text="VENTAS" textFill="WHITE" VBox.vgrow="ALWAYS">
                   <font>
                      <Font name="Metropolis-SemiBold" size="48.0" />
                   </font>
@@ -27,7 +27,7 @@
                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="37.0" prefWidth="391.0" VBox.vgrow="ALWAYS">
                   <children>
                      <Line fx:id="LeftLine1" endX="-4.788002014160156" endY="-8.772214059717953E-4" startX="-179.00486755371094" startY="-0.0014438629150390625" stroke="WHITE" strokeWidth="3.0" HBox.hgrow="ALWAYS" />
-                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Distribuidora de Materiales de Construcción" textFill="WHITE">
+                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Ferretería DIMACO - Distribuidora de Materiales de Construcción" textFill="WHITE">
                         <font>
                            <Font name="Lato Regular" size="16.0" />
                         </font>
