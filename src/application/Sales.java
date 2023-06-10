@@ -29,7 +29,6 @@ public class Sales extends PromptWindow implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         OK_B.setOnAction(actionEvent -> {
             back();
-            origin.stage.getScene().getRoot().setEffect(null);
         });
     }
 }

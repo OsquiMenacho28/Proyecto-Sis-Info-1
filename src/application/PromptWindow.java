@@ -107,6 +107,7 @@ public class PromptWindow extends GridPane {
 	public void backDispose() {
 		stage.close();
 		if (origin != null) {
+			origin.stage.getScene().getRoot().setEffect(null);
 			origin.show();
 		}
 	}
@@ -114,6 +115,7 @@ public class PromptWindow extends GridPane {
 	public void back() {
 		stage.hide();
 		if (origin != null) {
+			origin.stage.getScene().getRoot().setEffect(null);
 			origin.show();
 		}
 	}
