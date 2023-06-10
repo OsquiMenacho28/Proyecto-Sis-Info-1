@@ -1,14 +1,13 @@
 
 .root{
-	-fx-grey2 : #202020;
-	-fx-grey1 : #606060;
-	-fx-text-fill : white;
-	-fx-background-color : -fx-grey2;
+	-fx-text-fill : black;
+	-fx-background-color : white;
+	-fx-border-color : black;
 	
 }
 
 .Container{ 
-	-fx-background-color : -fx-grey2;
+	-fx-background-color : white;
 	-fx-padding : 0.5em 2em 2em 2em;
 	-fx-Vgap : 1em;
 	-fx-Hgap : 1em;
@@ -24,7 +23,7 @@
 }
 
 .SubTitleLabel{
-	-fx-text-fill : #AAAAAA;
+	-fx-text-fill : black;
 	-fx-font-family : 'Metropolis Semi Bold';
 	-fx-font-size : 20px;
 }

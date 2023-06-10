@@ -3,79 +3,68 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import java.net.URL?>
-<fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" styleClass="Container" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="277.0" prefWidth="561.0" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="70.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="29.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="71.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="25.0" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" percentHeight="24.0" prefHeight="60.99999999999999" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" percentHeight="0.0" prefHeight="34.666656494140625" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" percentHeight="25.0" prefHeight="35.333343505859375" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="70.66665649414062" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="70.00001017252606" />
    </rowConstraints>
    <children>
-      <TextField fx:id="CashierField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <TextField fx:id="CashierField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="159.0" promptText="Total en Caja" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
          <GridPane.margin>
-            <Insets />
+            <Insets left="100.0" right="100.0" />
          </GridPane.margin>
       </TextField>
-      <Button fx:id="CloseButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="51.0" prefWidth="274.0" styleClass="MainButton" text="ABRIR CAJA" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER">
+      <Button fx:id="CloseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #ff8500; -fx-border-radius: 10px;" styleClass="FlowButton" stylesheets="@../styleFiles/PrompWindows.css" text="ABRIR CAJA" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
          <font>
-            <Font name="MyriadPro-Black" size="37.0" />
+            <Font name="Nirmala UI Bold" size="13.0" />
          </font>
          <GridPane.margin>
-            <Insets top="20.0" />
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </GridPane.margin>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-         <children>
-            <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="60.0" prefWidth="55.0" styleClass="FlowButton">
-               <graphic>
-                  <ImageView fitHeight="51.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../bin/img/LastButtonWhite.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" styleClass="TitleLabel" text="Apertura de Caja" textAlignment="CENTER" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets left="30.0" right="50.0" />
-               </HBox.margin>
-               <font>
-                  <Font name="Metropolis-Black" size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <Label layoutX="448.0" layoutY="143.0" styleClass="SubTitleLabel" text="Conteo en Caja : " GridPane.halignment="LEFT" GridPane.rowIndex="1">
+      <Label layoutX="448.0" layoutY="143.0" styleClass="SubTitleLabel" text="Monto de Apertura:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font name="Encode Sans Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="HisButton" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnSpan="2" GridPane.rowIndex="2">
-         <graphic>
-            <Label text="HISTORIAL VENTAS" textFill="WHITE">
-               <font>
-                  <Font name="Metropolis-Regular" size="24.0" />
-               </font>
-            </Label>
-         </graphic>
+      <Button fx:id="HisButton" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Button fx:id="BackButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #757575; -fx-border-radius: 10px;" text="ATRÁS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+         <font>
+            <Font name="Nirmala UI Bold" size="13.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </GridPane.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <Line endX="146.5" startX="-100.0" stroke="WHITE" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+      <VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #01516e;" GridPane.columnSpan="2">
+         <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label layoutX="20.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="ABRIR PUNTO DE VENTA" textFill="WHITE">
+                     <font>
+                        <Font name="Metropolis-Regular" size="18.0" />
+                     </font>
+                  </Label>
+                  <Line endX="358.0" layoutX="132.0" layoutY="50.0" startX="-132.00001525878906" stroke="WHITE" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
    </children>
-   <stylesheets>
-      <URL value="@../styleFiles/PrompWindows.css" />
-      <URL value="@../styleFiles/FlowButton.css" />
-   </stylesheets>
 </fx:root>

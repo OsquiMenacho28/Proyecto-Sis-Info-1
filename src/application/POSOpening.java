@@ -34,9 +34,12 @@ public class POSOpening extends PromptWindow implements Initializable{
 	
 	public POSOpening(SesionAtCl ses, PromptWindow origin) throws IOException {
 		super(ses, "POSOpening.fxml", origin);
-		this.OpeningCount = (float) 0.0;	
+		this.OpeningCount = (float) 0.0;
 		this.flag = false;
-		load();
+		stage.setTitle("APERTURA DE CAJA");
+		stage.setWidth(663);
+		stage.setHeight(351);
+		this.load();
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class POSOpening extends PromptWindow implements Initializable{
 							}
 						});
 						OpeningCount = numInput;
-						CashierField.setStyle("-fx-text-fill : white;");
+						CashierField.setStyle("-fx-text-fill : black;");
 						flag = true;
 					}
 					else {
@@ -84,7 +87,14 @@ public class POSOpening extends PromptWindow implements Initializable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}});
-		BackButton.setOnAction(e -> back());
+		BackButton.setOnAction(e -> {
+			try {
+				origin = new SelectAccount();
+			} catch (IOException ex) {
+				throw new RuntimeException(ex);
+			}
+			back();
+		});
 		CloseButton.setOnAction(e -> { if(flag) {try {
 			open();
 		} catch (IOException e1) {
