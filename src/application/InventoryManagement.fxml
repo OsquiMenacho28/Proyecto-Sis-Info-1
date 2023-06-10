@@ -2,11 +2,12 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
         <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -27,18 +28,30 @@
                             <image>
                                 <Image url="@../img/notification-bell-icon.png" />
                             </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </ImageView>
                     </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
                 <Button fx:id="Mode_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: black;" text="Modo" textFill="WHITE">
                     <font>
                         <Font name="Lato Regular" size="15.0" />
                     </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
                 <Button fx:id="Close_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: #ff8500;" text="Cerrar Sesión" textFill="WHITE">
                     <font>
                         <Font name="Lato Regular" size="15.0" />
                     </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
             </children>
         </HBox>
@@ -50,8 +63,14 @@
                             <image>
                                 <Image url="@../img/LastButtonBlack.png" />
                             </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </ImageView>
                     </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
                 <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Administrador" HBox.hgrow="NEVER">
                     <font>
@@ -170,16 +189,25 @@
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </Button>
                                 <Button fx:id="Clear_B" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="HABILITAR" textFill="WHITE">
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </Button>
                                 <Button fx:id="Pay_B1" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="ELIMINAR" textFill="WHITE">
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </Button>
                             </children>
                             <VBox.margin>
@@ -192,6 +220,9 @@
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </Button>
                             </children>
                             <VBox.margin>

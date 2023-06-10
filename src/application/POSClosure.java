@@ -49,7 +49,7 @@ public class POSClosure extends PromptWindow implements Initializable{
 		TotalSalesCount = this.ClosureCount.subtract(this.OpeningCount);
 		flag = false;
 		
-		load();
+		this.load();
 	}
 	
 	@Override

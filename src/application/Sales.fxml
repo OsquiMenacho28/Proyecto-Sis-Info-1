@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -55,6 +56,9 @@
         <GridPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </GridPane.margin>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </Button>
     <TableView fx:id="CartList_T" maxHeight="400.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="496.0" styleClass="OrderList" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
         <columns>

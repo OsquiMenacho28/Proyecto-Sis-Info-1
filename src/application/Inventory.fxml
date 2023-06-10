@@ -2,10 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -55,6 +56,9 @@
         <GridPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </GridPane.margin>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </Button>
     <TableView fx:id="CartList_T" maxHeight="400.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="496.0" styleClass="OrderList" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
         <columns>

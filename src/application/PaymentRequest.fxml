@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.*?>
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -48,6 +40,9 @@
       <GridPane.margin>
          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </GridPane.margin>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </Button>
    <Button fx:id="Confirm_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="151.0" style="-fx-background-color: #ff8500; -fx-border-radius: 10px;" text="CONFIRMAR PAGO" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
       <font>
@@ -56,6 +51,9 @@
       <GridPane.margin>
          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </GridPane.margin>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
    </Button>
    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Nombre Cliente:" GridPane.rowIndex="2">
       <GridPane.margin>

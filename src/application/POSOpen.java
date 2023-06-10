@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -25,6 +26,7 @@ import javafx.util.converter.IntegerStringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class POSOpen extends PromptWindow implements Initializable {
@@ -115,6 +117,8 @@ public class POSOpen extends PromptWindow implements Initializable {
 	private ObservableList<String> BrandList = FXCollections.observableArrayList();
 	private AddedProduct focusedItem;
 	private ObservableList<AddedProduct> selectedItems;
+
+	private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
 	
 	public POSOpen(float OpeningCount, ObservableList<Product> products,
 				   SesionAtCl ses, PromptWindow origin) throws IOException {
@@ -131,7 +135,42 @@ public class POSOpen extends PromptWindow implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Clear_B.setOnAction(actionEvent -> cart.clear());
 
+		Notification_B.setOnAction(actionEvent -> {
+			stage.getScene().getRoot().setEffect(blurEffect);
+			try {
+				Notifications notifications = new Notifications((SesionAtCl) null,this);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
+
+		Mode_B.setOnAction(actionEvent -> {
+
+		});
+
+		Close_B.setOnAction(actionEvent -> {
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("CERRAR SESIÓN");
+			alert.setHeaderText("¡AVISO!");
+			alert.setContentText("¿Está seguro de Cerrar Sesión?");
+			alert.initStyle(StageStyle.DECORATED);
+			stage.getScene().getRoot().setEffect(blurEffect);
+			Optional <ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				dispose();
+				try {
+					new SelectAccount();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+			else {
+				stage.getScene().getRoot().setEffect(null);
+			}
+		});
+
 		Sales_Opt.setOnAction(actionEvent -> {
+			stage.getScene().getRoot().setEffect(blurEffect);
 			try {
 				Sales sales = new Sales((SesionAtCl) null, this);
 			} catch (IOException e) {
@@ -140,16 +179,22 @@ public class POSOpen extends PromptWindow implements Initializable {
 		});
 
 		Inventory_Opt.setOnAction(actionEvent -> {
+			stage.getScene().getRoot().setEffect(blurEffect);
 			try {
 				Inventory inventory = new Inventory((SesionAtCl) null, this);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-
 		});
 
 		Closure_Opt.setOnAction(actionEvent -> {
-
+			stage.getScene().getRoot().setEffect(blurEffect);
+			try {
+				POSClosure posClosure = new POSClosure(OpeningCount, 0,null,this);
+				posClosure.stage.setTitle("CIERRE DE CAJA");
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		});
 		
 		Back_B.setOnAction(e -> back());
@@ -162,9 +207,12 @@ public class POSOpen extends PromptWindow implements Initializable {
 				alertDialog.setContentText("Por favor, añada productos al Carrito de Compras");
 				alertDialog.initStyle(StageStyle.DECORATED);
 				java.awt.Toolkit.getDefaultToolkit().beep();
+				stage.getScene().getRoot().setEffect(blurEffect);
 				alertDialog.showAndWait();
+				stage.getScene().getRoot().setEffect(null);
 			}
 			else {
+				stage.getScene().getRoot().setEffect(blurEffect);
 				try {
 					PaymentRequest paymentRequest = new PaymentRequest(cart,null, this);
 					paymentRequest.stage.setTitle("CONFIRMAR PAGO");
