@@ -132,29 +132,39 @@
                                     <padding>
                                         <Insets top="10.0" />
                                     </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </ComboBox>
                                 <ComboBox fx:id="CategoryFilter_C" maxWidth="-Infinity" minHeight="-Infinity" minWidth="100.0" prefWidth="170.0" promptText="Categoría">
                                     <padding>
                                         <Insets top="10.0" />
                                     </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                                 </ComboBox>
                             </children>
                             <padding>
                                 <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                             </padding>
                         </HBox>
-                        <Button fx:id="Options_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-                            <graphic>
+                  <MenuButton fx:id="Menu_B" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.halignment="RIGHT">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                     <graphic>
                                 <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../img/NextButtonWhite.png" />
                                     </image>
                                 </ImageView>
-                            </graphic>
-                            <GridPane.margin>
-                                <Insets left="20.0" right="20.0" />
-                            </GridPane.margin>
-                        </Button>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </MenuButton>
                     </children>
                 </GridPane>
                 <ScrollPane fx:id="ListScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="300.0" prefHeight="452.0" prefWidth="647.0" styleClass="ListScroll" stylesheets="@../styleFiles/POSOpen.css" VBox.vgrow="ALWAYS">
