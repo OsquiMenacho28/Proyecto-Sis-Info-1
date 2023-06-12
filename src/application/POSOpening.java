@@ -87,6 +87,7 @@ public class POSOpening extends PromptWindow implements Initializable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}});
+
 		BackButton.setOnAction(e -> {
 			try {
 				origin = new SelectAccount();
@@ -95,7 +96,8 @@ public class POSOpening extends PromptWindow implements Initializable{
 			}
 			back();
 		});
-		CloseButton.setOnAction(e -> { if(flag) {try {
+
+		CloseButton.setOnAction(e -> { if (flag) {try {
 			open();
 		} catch (IOException e1) {
 			e1.printStackTrace();

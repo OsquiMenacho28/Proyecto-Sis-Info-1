@@ -27,9 +27,7 @@ public class Inventory extends PromptWindow implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        OK_B.setOnAction(actionEvent -> {
-            back();
-        });
+        OK_B.setOnAction(actionEvent -> back());
 
         stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
     }
