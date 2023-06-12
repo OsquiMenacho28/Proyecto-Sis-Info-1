@@ -1,66 +1,80 @@
 package application;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClosureConfirmed extends PromptWindow implements Initializable {
 
     @FXML
-    private Button BackButton;
+    private Button CancelButton;
 
     @FXML
-    private Button CloseButton;
+    private ProgressBar progressBar;
 
-    @FXML
-    private ProgressBar progressBar1;
+    private boolean windowClosed = false;
 
-    @FXML
-    private ProgressBar progressBar2;
-
-    public ClosureConfirmed(SesionAdmin ses2, PromptWindow origin) throws Exception {
+    public ClosureConfirmed(SesionAtCl ses2, PromptWindow origin) throws Exception {
         super(ses2, "ClosureConfirmed.fxml", origin);
+        stage.setTitle("CIERRE DE CAJA");
+        stage.setWidth(506);
+        stage.setHeight(365);
         this.load();
-        start(stage);
+        initializeFXML();
     }
 
-    /*public void init() throws Exception {
-        // Configurar el preloader
-        preloaderStage = new Stage();
-        progressBar = new ProgressBar();
-        BorderPane root = new BorderPane(progressBar);
-        Scene scene = new Scene(root, 300, 150);
-        preloaderStage.setScene(scene);
-        preloaderStage.show();
-    }*/
+    private void initializeFXML() {
+        try {
+            class Progress {
+                double value = 0.0;
+            }
 
-    public void start(Stage primaryStage) throws Exception {
-        // Configurar la escena principal de tu aplicación
-        // ...
+            Progress progress = new Progress();
 
-        // Simular un progreso en la barra de progreso
-        double progress = 0.0;
-        while (progress < 1.0) {
-            progress += 0.01;
-            progressBar1.setProgress(progress);
-            Thread.sleep(50);
+            new Thread(() -> {
+                while (progress.value < 1.0 && !windowClosed) {
+                    progress.value += 0.01;
+                    Platform.runLater(() -> progressBar.setProgress(progress.value));
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Platform.runLater(() -> {
+                    if (!windowClosed) {
+                        Stage primaryStage = (Stage) progressBar.getScene().getWindow();
+                        primaryStage.hide();
+                        origin.dispose();
+                        try {
+                            new SelectAccount();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            }).start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        // Cerrar la pantalla de carga
-        stage.hide();
-
-        // Mostrar la escena principal
-        origin.show();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        BackButton.setOnAction(actionEvent -> {
+        stage.setOnCloseRequest(windowEvent -> {
+            windowClosed = true;
+            origin.stage.getScene().getRoot().setEffect(null);
+        });
+
+        CancelButton.setOnAction(actionEvent -> {
+            windowClosed = true;
             back();
         });
     }

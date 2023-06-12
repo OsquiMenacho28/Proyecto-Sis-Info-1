@@ -83,6 +83,7 @@ public class POSClosure extends PromptWindow implements Initializable{
 		CashierField.setText(String.valueOf(ClosureCount.floatValue()));
 
 		CloseButton.setOnAction(e -> {
+			dispose();
 			if (flag) {
 				try {
 					ClosureConfirmed closureConfirmed = new ClosureConfirmed(null, this.origin);
@@ -91,9 +92,5 @@ public class POSClosure extends PromptWindow implements Initializable{
 				}
 			}
 		});
-	}
-	
-	public void close() {
-		dispose();
 	}
 }
