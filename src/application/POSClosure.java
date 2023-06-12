@@ -44,6 +44,8 @@ public class POSClosure extends PromptWindow implements Initializable{
 		this.rClosureCount = ClosureCount;
 		this.ClosureCount = new SimpleFloatProperty(ClosureCount);
 		stage.setTitle("CIERRE DE CAJA");
+		stage.setWidth(589);
+		stage.setHeight(289);
 		TotalSalesCount = this.ClosureCount.subtract(this.OpeningCount);
 		flag = false;
 		this.load();
@@ -65,12 +67,12 @@ public class POSClosure extends PromptWindow implements Initializable{
 			
 			if(ninput < rClosureCount) {
 				ClosureCount.setValue(rClosureCount);
-				CashierField.setStyle("-fx-text-fill : black;");
+				CashierField.setStyle("-fx-text-fill : red;");
 				flag = false;
 			}
 			else {
 				ClosureCount.setValue(ninput);
-				CashierField.setStyle("-fx-text-fill : white;");
+				CashierField.setStyle("-fx-text-fill : black;");
 				flag = true;
 			}
 			TotalSalesLabel.setText(String.valueOf(TotalSalesCount.getValue()));
@@ -79,10 +81,16 @@ public class POSClosure extends PromptWindow implements Initializable{
 		
 		CashierField.setTextFormatter(new TextFormatter<>(new FloatStringConverter()));
 		CashierField.setText(String.valueOf(ClosureCount.floatValue()));
-		
-	
 
-		CloseButton.setOnAction(e -> {if(flag) {close();};});
+		CloseButton.setOnAction(e -> {
+			if (flag) {
+				try {
+					ClosureConfirmed closureConfirmed = new ClosureConfirmed(null, this.origin);
+				} catch (Exception ex) {
+					throw new RuntimeException(ex);
+				}
+			}
+		});
 	}
 	
 	public void close() {
