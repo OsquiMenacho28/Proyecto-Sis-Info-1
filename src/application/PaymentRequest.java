@@ -65,9 +65,18 @@ public class PaymentRequest extends PromptWindow implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+        stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
 		
 		Back_B.setOnAction(e -> back());
-		Confirm_B.setOnAction(e -> dispose());
+		Confirm_B.setOnAction(e -> {
+            dispose();
+            try {
+                PaymentConfirmed paymentConfirmed = new PaymentConfirmed(null, this.origin);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         Name_F.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.DOWN) {

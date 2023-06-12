@@ -1,5 +1,6 @@
 package application;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -38,6 +39,12 @@ public class POSOpen extends PromptWindow implements Initializable {
 
 	@FXML
 	private Button Mode_B;
+
+	@FXML
+	private MenuItem LightMode_Opt;
+
+	@FXML
+	private MenuItem DarkMode_Opt;
 
 	@FXML
 	private Button Close_B;
@@ -133,6 +140,24 @@ public class POSOpen extends PromptWindow implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		stage.setOnCloseRequest(windowEvent -> {
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("CERRAR APLICACIÓN");
+			alert.setHeaderText("¡ADVERTENCIA!");
+			alert.setContentText("Se cerrará la aplicación. ¿Desea continuar?");
+			alert.initStyle(StageStyle.DECORATED);
+			stage.getScene().getRoot().setEffect(blurEffect);
+			Optional <ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				Platform.exit();
+			}
+			else {
+				stage.getScene().getRoot().setEffect(null);
+				windowEvent.consume();
+			}
+		});
+
 		Clear_B.setOnAction(actionEvent -> cart.clear());
 
 		Notification_B.setOnAction(actionEvent -> {
@@ -144,7 +169,11 @@ public class POSOpen extends PromptWindow implements Initializable {
 			}
 		});
 
-		Mode_B.setOnAction(actionEvent -> {
+		LightMode_Opt.setOnAction(actionEvent -> {
+
+		});
+
+		DarkMode_Opt.setOnAction(actionEvent -> {
 
 		});
 
@@ -191,7 +220,6 @@ public class POSOpen extends PromptWindow implements Initializable {
 			stage.getScene().getRoot().setEffect(blurEffect);
 			try {
 				POSClosure posClosure = new POSClosure(OpeningCount, 0,null,this);
-				posClosure.stage.setTitle("CIERRE DE CAJA");
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}

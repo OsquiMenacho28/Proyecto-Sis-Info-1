@@ -34,6 +34,18 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <MenuButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: black;" text="Modo" textFill="WHITE">
+               <font>
+                  <Font name="Lato Regular" size="15.0" />
+               </font>
+               <items>
+                  <MenuItem fx:id="LightMode_Opt" mnemonicParsing="false" text="Modo Claro" />
+                  <MenuItem fx:id="DarkMode_Opt" mnemonicParsing="false" text="Modo Oscuro" />
+               </items>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
             <Button fx:id="Mode_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: black;" text="Modo" textFill="WHITE">
                <font>
                   <Font name="Lato Regular" size="15.0" />

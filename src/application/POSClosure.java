@@ -39,21 +39,21 @@ public class POSClosure extends PromptWindow implements Initializable{
 	
 	
 	public POSClosure(float OpeningCount, float ClosureCount, SesionAtCl ses, POSOpen origin) throws IOException {
-		
 		super(ses, "POSClosure.fxml", origin);
-		
 		this.OpeningCount = OpeningCount;
 		this.rClosureCount = ClosureCount;
 		this.ClosureCount = new SimpleFloatProperty(ClosureCount);
-		
+		stage.setTitle("CIERRE DE CAJA");
 		TotalSalesCount = this.ClosureCount.subtract(this.OpeningCount);
 		flag = false;
-		
 		this.load();
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
+
 		OpeningLabel.setText(String.valueOf(OpeningCount));
 		TotalSalesLabel.setText(String.valueOf(TotalSalesCount.getValue()));
 

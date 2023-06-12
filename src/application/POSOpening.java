@@ -37,8 +37,8 @@ public class POSOpening extends PromptWindow implements Initializable{
 		this.OpeningCount = (float) 0.0;
 		this.flag = false;
 		stage.setTitle("APERTURA DE CAJA");
-		stage.setWidth(663);
-		stage.setHeight(351);
+		stage.setWidth(702);
+		stage.setHeight(350);
 		this.load();
 	}
 
@@ -72,7 +72,7 @@ public class POSOpening extends PromptWindow implements Initializable{
 						flag = true;
 					}
 					else {
-						Toolkit.getDefaultToolkit().beep();
+						CloseButton.setDisable(true);
 						flag = false;
 					}
 				}		

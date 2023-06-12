@@ -37,14 +37,18 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </Button>
-                <Button fx:id="Mode_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: black;" text="Modo" textFill="WHITE">
+                <MenuButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: black;" text="Modo" textFill="WHITE">
                     <font>
                         <Font name="Lato Regular" size="15.0" />
                     </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-                </Button>
+                    <items>
+                        <MenuItem fx:id="LightMode_Opt" mnemonicParsing="false" text="Modo Claro" />
+                        <MenuItem fx:id="DarkMode_Opt" mnemonicParsing="false" text="Modo Oscuro" />
+                    </items>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </MenuButton>
                 <Button fx:id="Close_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: #ff8500;" text="Cerrar Sesión" textFill="WHITE">
                     <font>
                         <Font name="Lato Regular" size="15.0" />
@@ -94,6 +98,7 @@
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                  <ColumnConstraints />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
@@ -149,22 +154,25 @@
                                 <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
                             </padding>
                         </HBox>
-                  <MenuButton fx:id="Menu_B" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.halignment="RIGHT">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                     <graphic>
-                                <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <MenuButton fx:id="Menu_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                            <items>
+                                <MenuItem fx:id="Sales_Opt" mnemonicParsing="false" text="Ventas" />
+                                <MenuItem fx:id="AddProduct_Opt" mnemonicParsing="false" text="Añadir producto" />
+                            </items>
+                            <graphic>
+                                <ImageView fx:id="RightMenuButton" fitHeight="35.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../img/NextButtonWhite.png" />
                                     </image>
                                 </ImageView>
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </MenuButton>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                            <GridPane.margin>
+                                <Insets right="20.0" />
+                            </GridPane.margin>
+                        </MenuButton>
                     </children>
                 </GridPane>
                 <ScrollPane fx:id="ListScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="300.0" prefHeight="452.0" prefWidth="647.0" styleClass="ListScroll" stylesheets="@../styleFiles/POSOpen.css" VBox.vgrow="ALWAYS">
@@ -195,7 +203,7 @@
                         <Line endX="469.29290771484375" endY="0.2928932309150696" startX="-100.0" />
                         <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" VBox.vgrow="NEVER">
                             <children>
-                                <Button fx:id="Pay_B" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="EDITAR" textFill="WHITE">
+                                <Button fx:id="EditProduct_B" mnemonicParsing="false" prefHeight="45.0" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="EDITAR" textFill="WHITE">
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>
@@ -203,7 +211,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                                 </Button>
-                                <Button fx:id="Clear_B" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="HABILITAR" textFill="WHITE">
+                                <Button fx:id="EnableProduct_B" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="HABILITAR" textFill="WHITE">
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>
@@ -211,7 +219,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                                 </Button>
-                                <Button fx:id="Pay_B1" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="ELIMINAR" textFill="WHITE">
+                                <Button fx:id="DeleteProduct_B" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="ELIMINAR" textFill="WHITE">
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>
@@ -226,7 +234,7 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="30.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                             <children>
-                                <Button fx:id="Clear_B1" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: BLACK;" text="INGRESO Y RETIRO DE MATERIAL" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                <Button fx:id="EntryProduct_B" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: BLACK;" text="INGRESO Y RETIRO DE MATERIAL" textFill="WHITE" HBox.hgrow="ALWAYS">
                                     <font>
                                         <Font name="Metropolis-Regular" size="25.0" />
                                     </font>

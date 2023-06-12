@@ -6,17 +6,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="294.0" prefWidth="561.0" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="309.0" prefWidth="561.0" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="38.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="38.0" />
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="62.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="24.0" valignment="CENTER" vgrow="ALWAYS" />
       <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" percentHeight="0.0" prefHeight="33.999999999999986" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints maxHeight="105.0" minHeight="-Infinity" percentHeight="25.0" prefHeight="105.0" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="25.0" valignment="CENTER" vgrow="ALWAYS" />
       <RowConstraints maxHeight="85.33334350585938" minHeight="-Infinity" prefHeight="85.33334350585938" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints maxHeight="117.33331298828125" minHeight="-Infinity" prefHeight="64.66665649414062" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" />
    </rowConstraints>
    <children>
       <TextField fx:id="CashierField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="269.0" promptText="Total en Caja" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
@@ -41,11 +41,11 @@
          </font>
       </Label>
       <Button fx:id="HisButton" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-      <VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #01516e;" GridPane.columnSpan="2">
+      <VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #01516e;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
          <children>
             <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
                <children>
-                  <Label layoutX="20.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="ABRIR PUNTO DE VENTA" textFill="WHITE">
+                  <Label layoutX="20.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="ABRIR PUNTO DE VENTA" textFill="WHITE">
                      <font>
                         <Font name="Metropolis-Regular" size="18.0" />
                      </font>

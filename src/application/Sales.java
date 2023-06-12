@@ -30,5 +30,7 @@ public class Sales extends PromptWindow implements Initializable {
         OK_B.setOnAction(actionEvent -> {
             back();
         });
+
+        stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
     }
 }
