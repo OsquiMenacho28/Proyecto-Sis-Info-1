@@ -38,9 +38,6 @@ public class POSOpen extends PromptWindow implements Initializable {
 	private Button Notification_B;
 
 	@FXML
-	private Button Mode_B;
-
-	@FXML
 	private MenuItem LightMode_Opt;
 
 	@FXML
@@ -66,6 +63,9 @@ public class POSOpen extends PromptWindow implements Initializable {
 
 	@FXML
 	private ComboBox<String> CategoryFilter_C;
+
+	@FXML
+	private MenuButton Mode_CB;
 
 	@FXML
 	private MenuButton Menu_B;
