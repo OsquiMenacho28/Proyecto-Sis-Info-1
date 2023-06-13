@@ -1,11 +1,17 @@
 package application;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +24,9 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
 
     @FXML
     private ProgressBar progressBar;
+
+    @FXML
+    private Label LClosing;
 
     private boolean windowClosed = false;
 
@@ -38,6 +47,15 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
 
             Progress progress = new Progress();
 
+            Timeline dotsAnimation = new Timeline(
+                    new KeyFrame(Duration.seconds(0.5), new KeyValue(LClosing.textProperty(), "Cerrando Caja   ")),
+                    new KeyFrame(Duration.seconds(1.0), new KeyValue(LClosing.textProperty(), "Cerrando Caja.  ")),
+                    new KeyFrame(Duration.seconds(1.5), new KeyValue(LClosing.textProperty(), "Cerrando Caja.. ")),
+                    new KeyFrame(Duration.seconds(2.0), new KeyValue(LClosing.textProperty(), "Cerrando Caja..."))
+            );
+            dotsAnimation.setCycleCount(Animation.INDEFINITE);
+            dotsAnimation.play();
+
             new Thread(() -> {
                 while (progress.value < 1.0 && !windowClosed) {
                     progress.value += 0.01;
@@ -50,8 +68,8 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
                 }
                 Platform.runLater(() -> {
                     if (!windowClosed) {
-                        Stage primaryStage = (Stage) progressBar.getScene().getWindow();
-                        primaryStage.hide();
+                        Stage loadingStage = (Stage) progressBar.getScene().getWindow();
+                        loadingStage.hide();
                         origin.dispose();
                         try {
                             new SelectAccount();

@@ -33,7 +33,7 @@
             </AnchorPane>
         </children>
     </VBox>
-    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Cerrando Caja..." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+    <Label fx:id="LClosing" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Cerrando Caja..." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
         <font>
             <Font name="Metropolis-Regular" size="17.0" />
         </font>
