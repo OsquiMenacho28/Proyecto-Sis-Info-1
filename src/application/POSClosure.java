@@ -65,7 +65,7 @@ public class POSClosure extends PromptWindow implements Initializable{
 			String input = CashierField.getText();
 			Float ninput = Float.parseFloat(input);
 			
-			if(ninput < rClosureCount) {
+			if (ninput < rClosureCount) {
 				ClosureCount.setValue(rClosureCount);
 				CashierField.setStyle("-fx-text-fill : red;");
 				flag = false;
@@ -76,7 +76,6 @@ public class POSClosure extends PromptWindow implements Initializable{
 				flag = true;
 			}
 			TotalSalesLabel.setText(String.valueOf(TotalSalesCount.getValue()));
-			
 		});
 		
 		CashierField.setTextFormatter(new TextFormatter<>(new FloatStringConverter()));

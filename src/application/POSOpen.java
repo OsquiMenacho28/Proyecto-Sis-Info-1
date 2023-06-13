@@ -231,7 +231,7 @@ public class POSOpen extends PromptWindow implements Initializable {
 			if (cart.isEmpty()) {
 				Alert alertDialog = new Alert(Alert.AlertType.ERROR);
 				alertDialog.setTitle("ERROR!");
-				alertDialog.setHeaderText("El Carrito de Compras se encuentra vacio!");
+				alertDialog.setHeaderText("¡El Carrito de Compras se encuentra vacio!");
 				alertDialog.setContentText("Por favor, añada productos al Carrito de Compras");
 				alertDialog.initStyle(StageStyle.DECORATED);
 				java.awt.Toolkit.getDefaultToolkit().beep();
@@ -260,7 +260,6 @@ public class POSOpen extends PromptWindow implements Initializable {
 						setTotalLabel();
 					}
 			}
-			
 		});
 		
 		

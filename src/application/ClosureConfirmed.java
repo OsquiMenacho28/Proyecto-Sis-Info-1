@@ -69,7 +69,6 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //progressBar.setStyle("-fx-accent: #18E625;");
-
         stage.setOnCloseRequest(windowEvent -> {
             windowClosed = true;
             origin.stage.getScene().getRoot().setEffect(null);
