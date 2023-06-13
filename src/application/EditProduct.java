@@ -51,8 +51,8 @@ public class EditProduct extends PromptWindow implements Initializable {
     public EditProduct(SesionAdmin ses1, PromptWindow origin) throws IOException {
         super(ses1, "EditProduct.fxml", origin);
         stage.setTitle("EDITAR PRODUCTO");
-        stage.setWidth(603);
-        stage.setHeight(613);
+        stage.setWidth(672);
+        stage.setHeight(606);
         this.load();
     }
 

@@ -67,8 +67,8 @@ public class AddProd extends PromptWindow implements Initializable{
 	public AddProd(ObservableList<Product> products, SesionAdmin ses, InventoryManagement origin) throws IOException {
 		super(ses, "AddProd.fxml", origin);
 		stage.setTitle("AÑADIR PRODUCTO");
-		stage.setWidth(603);
-		stage.setHeight(649);
+		stage.setWidth(644);
+		stage.setHeight(606);
 		this.products = products;
 		this.load();
 	}

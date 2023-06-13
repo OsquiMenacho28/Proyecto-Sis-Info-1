@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="603.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="561.0" prefWidth="603.0" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" maxWidth="195.33331298828125" minWidth="-Infinity" prefWidth="174.66668701171875" />
-        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="210.66666666666666" minWidth="-Infinity" prefWidth="201.9999796549479" />
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="392.000020345052" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.99999491373698" vgrow="ALWAYS" />
@@ -97,7 +97,7 @@
          <Font name="Metropolis-Regular" size="17.0" />
       </font>
    </Label>
-   <TextArea fx:id="ProductDescriptionArea" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="144.0" promptText="Descripción del producto" GridPane.columnIndex="1" GridPane.rowIndex="4">
+   <TextArea fx:id="ProductDescriptionArea" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="143.0" promptText="Descripción del producto" GridPane.columnIndex="1" GridPane.rowIndex="4">
       <GridPane.margin>
          <Insets right="20.0" />
       </GridPane.margin>
@@ -126,10 +126,13 @@
          <Insets left="20.0" />
       </GridPane.margin>
    </Label>
-   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.rowSpan="3">
+   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.rowSpan="4">
       <image>
          <Image url="@../img/ImageIcon.png" />
       </image>
+      <GridPane.margin>
+         <Insets left="5.0" />
+      </GridPane.margin>
    </ImageView>
    <TextField fx:id="ProductCodeField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="289.0" promptText="Código del producto" GridPane.columnIndex="1" GridPane.rowIndex="5">
       <GridPane.margin>
