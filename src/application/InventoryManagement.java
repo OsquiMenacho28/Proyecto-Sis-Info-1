@@ -1,6 +1,8 @@
 package application;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -55,6 +57,8 @@ public class InventoryManagement extends PromptWindow implements Initializable {
 
     @FXML
     private Button EntryProduct_B;
+
+    public ObservableList<Product> products = FXCollections.observableArrayList();
 
     private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
 
@@ -126,14 +130,19 @@ public class InventoryManagement extends PromptWindow implements Initializable {
         Sales_Opt.setOnAction(actionEvent -> {
             stage.getScene().getRoot().setEffect(blurEffect);
             try {
-                Sales sales = new Sales((SesionAtCl) null, this);
+                Sales sales = new Sales((SesionAdmin) null, this);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
 
         AddProduct_Opt.setOnAction(actionEvent -> {
-
+            stage.getScene().getRoot().setEffect(blurEffect);
+            try {
+                AddProd addProd = new AddProd(products, null, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         EditProduct_B.setOnAction(actionEvent -> {

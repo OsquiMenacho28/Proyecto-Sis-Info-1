@@ -3,15 +3,15 @@ package application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 
-public class AddedProduct extends Product{
+public class AddedProduct extends Product {
 	SimpleIntegerProperty cant;
-	public AddedProduct(int id, String name, float price, int stock, String brand, int cant, String Color, String category) {
-		super(id, name, price, stock, brand, Color, category);
+	public AddedProduct(int code, int quantity, String description, String name, float price, String brand, int cant, String color, String category) {
+		super(code, quantity, name, description, color, brand, category, price);
 		this.cant = new SimpleIntegerProperty(this,"CantListener", 1);
 	}
 	
 	public AddedProduct(Product p, int  cant ) {
-		super(p.getId(), p.getName(), p.getPrice(), p.getStock(), p.getBrand(), p.getColor(), p.getCategory());
+		super(p.getCode(), p.getQuantity(), p.getName(), p.getDescription(), p.getColor(), p.getBrand(), p.getCategory(), p.getPrice());
 		this.cant = new SimpleIntegerProperty(this,"CantListener", 1);
 	}
 

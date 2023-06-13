@@ -2,24 +2,29 @@ package application;
 
 public class Product {
 
-	protected int id;
+	protected int code;
+
+	protected int quantity;
+
 	protected String name;
-	protected float price;
-	protected int stock;
-	
-	public String brand;
+	protected String description;
+
 	public String color;
+	public String brand;
 	public String category;
+
+	protected float price;
 	
 	
-	public Product(int id, String name, float price, int stock, String brand, String color, String category){
-		this.id = id;
+	public Product(int code, int quantity, String name, String description, String color, String brand, String category, float price){
+		this.code = code;
+		this.quantity = quantity;
 		this.name =  name;
-		this.price =  price;
-		this.stock = stock;
-		this.brand = brand;
+		this.description = description;
 		this.color = color;
+		this.brand = brand;
 		this.category = category;
+		this.price =  price;
 	}
 	
 	/**
@@ -37,25 +42,33 @@ public class Product {
 	}
 
 	/**
-	 * @return the categrory
+	 * @return the category
 	 */
 	public String getCategory() {
 		return category;
 	}
 
 	/**
-	 * @param categrory the categrory to set
+	 * @param category the categrory to set
 	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
-	public int getId() {
-		return id;
+	public int getCode() {
+		return code;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 	
 	public String getName() {
@@ -76,12 +89,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getStock() {
-		return stock;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setStock(int stock) {
-		this.stock = stock;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public String getBrand() {

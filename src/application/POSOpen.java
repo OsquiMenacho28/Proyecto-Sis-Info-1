@@ -342,20 +342,20 @@ public class POSOpen extends PromptWindow implements Initializable {
 
 	}
 
-	private Product getProductWithId(int id) {
+	private Product getProductWithId(int code) {
 		int index;
-		for(index = 0; index <  products.size(); index++) {
-			if(products.get(index).getId() == id) {
+		for(index = 0; index < products.size(); index++) {
+			if (products.get(index).getCode() == code) {
 				return products.get(index);
 			}
 		}
 		return null;
 	}
 	
-	private int getIndexOfAP(ObservableList<AddedProduct> list, int id) {
+	private int getIndexOfAP(ObservableList<AddedProduct> list, int code) {
 		int i;
-		for(i = 0; i <  list.size(); i++) {
-			if(list.get(i).getId() == id) {
+		for(i = 0; i < list.size(); i++) {
+			if (list.get(i).getCode() == code) {
 				return i;
 			}
 		}
@@ -369,7 +369,7 @@ public class POSOpen extends PromptWindow implements Initializable {
 	public float TotalPrice() {
 		int x = 0;
 		for(AddedProduct e : cart) {
-			x+=e.getTprice();
+			x += e.getTprice();
 		}
 		return x;
 	}
@@ -389,11 +389,8 @@ public class POSOpen extends PromptWindow implements Initializable {
 			}
 			refreshProductList(newList);
 		}
-				
 	}
-	
-	
-	
+
 	public void getCategoryList() throws SQLException {
 		CategoryList.clear();
 		for(Product p : this.products) {
@@ -419,21 +416,19 @@ public class POSOpen extends PromptWindow implements Initializable {
 					public void handle(MouseEvent event) {
 						if(event.getButton() == MouseButton.PRIMARY) {
 							
-							int id= ItemIcon.getItemId();
+							int id = ItemIcon.getItemCode();
 							
 							int pos = getIndexOfAP(cart, id);
 							
 							if(pos >= 0) {
-								
 								cart.get(pos).Add();
-								
 							}
 							else {
 								AddedProduct aux = new AddedProduct(getProductWithId(id), 1); 	
 								
 								aux.addCantListener(new ChangeListener<Number>(){
 									@Override
-									public void changed(ObservableValue<? extends Number> observable, Number oldValue,Number newValue) {
+									public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 										if(newValue.intValue() <= 1) 
 										{
 											SimpleIntegerProperty x= (SimpleIntegerProperty)observable;
@@ -450,7 +445,7 @@ public class POSOpen extends PromptWindow implements Initializable {
 				});
 
 				ItemIcon.deleteBtn.setOnAction(f -> {
-					deleteItem(ItemIcon.id);
+					deleteItem(ItemIcon.code);
 				});
 				ProductList.getChildren().add(ItemIcon);
 	    	}
@@ -460,9 +455,9 @@ public class POSOpen extends PromptWindow implements Initializable {
 		}	
 	}
 
-	private void deleteItem(int id){
-		products.remove(id);
-		ProductList.getChildren().remove(id);
+	private void deleteItem(int code){
+		products.remove(code);
+		ProductList.getChildren().remove(code);
 	}
 	
 	private void paymentRequest() throws IOException {
@@ -470,9 +465,9 @@ public class POSOpen extends PromptWindow implements Initializable {
 	}
 	
 	
-	private void AddProd() throws IOException{
+	/*private void AddProd() throws IOException{
 		ses2.addProd(this);
-	}
+	}*/
 	
 	private void POSClosure() throws IOException {
 		ses2.POSClosure(OpeningCount, this);
@@ -486,8 +481,8 @@ public class POSOpen extends PromptWindow implements Initializable {
 	
 	private void FillList() {
 		for(int i = 0; i < 20; i++) {
-			Product aux = new Product(i, "Producto " + i, (float)Math.floor(Math.random()*(1000-100+1)+100), (int)Math.floor(Math.random()*(30-0+1)+0), "Marca " + i, "", "");
-			products.add( aux);
+			Product aux = new Product(i, (int)Math.floor(Math.random()*(30-0+1)+0), "Producto " + i, "", "", "Marca " + i, "", (float)Math.floor(Math.random()*(1000-100+1)+100));
+			products.add(aux);
 		}
 	}
 	

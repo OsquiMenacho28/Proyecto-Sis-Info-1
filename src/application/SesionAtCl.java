@@ -29,10 +29,10 @@ public class SesionAtCl extends Sesion {
 		super.mainWindow = new POSOpening(this, null);
 	}
 	
-	public void addProd(POSOpen x) throws IOException {
+	/*public void addProd(InventoryManagement x) throws IOException {
 		AddProd = new AddProd(products, this, x);
 		AddProd.show();
-	}
+	}*/
 	
 	public void cashPayment(ObservableList<AddedProduct> cart) throws IOException {
 		cpp = new CashPayment(cart, clients, this,  POSOpen);

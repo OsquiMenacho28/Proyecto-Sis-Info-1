@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
@@ -18,31 +19,37 @@ import java.util.ResourceBundle;
 public class AddProd extends PromptWindow implements Initializable{
 	
 	@FXML
-	Button BackButton;
+	Button Back_B;
 	
 	@FXML
-	Button MainButton;
+	Button Create_B;
+
+	@FXML
+	TextField ProductCodeField;
 	
 	@FXML
-	TextField ProductField;
+	TextField ProductNameField;
 	
 	@FXML
-	TextField BrandField;
+	TextField ProductBrandField;
 	
 	@FXML
-	TextField PriceField;
+	TextField ProductPriceField;
 	
 	@FXML
-	TextField ColorField;
+	TextField ProductColorField;
 	
 	@FXML
-	TextField CategoryField;
+	TextField ProductCategoryField;
 	
 	@FXML
-	TextField StockField;
+	TextField ProductQuantityField;
 	
 	@FXML
 	TextField SerialNumberField;
+
+	@FXML
+	TextArea ProductDescriptionArea;
 	
 	@FXML
 	TableView<Product> Table;
@@ -55,49 +62,109 @@ public class AddProd extends PromptWindow implements Initializable{
 	
 	ObservableList<Product> products = FXCollections.observableArrayList();
 	
-	public AddProd(ObservableList<Product> products, SesionAtCl ses, POSOpen origin) throws IOException {
+	public AddProd(ObservableList<Product> products, SesionAdmin ses, InventoryManagement origin) throws IOException {
 		super(ses, "AddProd.fxml", origin);
+		stage.setTitle("AÑADIR PRODUCTO");
 		this.products = products;
-		load();
+		this.load();
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
+
+		ProductNameField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.DOWN) {
+				ProductDescriptionArea.requestFocus();
+			}
+		});
+		ProductDescriptionArea.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				ProductNameField.requestFocus();
+			}
+			if (event.getCode() == KeyCode.DOWN) {
+				ProductCodeField.requestFocus();
+			}
+		});
+		ProductCodeField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				ProductDescriptionArea.requestFocus();
+			}
+			if (event.getCode() == KeyCode.DOWN) {
+				ProductColorField.requestFocus();
+			}
+		});
+		ProductColorField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				ProductCodeField.requestFocus();
+			}
+			if (event.getCode() == KeyCode.DOWN) {
+				ProductBrandField.requestFocus();
+			}
+		});
+		ProductBrandField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				ProductColorField.requestFocus();
+			}
+			if (event.getCode() == KeyCode.DOWN) {
+				ProductCategoryField.requestFocus();
+			}
+		});
+		ProductCategoryField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				ProductBrandField.requestFocus();
+			}
+			if (event.getCode() == KeyCode.DOWN) {
+				ProductPriceField.requestFocus();
+			}
+		});
+		ProductPriceField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				ProductCategoryField.requestFocus();
+			}
+			if (event.getCode() == KeyCode.DOWN) {
+				ProductQuantityField.requestFocus();
+			}
+		});
+		ProductQuantityField.setOnKeyPressed(event -> {
+			if (event.getCode() == KeyCode.UP) {
+				ProductPriceField.requestFocus();
+			}
+		});
+
 		Table.setEditable(false);
 		
-		PriceField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		ProductPriceField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		SerialNumberField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-		StockField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		ProductQuantityField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		
-		BackButton.setOnAction(e ->{
-			dispose();
-		});
+		Back_B.setOnAction(e -> back());
 		
-		ProductField.textProperty().addListener(e -> {try {
+		ProductNameField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}});
 		
-		BrandField.textProperty().addListener(e -> {try {
+		ProductBrandField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}});
 		
-		PriceField.textProperty().addListener(e -> {try {
+		ProductPriceField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}});
 		
-		ColorField.textProperty().addListener(e -> {try {
+		ProductColorField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}});
 		
-		CategoryField.textProperty().addListener(e -> {try {
+		ProductCategoryField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -113,27 +180,27 @@ public class AddProd extends PromptWindow implements Initializable{
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")) {
-		            PriceField.setText(newValue.replaceAll("[^\\d]", ""));
+		            ProductPriceField.setText(newValue.replaceAll("[^\\d]", ""));
 		        }
 			}
 		});
 		
-		StockField.textProperty().addListener(new ChangeListener<String>() {
+		ProductQuantityField.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")) {
-		            PriceField.setText(newValue.replaceAll("[^\\d]", ""));
+		            ProductPriceField.setText(newValue.replaceAll("[^\\d]", ""));
 		        }
 			}
 		});
 		
 	
-		PriceField.textProperty().addListener(new ChangeListener<String>() {
+		ProductPriceField.textProperty().addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (!newValue.matches("\\d*")) {
-		            PriceField.setText(newValue.replaceAll("[^\\d]", ""));
+		            ProductPriceField.setText(newValue.replaceAll("[^\\d]", ""));
 		        }
 			}
 		});
@@ -142,7 +209,7 @@ public class AddProd extends PromptWindow implements Initializable{
 		SerialNumberColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
 		Table.setItems(products);
 		
-		MainButton.setOnAction(e -> {try {
+		Create_B.setOnAction(e -> {try {
 			add();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -159,17 +226,17 @@ public class AddProd extends PromptWindow implements Initializable{
 	
 	private void add() throws SQLException {
 		
-		String product = ProductField.getText();
-		String brand = BrandField.getText();
-		String price = PriceField.getText();
-		String color = ColorField.getText();
-		String cat = CategoryField.getText();
-		String stock = StockField.getText();
-		String id = SerialNumberField.getText();
-		
-		
-		if(v(product) && v(brand) && v(price) && v(color) && v(cat) && v(stock) && v(id)) {
-			Product aux = new Product(Integer.parseInt(id), product, Float.parseFloat(price), Integer.parseInt(stock), brand, color, cat);
+		String name = ProductNameField.getText();
+		String description = ProductDescriptionArea.getText();
+		String quantity = ProductQuantityField.getText();
+		String code = ProductCodeField.getText();
+		String color = ProductColorField.getText();
+		String brand = ProductBrandField.getText();
+		String category = ProductCategoryField.getText();
+		String price = ProductPriceField.getText();
+
+		if(v(name) && v(description) && v(code) && v(quantity) && v(color) && v(brand) && v(category) && v(price)) {
+			Product aux = new Product(Integer.parseInt(code),Integer.parseInt(quantity), name, description, color, brand, category, Float.parseFloat(price));
 			ses2.addProduct(aux);
 		}
 		

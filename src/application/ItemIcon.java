@@ -1,10 +1,5 @@
 package application;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ItemIcon extends GridPane implements Initializable {
 	
@@ -39,7 +37,7 @@ public class ItemIcon extends GridPane implements Initializable {
 	
 	MenuItem deleteBtn;
 	
-	int id;
+	int code;
 	Boolean side = false;
 	
 	public ItemIcon(Product x) throws IOException {
@@ -120,19 +118,19 @@ public class ItemIcon extends GridPane implements Initializable {
 	
 	
 	public void setContent(Product x) {
-		this.id = x.getId();
+		this.code = x.getCode();
 		ProductLabel.setText(x.getName());
 		PriceLabel.setText("Precio : " + x.getPrice());
-		StockLabel.setText("Stock : " + x.getStock());
+		StockLabel.setText("Cantidad : " + x.getQuantity());
 		BrandLabel.setText("Marca : " + x.getBrand());
 	}
 	
-	public void setItemId(int id) {
-		this.id = id;
+	public void setItemCode(int code) {
+		this.code = code;
 	}
 
-	public int getItemId() {
-		return id;
+	public int getItemCode() {
+		return code;
 	}
 	
 	public String getProduct() {
