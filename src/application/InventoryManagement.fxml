@@ -211,9 +211,9 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                                 </Button>
-                                <Button fx:id="EnableProduct_B" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="HABILITAR" textFill="WHITE">
+                                <Button fx:id="EnableProduct_B" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="170.0" style="-fx-background-color: #ff8500;" text="DESHABILITAR" textFill="WHITE">
                                     <font>
-                                        <Font name="Metropolis-Regular" size="25.0" />
+                                        <Font size="21.0" />
                                     </font>
                            <cursor>
                               <Cursor fx:constant="HAND" />

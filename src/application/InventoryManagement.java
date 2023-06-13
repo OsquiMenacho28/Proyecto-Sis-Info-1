@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.text.Font;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
@@ -59,6 +60,9 @@ public class InventoryManagement extends PromptWindow implements Initializable {
     private Button EntryProduct_B;
 
     public ObservableList<Product> products = FXCollections.observableArrayList();
+
+    int clickCount = 0;
+    boolean isButtonEnabled = false;
 
     private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
 
@@ -146,15 +150,38 @@ public class InventoryManagement extends PromptWindow implements Initializable {
         });
 
         EditProduct_B.setOnAction(actionEvent -> {
-
+            stage.getScene().getRoot().setEffect(blurEffect);
+            try {
+                EditProduct editProduct = new EditProduct(null, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
-        EnableProduct_B.setOnAction(actionEvent -> {
-
+        EnableProduct_B.setOnMouseClicked(mouseEvent -> {
+            clickCount++;
+            if (clickCount % 2 == 1) {
+                isButtonEnabled = true;
+                EnableProduct_B.setStyle("-fx-background-color: black");
+                EnableProduct_B.setFont(new Font(25));
+                EnableProduct_B.setText("HABILITAR");
+                //deshabilitar
+            } else {
+                isButtonEnabled = false;
+                EnableProduct_B.setStyle("-fx-background-color: #ff8500");
+                EnableProduct_B.setFont(new Font(21));
+                EnableProduct_B.setText("DESHABILITAR");
+                //habilitar
+            }
         });
 
         DeleteProduct_B.setOnAction(actionEvent -> {
-
+            stage.getScene().getRoot().setEffect(blurEffect);
+            try {
+                DeleteProduct deleteProduct = new DeleteProduct(null, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         EntryProduct_B.setOnAction(actionEvent -> {

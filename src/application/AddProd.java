@@ -6,8 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -45,26 +47,28 @@ public class AddProd extends PromptWindow implements Initializable{
 	@FXML
 	TextField ProductQuantityField;
 	
-	@FXML
-	TextField SerialNumberField;
+	//@FXML
+	//TextField SerialNumberField;
 
 	@FXML
 	TextArea ProductDescriptionArea;
 	
-	@FXML
+	/*@FXML
 	TableView<Product> Table;
 	
 	@FXML
 	TableColumn<Product, String> ProductColumn;
 	
 	@FXML
-	TableColumn<Product, Integer> SerialNumberColumn;
+	TableColumn<Product, Integer> SerialNumberColumn;*/
 	
 	ObservableList<Product> products = FXCollections.observableArrayList();
 	
 	public AddProd(ObservableList<Product> products, SesionAdmin ses, InventoryManagement origin) throws IOException {
 		super(ses, "AddProd.fxml", origin);
 		stage.setTitle("AÑADIR PRODUCTO");
+		stage.setWidth(603);
+		stage.setHeight(649);
 		this.products = products;
 		this.load();
 	}
@@ -132,10 +136,10 @@ public class AddProd extends PromptWindow implements Initializable{
 			}
 		});
 
-		Table.setEditable(false);
+		//Table.setEditable(false);
 		
 		ProductPriceField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-		SerialNumberField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		//SerialNumberField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		ProductQuantityField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		
 		Back_B.setOnAction(e -> back());
@@ -170,7 +174,7 @@ public class AddProd extends PromptWindow implements Initializable{
 			e1.printStackTrace();
 		}});
 		
-		SerialNumberField.textProperty().addListener(e -> {try {
+		/*SerialNumberField.textProperty().addListener(e -> {try {
 			refresh();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -183,7 +187,7 @@ public class AddProd extends PromptWindow implements Initializable{
 		            ProductPriceField.setText(newValue.replaceAll("[^\\d]", ""));
 		        }
 			}
-		});
+		});*/
 		
 		ProductQuantityField.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -205,15 +209,18 @@ public class AddProd extends PromptWindow implements Initializable{
 			}
 		});
 		
-		ProductColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+		/*ProductColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
 		SerialNumberColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-		Table.setItems(products);
+		Table.setItems(products);*/
 		
-		Create_B.setOnAction(e -> {try {
-			add();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}});
+		Create_B.setOnAction(e -> {
+			try {
+				add();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			back();
+		});
 	}
 	
 	private void refresh() throws SQLException {
@@ -236,7 +243,7 @@ public class AddProd extends PromptWindow implements Initializable{
 		String price = ProductPriceField.getText();
 
 		if(v(name) && v(description) && v(code) && v(quantity) && v(color) && v(brand) && v(category) && v(price)) {
-			Product aux = new Product(Integer.parseInt(code),Integer.parseInt(quantity), name, description, color, brand, category, Float.parseFloat(price));
+			Product aux = new Product(Integer.parseInt(code), Integer.parseInt(quantity), name, description, color, brand, category, Float.parseFloat(price));
 			ses2.addProduct(aux);
 		}
 		
