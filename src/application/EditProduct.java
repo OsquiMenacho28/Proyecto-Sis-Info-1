@@ -52,7 +52,7 @@ public class EditProduct extends PromptWindow implements Initializable {
         super(ses1, "EditProduct.fxml", origin);
         stage.setTitle("EDITAR PRODUCTO");
         stage.setWidth(672);
-        stage.setHeight(606);
+        stage.setHeight(570);
         this.load();
     }
 

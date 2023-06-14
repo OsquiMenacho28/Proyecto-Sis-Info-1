@@ -52,7 +52,7 @@ public class EntryProduct extends PromptWindow implements Initializable {
         Back_B.setOnAction(actionEvent -> back());
 
         Entry_B.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
+            stage.hide();
             try {
                 EntryConfirmed entryConfirmed = new EntryConfirmed(null, this);
             } catch (IOException e) {
@@ -61,7 +61,7 @@ public class EntryProduct extends PromptWindow implements Initializable {
         });
 
         Remove_B.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
+            stage.hide();
             try {
                 RemoveConfirmed removeConfirmed = new RemoveConfirmed(null, this);
             } catch (IOException e) {

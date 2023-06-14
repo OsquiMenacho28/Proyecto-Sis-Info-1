@@ -19,6 +19,8 @@ public class PaymentConfirmed extends PromptWindow implements Initializable {
     public PaymentConfirmed(SesionAtCl ses2, PromptWindow origin) throws IOException {
         super(ses2, "PaymentConfirmed.fxml", origin);
         stage.setTitle("PAGO CONFIRMADO");
+        stage.setWidth(834);
+        stage.setHeight(468);
         this.load();
     }
 
