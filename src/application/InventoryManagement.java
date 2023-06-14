@@ -59,6 +59,12 @@ public class InventoryManagement extends PromptWindow implements Initializable {
     @FXML
     private Button EntryProduct_B;
 
+    @FXML
+    private Button CancelProduct_B;
+
+    @FXML
+    private Button Metrics_B;
+
     public ObservableList<Product> products = FXCollections.observableArrayList();
 
     int clickCount = 0;
@@ -192,6 +198,15 @@ public class InventoryManagement extends PromptWindow implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+
+        /*Metrics_B.setOnAction(actionEvent -> {
+            stage.getScene().getRoot().setEffect(blurEffect);
+            try {
+                Metrics metrics = new Metrics(null, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });*/
 
         Back_B.setOnAction(e -> {
             try {
