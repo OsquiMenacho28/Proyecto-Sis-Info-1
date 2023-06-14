@@ -15,6 +15,8 @@ public abstract class LogIn extends PromptWindow implements Initializable {
     @FXML
     Button Back_B;
     @FXML
+    Button FPassword_B;
+    @FXML
     TextField User_F;
     @FXML
     PasswordField Password_F;
