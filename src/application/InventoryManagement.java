@@ -185,7 +185,12 @@ public class InventoryManagement extends PromptWindow implements Initializable {
         });
 
         EntryProduct_B.setOnAction(actionEvent -> {
-
+            stage.getScene().getRoot().setEffect(blurEffect);
+            try {
+                EntryProduct entryProduct = new EntryProduct(null, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         Back_B.setOnAction(e -> {

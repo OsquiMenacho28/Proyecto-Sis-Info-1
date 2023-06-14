@@ -8,10 +8,10 @@
 <?import javafx.scene.text.*?>
 <fx:root fx:id="gridPane" alignment="center" hgap="10.0" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" stylesheets="@../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
         <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="ALWAYS" />
