@@ -4,10 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,6 +50,8 @@ public class EditProduct extends PromptWindow implements Initializable {
     TextArea ProductDescriptionArea;
 
     ObservableList<Product> products = FXCollections.observableArrayList();
+
+    private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
 
     public EditProduct(SesionAdmin ses1, PromptWindow origin) throws IOException {
         super(ses1, "EditProduct.fxml", origin);
@@ -121,6 +126,13 @@ public class EditProduct extends PromptWindow implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("EDITAR PRODUCTO");
+            alert.setHeaderText("¡EXITO!");
+            alert.setContentText("El producto " + ProductNameField.getText() + " se actualizó correctamente");
+            alert.initStyle(StageStyle.DECORATED);
+            stage.getScene().getRoot().setEffect(blurEffect);
+            alert.showAndWait();
             back();
         });
     }

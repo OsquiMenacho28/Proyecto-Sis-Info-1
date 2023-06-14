@@ -6,11 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
+import javafx.stage.StageStyle;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
@@ -63,6 +62,8 @@ public class AddProd extends PromptWindow implements Initializable{
 	TableColumn<Product, Integer> SerialNumberColumn;*/
 	
 	ObservableList<Product> products = FXCollections.observableArrayList();
+
+	private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
 	
 	public AddProd(ObservableList<Product> products, SesionAdmin ses, InventoryManagement origin) throws IOException {
 		super(ses, "AddProd.fxml", origin);
@@ -219,6 +220,13 @@ public class AddProd extends PromptWindow implements Initializable{
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("AÑADIR PRODUCTO");
+			alert.setHeaderText("¡EXITO!");
+			alert.setContentText("El producto " + ProductNameField.getText() + " se registró correctamente");
+			alert.initStyle(StageStyle.DECORATED);
+			stage.getScene().getRoot().setEffect(blurEffect);
+			alert.showAndWait();
 			back();
 		});
 	}
