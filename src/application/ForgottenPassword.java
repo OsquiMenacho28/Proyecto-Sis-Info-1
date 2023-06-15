@@ -19,16 +19,18 @@ public class ForgottenPassword extends PromptWindow implements Initializable {
     private Button Back_B;
 
     @FXML
-    private TextField User_F;
+    TextField User_F;
 
     public ForgottenPassword(SesionAdmin ses1, PromptWindow origin) throws IOException {
         super(ses1, "ForgottenPassword.fxml", origin);
-        stage.setTitle("OLVIDÓ SU CONTRASEÑA? - FERRETERÍA DIMACO");
+        stage.setTitle("¿OLVIDASTE TU CONTRASEÑA?");
         this.load();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        stage.setOnCloseRequest(windowEvent -> back());
+
         Next_B.setOnAction((e) -> {
             openChangePassword();
         });
@@ -45,7 +47,6 @@ public class ForgottenPassword extends PromptWindow implements Initializable {
 
     public void openChangePassword() {
         dispose();
-        origin.dispose();
         try {
             ChangePassword changePassword = new ChangePassword(null, this);
         } catch (IOException e) {

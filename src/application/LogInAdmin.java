@@ -16,6 +16,7 @@ public class LogInAdmin extends LogIn {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FPassword_B.setOnAction(actionEvent -> {
+            dispose();
             try {
                 ForgottenPassword forgottenPassword = new ForgottenPassword((SesionAdmin) null, this);
             } catch (IOException e) {
