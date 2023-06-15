@@ -53,7 +53,7 @@ public class PaymentRequest extends PromptWindow implements Initializable {
     int NIT;
     
 	public PaymentRequest(ObservableList<AddedProduct> cart, SesionAtCl ses, POSOpen origin) throws IOException {
-		super(ses, "PaymentRequest.fxml", origin);
+		super(ses, "PaymentRequest.fxml", origin, "Confirmar Pago");
 		this.cart = cart;
         stage.setTitle("CONFIRMAR PAGO");
         load();

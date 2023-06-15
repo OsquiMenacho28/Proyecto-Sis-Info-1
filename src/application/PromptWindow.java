@@ -12,48 +12,14 @@ public class PromptWindow extends GridPane {
 
 	Scene scene;
 
-	SesionAdmin ses1;
-	SesionAtCl ses2;
+	Sesion ses;
 	String FXMLname;
 	PromptWindow origin;
 	FXMLLoader loader;
 
-	public PromptWindow(SesionAdmin ses1, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
-		this.stage = stage;
-		stage.setResizable(true);
-		this.ses1 = ses1;
-		this.FXMLname = FXMLname;
-		this.origin = origin;
 
-		this.loader = new FXMLLoader(this.getClass().getResource(FXMLname));
-		loader.setRoot(this);
-		loader.setController(this);
-
-		scene = new Scene(this);
-		this.stage.setScene(scene);
-		//stage.sizeToScene();
-		stage.show();
-	}
-	
-	public PromptWindow(SesionAtCl ses2, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
-		this.stage = stage;
-		stage.setResizable(true);
-		this.ses2 = ses2;
-		this.FXMLname = FXMLname;
-		this.origin = origin;
-		
-		this.loader = new FXMLLoader(this.getClass().getResource(FXMLname));
-		loader.setRoot(this);
-		loader.setController(this);
-		
-		scene = new Scene(this);
-		this.stage.setScene(scene);
-		//stage.sizeToScene();
-		stage.show();
-	}
-
-	public PromptWindow(SesionAdmin ses1, String FXMLname, PromptWindow origin) throws IOException {
-		this.ses1 = ses1;
+	public PromptWindow(Sesion ses, String FXMLname, PromptWindow origin) throws IOException {
+		this.ses = ses;
 		this.FXMLname = FXMLname;
 		this.origin = origin;
 
@@ -63,29 +29,39 @@ public class PromptWindow extends GridPane {
 
 
 		createWindow();
-		stage.show();
+		show();
 	}
-	
-	public PromptWindow(SesionAtCl ses2, String FXMLname, PromptWindow origin) throws IOException {
-		this.ses2 = ses2;
-		this.FXMLname = FXMLname;
-		this.origin = origin;
-		
-		this.loader = new FXMLLoader(this.getClass().getResource(FXMLname));
-		loader.setRoot(this);
-		loader.setController(this);
-		
-		
-		createWindow();
-		stage.show();
+	public PromptWindow(Sesion ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
+		this(ses, FXMLname, origin);
+		this.stage = stage;
+		stage.setResizable(true);
+		scene.setRoot(this);
+		show();
 	}
-	
-	
+
+
+	public PromptWindow(Sesion ses, Stage stage, String FXMLname, PromptWindow origin, String title) throws IOException {
+		this(ses, stage, FXMLname, origin);
+		stage.setTitle(title);
+		show();
+	}
+
+	public PromptWindow(Sesion ses, String FXMLname, PromptWindow origin, String title) throws IOException {
+		this(ses, FXMLname, origin);
+		stage.setTitle(title);
+		show();
+	}
+
+
 	public void load() throws IOException {
 		loader.load();
 		stage.centerOnScreen();
 	}
-	
+
+	public void restart() throws IOException{
+		loader.load();
+	}
+
 	public void createWindow(){
 		this.stage = new Stage();
 		this.scene = new Scene(this);
@@ -98,7 +74,6 @@ public class PromptWindow extends GridPane {
 		stage.close();
 	}
 	public void show() {
-
 		scene.getRoot().requestLayout();
 		stage.show();
 	}
