@@ -15,13 +15,11 @@ public abstract class LogIn extends PromptWindow implements Initializable {
     @FXML
     Button Back_B;
     @FXML
-    Button FPassword_B;
-    @FXML
     TextField User_F;
     @FXML
     PasswordField Password_F;
 
-    final User userManager = new User(null, null, null);
+    protected final User userManager = new User(null, null, null);
     public LogIn(SesionAtCl ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
         super(ses, FXMLname, origin);
         this.load();

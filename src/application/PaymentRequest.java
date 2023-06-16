@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -57,37 +56,18 @@ public class PaymentRequest extends PromptWindow implements Initializable {
     int NIT;
     
 	public PaymentRequest(ObservableList<AddedProduct> cart, SesionAtCl ses, POSOpen origin) throws IOException {
-		super(ses, "PaymentRequest.fxml", origin);
+		super(ses, "PaymentRequest.fxml", origin, "Confirmar Pago");
 		this.cart = cart;
         stage.setTitle("CONFIRMAR PAGO");
         load();
+        stage.centerOnScreen();
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
-        stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
 		
 		Back_B.setOnAction(e -> back());
-		Confirm_B.setOnAction(e -> {
-            dispose();
-            try {
-                PaymentConfirmed paymentConfirmed = new PaymentConfirmed(null, this.origin);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
-        Name_F.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.DOWN) {
-                NIT_F.requestFocus();
-            }
-        });
-        NIT_F.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.UP) {
-                Name_F.requestFocus();
-            }
-        });
+		Confirm_B.setOnAction(e -> dispose());
 
 		CartList_T.setEditable(false);
 		
