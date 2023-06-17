@@ -1,10 +1,10 @@
 package application;
 
 import java.util.ArrayList;
-import DataBase.DBManager;
-import DataBase.RowMirror;
-import DataBase.TableMirror;
-import DataBase.Value;
+import DataBaseManager.DBManager;
+import DataBaseManager.RowMirror;
+import DataBaseManager.TableMirror;
+import DataBaseManager.Value;
 
 public class Main2{
 	private static String DB_URL = "jdbc:mysql://localhost:2808/ferreteria_dimaco_database";

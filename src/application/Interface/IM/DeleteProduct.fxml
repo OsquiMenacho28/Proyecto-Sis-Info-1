@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.*?>
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="603.0" style="-fx-background-color: white;" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="271.9999542236328" minWidth="-Infinity" prefWidth="256.66668701171875" />
+        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="335.99997965494794" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="71.9999860127767" minHeight="-Infinity" prefHeight="45.99998982747396" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="127.33334350585938" minHeight="-Infinity" prefHeight="97.66665140787762" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #01516e;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
+        <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+                <children>
+                    <Label layoutX="20.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="ELIMINAR PRODUCTO" textFill="WHITE">
+                        <font>
+                            <Font name="Metropolis-Regular" size="18.0" />
+                        </font>
+                    </Label>
+                    <Line endX="470.66668701171875" endY="3.814697265625E-6" layoutX="132.0" layoutY="50.0" startX="-132.00001525878906" stroke="WHITE" />
+                </children>
+            </AnchorPane>
+        </children>
+    </VBox>
+    <Button fx:id="Back_B" layoutX="205.0" layoutY="294.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #757575; -fx-border-radius: 10px;" text="ATRÁS" textFill="WHITE" GridPane.rowIndex="5">
+        <font>
+            <Font name="Nirmala UI Bold" size="13.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </GridPane.margin>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Button fx:id="Delete_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #ff8500; -fx-border-radius: 10px;" text="ELIMINAR" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+        <font>
+            <Font name="Nirmala UI Bold" size="13.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </GridPane.margin>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Código:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+        <font>
+            <Font name="Metropolis-Regular" size="17.0" />
+        </font>
+    </Label>
+    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Nombre:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+        <font>
+            <Font name="Metropolis-Regular" size="17.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+    </Label>
+    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Descripción:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+        <font>
+            <Font name="Metropolis-Regular" size="17.0" />
+        </font>
+    </Label>
+    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Precio unitario:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+        <font>
+            <Font name="Metropolis-Regular" size="17.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin>
+    </Label>
+    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" GridPane.rowSpan="3">
+        <image>
+            <Image url="@../../../img/ImageIcon.png" />
+        </image>
+      <GridPane.margin>
+         <Insets left="30.0" />
+      </GridPane.margin>
+    </ImageView>
+   <Label fx:id="ProductCodeLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Código" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <font>
+         <Font name="Metropolis-Regular" size="17.0" />
+      </font>
+   </Label>
+   <Label fx:id="ProductDescriptionLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Descripción" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <font>
+         <Font name="Metropolis-Regular" size="17.0" />
+      </font>
+   </Label>
+   <Label fx:id="ProductNameLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Nombre" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <font>
+         <Font name="Metropolis-Regular" size="17.0" />
+      </font>
+   </Label>
+   <Label fx:id="ProductPriceLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Precio" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <font>
+         <Font name="Metropolis-Regular" size="17.0" />
+      </font>
+   </Label>
+</fx:root>

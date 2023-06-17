@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
+      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" spacing="20.0" style="-fx-background-color: #d6d6d6;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <Button fx:id="Notification_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: white;">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/notification-bell-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <MenuButton fx:id="Mode_CB" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: black;" text="Modo" textFill="WHITE">
+               <font>
+                  <Font name="Lato Regular" size="15.0" />
+               </font>
+               <items>
+                  <MenuItem fx:id="LightMode_Opt" mnemonicParsing="false" text="Modo Claro" />
+                  <MenuItem fx:id="DarkMode_Opt" mnemonicParsing="false" text="Modo Oscuro" />
+               </items>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <Button fx:id="Close_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: #ff8500;" text="Cerrar Sesión" textFill="WHITE">
+               <font>
+                  <Font name="Lato Regular" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" style="-fx-background-color: #d6d6d6;" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+         <children>
+            <Button fx:id="Back_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/LastButtonBlack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Cajero 1" HBox.hgrow="NEVER">
+               <font>
+                  <Font name="Metropolis-Regular" size="32.0" />
+               </font>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </Label>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      <VBox fx:id="RightPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="RightPane" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+         <children>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="SearchCode_F" maxHeight="-Infinity" maxWidth="500.0" prefHeight="30.0" promptText="Ingrese el código del producto" styleClass="SearchBar" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <TextField fx:id="SearchProduct_F" maxHeight="-Infinity" maxWidth="500.0" prefHeight="30.0" promptText="Ingrese el nombre del producto" styleClass="SearchBar" GridPane.columnSpan="3">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </GridPane.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="70.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                     <children>
+                        <ComboBox fx:id="BrandFilter_C" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" promptText="Marca">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <ComboBox fx:id="CategoryFilter_C" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="170.0" promptText="Categoría">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ComboBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <MenuButton fx:id="Menu_B" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+                    <items>
+                      <MenuItem fx:id="Sales_Opt" mnemonicParsing="false" text="Ventas" />
+                      <MenuItem fx:id="Inventory_Opt" mnemonicParsing="false" text="Inventario" />
+                        <MenuItem fx:id="Closure_Opt" mnemonicParsing="false" text="Clausura de Caja" />
+                    </items>
+                     <graphic>
+                        <ImageView fx:id="RightMenuButton" fitHeight="35.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../img/NextButtonWhite.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <GridPane.margin>
+                        <Insets right="20.0" />
+                     </GridPane.margin>
+                  </MenuButton>
+               </children>
+            </GridPane>
+            <ScrollPane fx:id="ListScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="-Infinity" prefHeight="452.0" prefWidth="647.0" styleClass="ListScroll" stylesheets="@../../../styleFiles/POSOpen.css" VBox.vgrow="ALWAYS">
+               <content>
+                  <FlowPane fx:id="ProductList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="-Infinity" style="-fx-background-color: transparent;" styleClass="ProductList" stylesheets="@../../../styleFiles/POSOpen.css" />
+               </content>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+      <AnchorPane fx:id="LeftPane" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="LeftPane" GridPane.rowIndex="1">
+         <children>
+            <TableView fx:id="CartList_T" editable="true" layoutY="-6.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="OrderList">
+               <columns>
+                  <TableColumn fx:id="ItemColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="97.0" text="Item" />
+                  <TableColumn fx:id="PriceColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="123.0" text="Precio Unitario" />
+                  <TableColumn fx:id="CantColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="84.0" text="# " />
+                  <TableColumn fx:id="PartialPriceColumn" maxWidth="1.7976931348623157E308" prefWidth="141.0" text="Precio Parcial" />
+               </columns>
+            </TableView>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Line endX="348.29290771484375" startX="-100.0" />
+                  <AnchorPane maxWidth="1.7976931348623157E308">
+                     <children>
+                        <Label fx:id="Total_L" text="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font name="Metropolis-Regular" size="22.0" />
+                           </font>
+                        </Label>
+                        <Label text="TOTAL:">
+                           <font>
+                              <Font name="Metropolis-Regular" size="22.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <Line endX="348.29290771484375" layoutX="111.0" layoutY="11.0" startX="-100.0" />
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="50.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Button fx:id="Pay_B" mnemonicParsing="false" style="-fx-background-color: #ff8500;" text="PAGAR" textFill="WHITE">
+                           <font>
+                              <Font name="Metropolis-Regular" size="25.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="Clear_B" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: #4a4747;" text="LIMPIAR" textFill="WHITE">
+                           <font>
+                              <Font name="Metropolis-Regular" size="25.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>
