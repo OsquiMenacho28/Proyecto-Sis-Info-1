@@ -1,6 +1,7 @@
 package DataBaseManager;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Value {
 	DataType type;
@@ -23,6 +24,14 @@ public class Value {
 	
 	public static String_Value create(String val) {
 		return new String_Value(val);
+	}
+
+	public static Value create(DataType dataType) {
+		if(dataType == DataType.INTEGER_TYPE) return new Int_Value(0);
+		if(dataType == DataType.FLOAT_TYPE) return new Float_Value(0f);
+		if(dataType == DataType.STRING_TYPE) return new String_Value("");
+		if(dataType == DataType.DATE_TYPE) return new Date_Value(Date.valueOf(LocalDateTime.now().toLocalDate()));
+		return null;
 	}
 	
 	public DataType get_type() {

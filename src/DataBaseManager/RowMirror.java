@@ -57,7 +57,11 @@ public class RowMirror {
 	public String get_pk_val() {
 		return record.get(relvar.get_pk()).to_string();
 	}
-	
+
+	public HashMap<String, Value> getRecord() {
+		return record;
+	}
+
 	public void edit(String col, String val1) throws SQLException {
 		String_Value val = Value.create(val1);
 		if (col == get_pk_val()) {
