@@ -47,209 +47,209 @@ public class Invoice {
         document.getDocumentElement().setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
         document.getDocumentElement().setAttribute("xsi:noNamespaceSchemaLocation" ,"FacturaElectronicaFerreteriaDIMACO.xsd");
 
-        Element cabecera = document.createElement("cabecera");
+        Element headBoard = document.createElement("cabecera");
 
-        Element nitEmisor = document.createElement("nitEmisor");
-        Text nitEmisorText = document.createTextNode(String.valueOf(HardwareStore.getNIT()));
-        nitEmisor.appendChild(nitEmisorText);
-        cabecera.appendChild(nitEmisor);
+        Element issuerNIT = document.createElement("nitEmisor");
+        Text issuerNITText = document.createTextNode(String.valueOf(HardwareStore.getNIT()));
+        issuerNIT.appendChild(issuerNITText);
+        headBoard.appendChild(issuerNIT);
 
-        Element razonSocialEmisor = document.createElement("razonSocialEmisor");
-        Text razonSocialEmisorText = document.createTextNode(HardwareStore.getName());
-        razonSocialEmisor.appendChild(razonSocialEmisorText);
-        cabecera.appendChild(razonSocialEmisor);
+        Element issuerSocialReason = document.createElement("razonSocialEmisor");
+        Text issuerSocialReasonText = document.createTextNode(HardwareStore.getName());
+        issuerSocialReason.appendChild(issuerSocialReasonText);
+        headBoard.appendChild(issuerSocialReason);
 
-        Element municipio = document.createElement("municipio");
-        Text municipioText = document.createTextNode(HardwareStore.getMunicipality());
-        municipio.appendChild(municipioText);
-        cabecera.appendChild(municipio);
+        Element municipality = document.createElement("municipio");
+        Text municipalityText = document.createTextNode(HardwareStore.getMunicipality());
+        municipality.appendChild(municipalityText);
+        headBoard.appendChild(municipality);
 
-        Element telefono = document.createElement("telefono");
-        Text telefonoText = document.createTextNode(String.valueOf(HardwareStore.getTelephone()));
-        telefono.appendChild(telefonoText);
-        cabecera.appendChild(telefono);
+        Element telephone = document.createElement("telefono");
+        Text telephoneText = document.createTextNode(String.valueOf(HardwareStore.getTelephone()));
+        telephone.appendChild(telephoneText);
+        headBoard.appendChild(telephone);
 
-        Element numeroFactura = document.createElement("numeroFactura");
-        Text numeroFacturaText = document.createTextNode(String.valueOf(incrementInvoiceNumber()));
-        numeroFactura.appendChild(numeroFacturaText);
-        cabecera.appendChild(numeroFactura);
+        Element invoiceNumb = document.createElement("numeroFactura");
+        Text invoiceNumbText = document.createTextNode(String.valueOf(incrementInvoiceNumber()));
+        invoiceNumb.appendChild(invoiceNumbText);
+        headBoard.appendChild(invoiceNumb);
 
         Element cuf = document.createElement("cuf");
         Text cufText = document.createTextNode(generateCUF());
         cuf.appendChild(cufText);
-        cabecera.appendChild(cuf);
+        headBoard.appendChild(cuf);
 
         Element cufd = document.createElement("cufd");
         Text cufdText = document.createTextNode(generateCUFD());
         cufd.appendChild(cufdText);
-        cabecera.appendChild(cufd);
+        headBoard.appendChild(cufd);
 
-        Element codigoSucursal = document.createElement("codigoSucursal");
-        Text codigoSucursalText = document.createTextNode(String.valueOf(HardwareStore.getCodeBranch()));
-        codigoSucursal.appendChild(codigoSucursalText);
-        cabecera.appendChild(codigoSucursal);
+        Element branchCode = document.createElement("codigoSucursal");
+        Text branchCodeText = document.createTextNode(String.valueOf(HardwareStore.getBranchCode()));
+        branchCode.appendChild(branchCodeText);
+        headBoard.appendChild(branchCode);
 
-        Element direccion = document.createElement("direccion");
-        Text direccionText = document.createTextNode(HardwareStore.getAddress());
-        direccion.appendChild(direccionText);
-        cabecera.appendChild(razonSocialEmisor);
+        Element address = document.createElement("direccion");
+        Text addressText = document.createTextNode(HardwareStore.getAddress());
+        address.appendChild(addressText);
+        headBoard.appendChild(address);
 
-        Element codigoPuntoVenta = document.createElement("codigoPuntoVenta");
-        codigoPuntoVenta.setAttribute("xsi:nil", "true");
-        cabecera.appendChild(codigoPuntoVenta);
+        Element salePointCode = document.createElement("codigoPuntoVenta");
+        salePointCode.setAttribute("xsi:nil", "true");
+        headBoard.appendChild(salePointCode);
 
-        Element fechaEmision = document.createElement("fechaEmision");
-        Text fechaEmisionText = document.createTextNode(String.valueOf(issueDate));
-        fechaEmision.appendChild(fechaEmisionText);
-        cabecera.appendChild(fechaEmision);
+        Element InvIssueDate = document.createElement("fechaEmision");
+        Text InvIssueDateText = document.createTextNode(String.valueOf(issueDate));
+        InvIssueDate.appendChild(InvIssueDateText);
+        headBoard.appendChild(InvIssueDate);
 
-        Element nombreRazonSocial = document.createElement("nombreRazonSocial");
-        Text nombreRazonSocialText = document.createTextNode(client.getName());
-        nombreRazonSocial.appendChild(nombreRazonSocialText);
-        cabecera.appendChild(nombreRazonSocial);
+        Element socialReasonName = document.createElement("nombreRazonSocial");
+        Text socialReasonNameText = document.createTextNode(client.getName());
+        socialReasonName.appendChild(socialReasonNameText);
+        headBoard.appendChild(socialReasonName);
 
-        Element codigoTipoDocumentoIdentidad = document.createElement("codigoTipoDocumentoIdentidad");
-        Text codigoTipoDocumentoIdentidadText = document.createTextNode(String.valueOf(client.getDocumentTypeCode()));
-        codigoTipoDocumentoIdentidad.appendChild(codigoTipoDocumentoIdentidadText);
-        cabecera.appendChild(codigoTipoDocumentoIdentidad);
+        Element identityDocumentTypeCode = document.createElement("codigoTipoDocumentoIdentidad");
+        Text identityDocumentTypeCodeText = document.createTextNode(String.valueOf(client.getDocumentTypeCode()));
+        identityDocumentTypeCode.appendChild(identityDocumentTypeCodeText);
+        headBoard.appendChild(identityDocumentTypeCode);
 
-        Element numeroDocumento = document.createElement("numeroDocumento");
-        Text numeroDocumentoText = document.createTextNode(String.valueOf(client.getNIT()));
-        numeroDocumento.appendChild(numeroDocumentoText);
-        cabecera.appendChild(numeroDocumento);
+        Element documentNumber = document.createElement("numeroDocumento");
+        Text documentNumberText = document.createTextNode(String.valueOf(client.getNIT()));
+        documentNumber.appendChild(documentNumberText);
+        headBoard.appendChild(documentNumber);
 
-        Element complemento = document.createElement("complemento");
-        complemento.setAttribute("xsi:nil", "true");
-        cabecera.appendChild(complemento);
+        Element complement = document.createElement("complemento");
+        complement.setAttribute("xsi:nil", "true");
+        headBoard.appendChild(complement);
 
-        Element codigoCliente = document.createElement("codigoCliente");
-        Text codigoClienteText = document.createTextNode(String.valueOf(1));
-        codigoCliente.appendChild(codigoClienteText);
-        cabecera.appendChild(codigoCliente);
+        Element clientCode = document.createElement("codigoCliente");
+        Text clientCodeText = document.createTextNode(String.valueOf(1));
+        clientCode.appendChild(clientCodeText);
+        headBoard.appendChild(clientCode);
 
-        Element codigoMetodoPago = document.createElement("codigoMetodoPago");
-        Text codigoMetodoPagoText = document.createTextNode(String.valueOf(1));
-        codigoMetodoPago.appendChild(codigoMetodoPagoText);
-        cabecera.appendChild(codigoMetodoPago);
+        Element paymentMethodCode = document.createElement("codigoMetodoPago");
+        Text paymentMethodCodeText = document.createTextNode(String.valueOf(1));
+        paymentMethodCode.appendChild(paymentMethodCodeText);
+        headBoard.appendChild(paymentMethodCode);
 
-        Element numeroTarjeta = document.createElement("numeroTarjeta");
-        numeroTarjeta.setAttribute("xsi:nil", "true");
-        cabecera.appendChild(numeroTarjeta);
+        Element cardNumber = document.createElement("numeroTarjeta");
+        cardNumber.setAttribute("xsi:nil", "true");
+        headBoard.appendChild(cardNumber);
 
-        Element montoTotal = document.createElement("montoTotal");
-        Text montoTotalText = document.createTextNode("");
-        montoTotal.appendChild(montoTotalText);
-        cabecera.appendChild(montoTotal);
+        Element totalAmount = document.createElement("montoTotal");
+        Text totalAmountText = document.createTextNode("");
+        totalAmount.appendChild(totalAmountText);
+        headBoard.appendChild(totalAmount);
 
-        Element montoTotalSujetoIva = document.createElement("montoTotalSujetoIva");
-        Text montoTotalSujetoIvaText = document.createTextNode("");
-        montoTotalSujetoIva.appendChild(montoTotalSujetoIvaText);
-        cabecera.appendChild(montoTotalSujetoIva);
+        Element ivaSubjectTotalAmount = document.createElement("montoTotalSujetoIva");
+        Text ivaSubjectTotalAmountText = document.createTextNode("");
+        ivaSubjectTotalAmount.appendChild(ivaSubjectTotalAmountText);
+        headBoard.appendChild(ivaSubjectTotalAmount);
 
-        Element codigoMoneda = document.createElement("codigoMoneda");
-        Text codigoMonedaText = document.createTextNode(String.valueOf(1));
-        codigoMoneda.appendChild(codigoMonedaText);
-        cabecera.appendChild(codigoMoneda);
+        Element coinCode = document.createElement("codigoMoneda");
+        Text coinCodeText = document.createTextNode(String.valueOf(1));
+        coinCode.appendChild(coinCodeText);
+        headBoard.appendChild(coinCode);
 
-        Element tipoCambio = document.createElement("tipoCambio");
-        Text tipoCambioText = document.createTextNode(String.valueOf(1));
-        tipoCambio.appendChild(tipoCambioText);
-        cabecera.appendChild(tipoCambio);
+        Element exchangeRate = document.createElement("tipoCambio");
+        Text exchangeRateText = document.createTextNode(String.valueOf(1));
+        exchangeRate.appendChild(exchangeRateText);
+        headBoard.appendChild(exchangeRate);
 
-        Element montoTotalMoneda = document.createElement("montoTotalMoneda");
-        Text montoTotalMonedaText = document.createTextNode("");
-        montoTotalMoneda.appendChild(montoTotalMonedaText);
-        cabecera.appendChild(montoTotalMoneda);
+        Element coinTotalAmount = document.createElement("montoTotalMoneda");
+        Text coinTotalAmountText = document.createTextNode("");
+        coinTotalAmount.appendChild(coinTotalAmountText);
+        headBoard.appendChild(coinTotalAmount);
 
-        Element montoGiftCard = document.createElement("montoGiftCard");
-        montoGiftCard.setAttribute("xsi:nil", "true");
-        cabecera.appendChild(montoGiftCard);
+        Element giftCardAmount = document.createElement("montoGiftCard");
+        giftCardAmount.setAttribute("xsi:nil", "true");
+        headBoard.appendChild(giftCardAmount);
 
-        Element descuentoAdicional = document.createElement("descuentoAdicional");
-        descuentoAdicional.setAttribute("xsi:nil", "true");
-        cabecera.appendChild(descuentoAdicional);
+        Element additionalDiscount = document.createElement("descuentoAdicional");
+        additionalDiscount.setAttribute("xsi:nil", "true");
+        headBoard.appendChild(additionalDiscount);
 
-        Element codigoExcepcion = document.createElement("codigoExcepcion");
-        codigoExcepcion.setAttribute("xsi:nil", "true");
-        cabecera.appendChild(codigoExcepcion);
+        Element exceptionCode = document.createElement("codigoExcepcion");
+        exceptionCode.setAttribute("xsi:nil", "true");
+        headBoard.appendChild(exceptionCode);
 
         Element cafc = document.createElement("cafc");
         cafc.setAttribute("xsi:nil", "true");
-        cabecera.appendChild(cafc);
+        headBoard.appendChild(cafc);
 
-        Element leyenda = document.createElement("leyenda");
-        Text leyendaText = document.createTextNode("Ley N° 453: Tienes derecho a recibir informacion sobre las caracteristicas y contenidos de los servicios que utilices. \"Este documento es la representacion grafica de un Documento Fiscal Digital emitido en una Modalidad de Facturación Electronica\"");
-        leyenda.appendChild(leyendaText);
-        cabecera.appendChild(leyenda);
+        Element caption = document.createElement("leyenda");
+        Text captionText = document.createTextNode("Ley N° 453: Tienes derecho a recibir informacion sobre las caracteristicas y contenidos de los servicios que utilices. \"Este documento es la representacion grafica de un Documento Fiscal Digital emitido en una Modalidad de Facturación Electronica\"");
+        caption.appendChild(captionText);
+        headBoard.appendChild(caption);
 
-        Element usuario = document.createElement("usuario");
-        Text usuarioText = document.createTextNode("");
-        usuario.appendChild(usuarioText);
-        cabecera.appendChild(usuario);
+        Element user = document.createElement("usuario");
+        Text userText = document.createTextNode("");
+        user.appendChild(userText);
+        headBoard.appendChild(user);
 
-        Element codigoDocumentoSector = document.createElement("razonSocialEmisor");
-        Text codigoDocumentoSectorText = document.createTextNode(String.valueOf(1));
-        codigoDocumentoSector.appendChild(codigoDocumentoSectorText);
-        cabecera.appendChild(codigoDocumentoSector);
+        Element sectorDocumentCode = document.createElement("codigoDocumentoSector");
+        Text sectorDocumentCodeText = document.createTextNode(String.valueOf(1));
+        sectorDocumentCode.appendChild(sectorDocumentCodeText);
+        headBoard.appendChild(sectorDocumentCode);
 
-        document.getDocumentElement().appendChild(cabecera);
+        document.getDocumentElement().appendChild(headBoard);
 
         for (AddedProduct product : sale.getCart()) {
-            Element detalle = document.createElement("detalle");
+            Element detail = document.createElement("detalle");
 
-            Element actividadEconomica = document.createElement("actividadEconomica");
-            Text actividadEconomicaText = document.createTextNode("");
-            actividadEconomica.appendChild(actividadEconomicaText);
-            detalle.appendChild(actividadEconomica);
+            Element economicActivity = document.createElement("actividadEconomica");
+            Text economicActivityText = document.createTextNode("");
+            economicActivity.appendChild(economicActivityText);
+            detail.appendChild(economicActivity);
 
-            Element codigoProductoSin = document.createElement("codigoProductoSin");
-            Text codigoProductoSinText = document.createTextNode("");
-            codigoProductoSin.appendChild(codigoProductoSinText);
-            detalle.appendChild(codigoProductoSin);
+            Element SINProductCode = document.createElement("codigoProductoSin");
+            Text SINProductCodeText = document.createTextNode("");
+            SINProductCode.appendChild(SINProductCodeText);
+            detail.appendChild(SINProductCode);
 
-            Element codigoProducto = document.createElement("codigoProducto");
-            Text codigoProductoText = document.createTextNode(String.valueOf(product.getCode()));
-            codigoProducto.appendChild(codigoProductoText);
-            detalle.appendChild(codigoProducto);
+            Element productCode = document.createElement("codigoProducto");
+            Text productCodeText = document.createTextNode(String.valueOf(product.getCode()));
+            productCode.appendChild(productCodeText);
+            detail.appendChild(productCode);
 
-            Element descripcion = document.createElement("descripcion");
-            Text descripcionText = document.createTextNode(product.getDescription());
-            descripcion.appendChild(descripcionText);
-            detalle.appendChild(descripcion);
+            Element description = document.createElement("descripcion");
+            Text descriptionText = document.createTextNode(product.getDescription());
+            description.appendChild(descriptionText);
+            detail.appendChild(description);
 
-            Element cantidad = document.createElement("cantidad");
-            Text cantidadText = document.createTextNode(String.valueOf(product.getCant()));
-            cantidad.appendChild(cantidadText);
-            detalle.appendChild(cantidad);
+            Element quantity = document.createElement("cantidad");
+            Text quantityText = document.createTextNode(String.valueOf(product.getCant()));
+            quantity.appendChild(quantityText);
+            detail.appendChild(quantity);
 
-            Element unidadMedida = document.createElement("unidadMedida");
-            Text unidadMedidaText = document.createTextNode(""); // Poner unidad de medida en producto
-            unidadMedida.appendChild(unidadMedidaText);
-            detalle.appendChild(unidadMedida);
+            Element measurementUnit = document.createElement("unidadMedida");
+            Text measurementUnitText = document.createTextNode(""); // Poner unidad de medida en producto
+            measurementUnit.appendChild(measurementUnitText);
+            detail.appendChild(measurementUnit);
 
-            Element precioUnitario = document.createElement("precioUnitario");
-            Text precioUnitarioText = document.createTextNode(String.valueOf(product.getPrice()));
-            precioUnitario.appendChild(precioUnitarioText);
-            detalle.appendChild(precioUnitario);
+            Element unitPrice = document.createElement("precioUnitario");
+            Text unitPriceText = document.createTextNode(String.valueOf(product.getPrice()));
+            unitPrice.appendChild(unitPriceText);
+            detail.appendChild(unitPrice);
 
-            Element montoDescuento = document.createElement("montoDescuento");
-            montoDescuento.setAttribute("xsi:nil", "true");
-            detalle.appendChild(montoDescuento);
+            Element discountAmount = document.createElement("montoDescuento");
+            discountAmount.setAttribute("xsi:nil", "true");
+            detail.appendChild(discountAmount);
 
             Element subTotal = document.createElement("subTotal");
             Text subTotalText = document.createTextNode("");
             subTotal.appendChild(subTotalText);
-            detalle.appendChild(subTotal);
+            detail.appendChild(subTotal);
 
-            Element numeroSerie = document.createElement("numeroSerie");
-            numeroSerie.setAttribute("xsi:nil", "true");
-            detalle.appendChild(numeroSerie);
+            Element serialNumber = document.createElement("numeroSerie");
+            serialNumber.setAttribute("xsi:nil", "true");
+            detail.appendChild(serialNumber);
 
-            Element numeroImei = document.createElement("numeroImei");
-            numeroImei.setAttribute("xsi:nil", "true");
-            detalle.appendChild(numeroImei);
+            Element imeiNumber = document.createElement("numeroImei");
+            imeiNumber.setAttribute("xsi:nil", "true");
+            detail.appendChild(imeiNumber);
 
-            document.getDocumentElement().appendChild(detalle);
+            document.getDocumentElement().appendChild(detail);
         }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
