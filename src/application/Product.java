@@ -14,6 +14,7 @@ public class Product {
 	public String category;
 
 	protected float price;
+	private static int measurementUnitCode = 58;
 	
 	
 	public Product(int code, int quantity, String name, String description, String color, String brand, String category, float price){
@@ -26,7 +27,15 @@ public class Product {
 		this.category = category;
 		this.price =  price;
 	}
-	
+
+	public static int getMeasurementUnitCode() {
+		return measurementUnitCode;
+	}
+
+	public static void setMeasurementUnitCode(int measurementUnitCode) {
+		Product.measurementUnitCode = measurementUnitCode;
+	}
+
 	/**
 	 * @return the color
 	 */

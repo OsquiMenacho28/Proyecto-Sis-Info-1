@@ -7,6 +7,8 @@ public class HardwareStore {
     private static final int Telephone = 70129668;
     private static final int branchCode = 0;
     private static final String Address = "CALLE PICADA CHACO NRO. 876 FINAL CEMENTERIO GENERAL, ZONA BAJO TEJAR";
+    private static final int economicActivityCode = 461090;
+    private static final int SINProductCode = 61265;
 
     public static int getNIT() {
         return NIT;
@@ -30,5 +32,13 @@ public class HardwareStore {
 
     public static String getAddress() {
         return Address;
+    }
+
+    public static int getEconomicActivityCode() {
+        return economicActivityCode;
+    }
+
+    public static int getSINProductCode() {
+        return SINProductCode;
     }
 }

@@ -1,9 +1,6 @@
 package ElectronicInvoice;
 
-import application.AddedProduct;
-import application.Client;
-import application.Sale;
-import application.User;
+import application.*;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -126,7 +123,7 @@ public class Invoice {
         headBoard.appendChild(complement);
 
         Element clientCode = document.createElement("codigoCliente");
-        Text clientCodeText = document.createTextNode(String.valueOf(1111));
+        Text clientCodeText = document.createTextNode(String.valueOf(1111)); // String.valueOf(Código del cliente registrado en la base de datos);
         clientCode.appendChild(clientCodeText);
         headBoard.appendChild(clientCode);
 
@@ -185,8 +182,9 @@ public class Invoice {
         caption.appendChild(captionText);
         headBoard.appendChild(caption);
 
+        String userName = userData.getNames() + " " + userData.getLastNames();
         Element user = document.createElement("usuario");
-        Text userText = document.createTextNode(userData.getNames());
+        Text userText = document.createTextNode(userName);
         user.appendChild(userText);
         headBoard.appendChild(user);
 
@@ -201,12 +199,12 @@ public class Invoice {
             Element detail = document.createElement("detalle");
 
             Element economicActivity = document.createElement("actividadEconomica");
-            Text economicActivityText = document.createTextNode("");
+            Text economicActivityText = document.createTextNode(String.valueOf(HardwareStore.getEconomicActivityCode()));
             economicActivity.appendChild(economicActivityText);
             detail.appendChild(economicActivity);
 
             Element SINProductCode = document.createElement("codigoProductoSin");
-            Text SINProductCodeText = document.createTextNode("");
+            Text SINProductCodeText = document.createTextNode(String.valueOf(HardwareStore.getSINProductCode()));
             SINProductCode.appendChild(SINProductCodeText);
             detail.appendChild(SINProductCode);
 
@@ -226,7 +224,7 @@ public class Invoice {
             detail.appendChild(quantity);
 
             Element measurementUnit = document.createElement("unidadMedida");
-            Text measurementUnitText = document.createTextNode(""); // Poner unidad de medida en producto
+            Text measurementUnitText = document.createTextNode(String.valueOf(Product.getMeasurementUnitCode()));
             measurementUnit.appendChild(measurementUnitText);
             detail.appendChild(measurementUnit);
 
@@ -239,8 +237,9 @@ public class Invoice {
             discountAmount.setAttribute("xsi:nil", "true");
             detail.appendChild(discountAmount);
 
+            float subTotalCalculation = (product.getCant() * product.getPrice()) - 0;
             Element subTotal = document.createElement("subTotal");
-            Text subTotalText = document.createTextNode("");
+            Text subTotalText = document.createTextNode(String.valueOf(subTotalCalculation));
             subTotal.appendChild(subTotalText);
             detail.appendChild(subTotal);
 
