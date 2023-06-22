@@ -3,6 +3,7 @@ package ElectronicInvoice;
 import application.AddedProduct;
 import application.Client;
 import application.Sale;
+import application.User;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,6 +26,8 @@ public class Invoice {
     private static LocalDateTime issueDate = LocalDateTime.now();
     private Client client;
     private Sale sale;
+    private User userData;
+    private static final int invoiceTypeCode = 1;
 
     private static final String numbersLettersCUF = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String numbersLettersCUFD = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+=abcdefghijklmnopqrstuvwxyz";
@@ -123,12 +126,12 @@ public class Invoice {
         headBoard.appendChild(complement);
 
         Element clientCode = document.createElement("codigoCliente");
-        Text clientCodeText = document.createTextNode(String.valueOf(1));
+        Text clientCodeText = document.createTextNode(String.valueOf(1111));
         clientCode.appendChild(clientCodeText);
         headBoard.appendChild(clientCode);
 
         Element paymentMethodCode = document.createElement("codigoMetodoPago");
-        Text paymentMethodCodeText = document.createTextNode(String.valueOf(1));
+        Text paymentMethodCodeText = document.createTextNode(String.valueOf(Sale.getPaymentMethodCode()));
         paymentMethodCode.appendChild(paymentMethodCodeText);
         headBoard.appendChild(paymentMethodCode);
 
@@ -137,27 +140,27 @@ public class Invoice {
         headBoard.appendChild(cardNumber);
 
         Element totalAmount = document.createElement("montoTotal");
-        Text totalAmountText = document.createTextNode("");
+        Text totalAmountText = document.createTextNode(String.valueOf(sale.getMonto()));
         totalAmount.appendChild(totalAmountText);
         headBoard.appendChild(totalAmount);
 
         Element ivaSubjectTotalAmount = document.createElement("montoTotalSujetoIva");
-        Text ivaSubjectTotalAmountText = document.createTextNode("");
+        Text ivaSubjectTotalAmountText = document.createTextNode(String.valueOf(sale.getMonto()));
         ivaSubjectTotalAmount.appendChild(ivaSubjectTotalAmountText);
         headBoard.appendChild(ivaSubjectTotalAmount);
 
         Element coinCode = document.createElement("codigoMoneda");
-        Text coinCodeText = document.createTextNode(String.valueOf(1));
+        Text coinCodeText = document.createTextNode(String.valueOf(Sale.getCoinCode()));
         coinCode.appendChild(coinCodeText);
         headBoard.appendChild(coinCode);
 
         Element exchangeRate = document.createElement("tipoCambio");
-        Text exchangeRateText = document.createTextNode(String.valueOf(1));
+        Text exchangeRateText = document.createTextNode(String.valueOf(Sale.getExchangeRate()));
         exchangeRate.appendChild(exchangeRateText);
         headBoard.appendChild(exchangeRate);
 
         Element coinTotalAmount = document.createElement("montoTotalMoneda");
-        Text coinTotalAmountText = document.createTextNode("");
+        Text coinTotalAmountText = document.createTextNode(String.valueOf(sale.getMonto()));
         coinTotalAmount.appendChild(coinTotalAmountText);
         headBoard.appendChild(coinTotalAmount);
 
@@ -178,17 +181,17 @@ public class Invoice {
         headBoard.appendChild(cafc);
 
         Element caption = document.createElement("leyenda");
-        Text captionText = document.createTextNode("Ley N° 453: Tienes derecho a recibir informacion sobre las caracteristicas y contenidos de los servicios que utilices. \"Este documento es la representacion grafica de un Documento Fiscal Digital emitido en una Modalidad de Facturación Electronica\"");
+        Text captionText = document.createTextNode("\"ESTA FACTURA CONTRIBUYE AL DESARROLLO DEL PAIS, EL USO ILICITO SERA SANCIONADO PENALMENTE DE ACUERDO A LEY\" Ley N° 453: Tienes derecho a recibir informacion sobre las caracteristicas y contenidos de los servicios que utilices. \"Este documento es la Representacion Grafica de un Documento Fiscal Digital emitido en una Modalidad de Facturación Electronica\"");
         caption.appendChild(captionText);
         headBoard.appendChild(caption);
 
         Element user = document.createElement("usuario");
-        Text userText = document.createTextNode("");
+        Text userText = document.createTextNode(userData.getNames());
         user.appendChild(userText);
         headBoard.appendChild(user);
 
         Element sectorDocumentCode = document.createElement("codigoDocumentoSector");
-        Text sectorDocumentCodeText = document.createTextNode(String.valueOf(1));
+        Text sectorDocumentCodeText = document.createTextNode(String.valueOf(invoiceTypeCode));
         sectorDocumentCode.appendChild(sectorDocumentCodeText);
         headBoard.appendChild(sectorDocumentCode);
 
@@ -260,6 +263,10 @@ public class Invoice {
         Result result = new StreamResult(new File("FacturaElectronicaFerreteriaDIMACO.xml"));
 
         transformer.transform(source, result);
+    }
+
+    public void createPDF() {
+
     }
 
     public int incrementInvoiceNumber() {
