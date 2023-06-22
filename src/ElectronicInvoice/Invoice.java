@@ -1,6 +1,7 @@
 package ElectronicInvoice;
 
 import application.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -265,7 +266,7 @@ public class Invoice {
     }
 
     public void createPDF() {
-
+        PDDocument pdDocument = new PDDocument();
     }
 
     public int incrementInvoiceNumber() {
