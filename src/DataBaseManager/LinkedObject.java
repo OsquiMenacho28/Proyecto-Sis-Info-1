@@ -3,136 +3,106 @@ package DataBaseManager;
 import InventoryModel.Inventory;
 
 import java.lang.reflect.Field;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class LinkedObject {
-    protected RelVar relvar;
-    protected RowMirror record;
+public abstract class LinkedObject extends RowMirror{
+
     protected Boolean linked;
     private HashMap<Value, String> bindDefinition;
-    private HashMap<String, Value> linkedAtributes;
-    private HashMap<String, Boolean> bindState;
+    private HashMap<String, Value> bindState;
     public LinkedObject(RowMirror record) throws Exception {
-        this.relvar = record.get_relvar();
-        setRecord(record);
-        this.linkedAtributes = record.getRecord();
-        clearBindings();
+        super(record.get_relvar(), record.getValues());
+        if(record.isActive()){
+            this.activate();
+        }
         this.linked = false;
-        link();
+        clearBindings();
     }
 
     public LinkedObject(RelVar relvar, ArrayList<Value> values) throws Exception {
-        if(values.size() == relvar.get_size()){
-            this.relvar =  relvar;
-            for(int i = 0; i < values.size(); i++){
-                if(relvar.get_type(i) == values.get(i).get_type()) {
-                    linkedAtributes.put(relvar.get_columns().get(i), values.get(i));
-                }
-                else throw new Exception("Not compatible");
-            }
-            setRecord(new RowMirror(relvar, new ArrayList<Value>(linkedAtributes.values())));
-            clearBindings();
-            this.linked = false;
-        }
-        else throw new Exception("Not compatible");
+        super(relvar, values);
+        this.linked = false;
+        clearBindings();
     }
 
-    public LinkedObject(RelVar relVar, Value... values) throws Exception {
-        if(values.length == relVar.get_size()){
-            this.relvar =  relvar;
+    public LinkedObject(RelVar relvar, Value... values) throws Exception {
+       super(relvar, values);
+       this.linked = false;
+       clearBindings();
+    }
+
+
+    protected void bind(String relvar_column, Value atribute){
+        atribute = get_value(relvar_column);
+        if(bindDefinition.containsKey(atribute)){
+            String last_column = bindDefinition.get(atribute);
+            bindState.put(last_column, null);
+        }
+        if(!bindState.get(relvar_column).equals(null)){
+            Value last_value = bindState.get(relvar_column);
+            bindDefinition.remove(last_value);
+        }
+        bindDefinition.put(atribute, relvar_column);
+        bindState.put(relvar_column, atribute);
+    }
+
+    protected void bind(ArrayList<String> columns, Value... values) throws Exception {
+        if(columns.size() == values.length){
             for(int i = 0; i < values.length; i++){
-                if(relvar.get_type(i) == values[i].get_type()) {
-                    linkedAtributes.put(relvar.get_columns().get(i), values[i]);
-                }
-                else throw new Exception("Not compatible");
+                bind(columns.get(i), values[i]);
             }
-            setRecord(new RowMirror(relVar, new ArrayList<Value>(linkedAtributes.values())));
-            clearBindings();
-            this.linked = false;
-        }
-        else throw new Exception("Not compatible");
-    }
-
-    public Value getValue(String atribute){
-        if(relvar.get_columns().contains(atribute)){
-            return this.record.get_value(atribute);
         }
         else{
-
+            throw new Exception("Not the same number of columns and atributes");
         }
-    }
-
-    public void setValue(String atribute, Value newValue){
-        this.record.edit(atribute, newValue.);
-    }
-
-    protected void bind(Value atribute, String relvar_column){
-        bindDefinition.put(atribute, relvar_column);
-        bindState.put(relvar_column, true);
     }
 
     private void clearBindings(){
-        for(String atribute : linkedAtributes.keySet()){
-            bindState.put(atribute, false);
+        for(String atribute : record.keySet()){
+            bindState.put(atribute, null);
         }
     }
 
     private boolean checkBindings(){
         Boolean s = true;
-        for(Boolean f: bindState.values()){
-            s = s&&f;
+        for(Value f: bindState.values()){
+            if(f.equals(null)){
+                s =false;
+                break;
+            }
         }
         return s;
     }
 
-    protected void setRecord(RowMirror record) throws Exception {
-        if(!record.equals(null)){
-            if(record.get_relvar().is_compatible(relvar)){
-                this.record = record;
-                this.linked = false;
+    public void link(TableMirror table) throws Exception {
+        if(checkBindings()){
+            if(this.isActive()){
+
             }
             else{
-                throw new Exception("Not compatible");
+
             }
-        }
-        else{
-            throw new Exception("Not compatible");
+            this.linked = true;
         }
     }
 
-    protected void link() throws Exception {
-        if(!record.equals(null)){
-            if(record.isActive()){
-                this.linked = true;
-            }
+    public void set(Value atribute, Value newValue) throws SQLException {
+        if(this.bindDefinition.keySet().contains(atribute)){
+            this.edit(bindDefinition.get(atribute), newValue);
         }
-        sync();
     }
 
-    protected void unlink(){
+    public void unlink(){
         this.linked = false;
     }
-    protected void sync() throws Exception {
-        if(linked){
-            downSync();
-        }
-        else{
-            throw new Exception("Not linked");
-        }
+
+    @Override
+    public void deactivate(){
+        this.linked = false;
+        this.active = false;
     }
 
-    private void createField(String key, Value value){
-        try {
-            Field field = getClass().getDeclaredField(key);
-            field.setAccessible(true);
-            field.set(this, value);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected abstract void downSync();
-    protected abstract void upSync();
 
 }

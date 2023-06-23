@@ -35,7 +35,7 @@ public class TableMirror {
 	                }
 	                values.add(val);
 	            }
-	            RowMirror row = new RowMirror(relvar, values, this);
+	            RowMirror row = new RowMirror(this, relvar, values);
 	            rows.add(row);
 	        }
 	        rs.close();
@@ -45,12 +45,26 @@ public class TableMirror {
 	        throw e;
 	    }
 	}
-	
+
+	public RowMirror contains(RowMirror row){
+		RowMirror res = null;
+		for(RowMirror savedRow :  this.rows){
+			if(savedRow.get_pk_val().equals(row.get_pk_val())){
+				res = savedRow;
+				break;
+			}
+		}
+		return res;
+	}
+
 	public void add(RowMirror row) throws Exception {
 		RelVar rrelvar = row.get_relvar(); 
 		if(rrelvar.is_compatible(this.relvar)) {
-			rows.add(row);
-			row.activate(this);
+			RowMirror savedRow = contains(row);
+			if(!savedRow.equals(null)){
+				this.remove(savedRow);
+				savedRow.deactivate();
+			}
 			String aux = "";
 			String aux1 = "";
 			ArrayList <String> attributes = row.get_relvar().get_columns();
@@ -64,6 +78,10 @@ public class TableMirror {
 			aux1 = aux1.substring(0, aux1.length() - 2);
 			//System.out.println("insert into " + name + " (" + aux1 + ") values (" + aux + ")");
 			manager.updateQuery("insert into " + name + " (" + aux1 + ") values (" + aux + ")");
+
+			rows.add(row);
+			row.setTable(this);
+			row.activate();
 		}
 		else {
 			throw new Exception("Not compatible");

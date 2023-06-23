@@ -3,7 +3,7 @@ package DataBaseManager;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-public class Value {
+public abstract class Value {
 	DataType type;
 	
 	public Value(DataType type) {
@@ -33,12 +33,10 @@ public class Value {
 		if(dataType == DataType.DATE_TYPE) return new Date_Value(Date.valueOf(LocalDateTime.now().toLocalDate()));
 		return null;
 	}
-	
+
+	public abstract String to_string();
+
 	public DataType get_type() {
 		return type;
 	};
-	
-	public String to_string() {
-		return "";
-	}
 }
