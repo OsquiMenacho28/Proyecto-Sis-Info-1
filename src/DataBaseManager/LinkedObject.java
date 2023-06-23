@@ -10,9 +10,9 @@ public abstract class LinkedObject {
     protected RelVar relvar;
     protected RowMirror record;
     protected Boolean linked;
+    private HashMap<Value, String> bindDefinition;
     private HashMap<String, Value> linkedAtributes;
-    private HashMap<String, Boolean> bindings;
-
+    private HashMap<String, Boolean> bindState;
     public LinkedObject(RowMirror record) throws Exception {
         this.relvar = record.get_relvar();
         setRecord(record);
@@ -54,15 +54,36 @@ public abstract class LinkedObject {
         else throw new Exception("Not compatible");
     }
 
-    public void bind(Value atribute, String relvar_column){
-        atribute = record.get_value(relvar_column);
-        bindings.put(relvar_column, true);
+    public Value getValue(String atribute){
+        if(relvar.get_columns().contains(atribute)){
+            return this.record.get_value(atribute);
+        }
+        else{
+
+        }
     }
 
-    public void clearBindings(){
+    public void setValue(String atribute, Value newValue){
+        this.record.edit(atribute, newValue.);
+    }
+
+    protected void bind(Value atribute, String relvar_column){
+        bindDefinition.put(atribute, relvar_column);
+        bindState.put(relvar_column, true);
+    }
+
+    private void clearBindings(){
         for(String atribute : linkedAtributes.keySet()){
-            bindings.put(atribute, false);
+            bindState.put(atribute, false);
         }
+    }
+
+    private boolean checkBindings(){
+        Boolean s = true;
+        for(Boolean f: bindState.values()){
+            s = s&&f;
+        }
+        return s;
     }
 
     protected void setRecord(RowMirror record) throws Exception {
