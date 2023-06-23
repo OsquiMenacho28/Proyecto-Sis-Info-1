@@ -100,8 +100,8 @@ public class CashPayment extends PromptWindow implements Initializable{
 		
 		
 		if(v(NIT) && v(name)) {
-			Client aux = new Client(name, Integer.parseInt(NIT));
-			int pos = indexClient(aux.NIT);
+			Client aux = new Client(name, 1, Integer.parseInt(NIT));
+			int pos = indexClient(aux.getNIT());
 			if(pos >= 0) {
 				clients.set(pos, aux);
 			}

@@ -36,6 +36,13 @@ public class Invoice {
         this.sale = sale;
     }
 
+    public void initialize() throws ParserConfigurationException, TransformerException {
+        createXML();
+        //createPDF();
+        //fillPDF();
+        //downloadPDF();
+    }
+
     public void createXML() throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -46,7 +53,7 @@ public class Invoice {
         document.setXmlStandalone(true);
 
         document.getDocumentElement().setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        document.getDocumentElement().setAttribute("xsi:noNamespaceSchemaLocation" ,"FacturaElectronicaFerreteriaDIMACO.xsd");
+        document.getDocumentElement().setAttribute("xsi:noNamespaceSchemaLocation" , "FacturaElectronicaFerreteriaDIMACO.xsd");
 
         Element headBoard = document.createElement("cabecera");
 
@@ -238,7 +245,7 @@ public class Invoice {
             discountAmount.setAttribute("xsi:nil", "true");
             detail.appendChild(discountAmount);
 
-            float subTotalCalculation = (product.getCant() * product.getPrice()) - 0;
+            double subTotalCalculation = (product.getCant() * product.getPrice()) - 0;
             Element subTotal = document.createElement("subTotal");
             Text subTotalText = document.createTextNode(String.valueOf(subTotalCalculation));
             subTotal.appendChild(subTotalText);
@@ -259,14 +266,25 @@ public class Invoice {
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
+        String XMLFileName = "Factura" + invoiceNumber + ".xml";
         Source source = new DOMSource(document);
-        Result result = new StreamResult(new File("FacturaElectronicaFerreteriaDIMACO.xml"));
+        Result result = new StreamResult(new File(XMLFileName));
 
         transformer.transform(source, result);
+        //System.out.println("XML File Generated: " + XMLFileName);
     }
 
     public void createPDF() {
         PDDocument pdDocument = new PDDocument();
+
+    }
+
+    public void fillPDF() {
+
+    }
+
+    public void downloadPDF() {
+
     }
 
     public int incrementInvoiceNumber() {
