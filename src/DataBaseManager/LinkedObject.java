@@ -76,20 +76,36 @@ public abstract class LinkedObject extends RowMirror{
         return s;
     }
 
-    public void link(TableMirror table) throws Exception {
+    public void link() throws Exception {
         if(checkBindings()){
             if(this.isActive()){
-
+                for(Value val : bindDefinition.keySet()){
+                    val.set_value(this.get_value(bindDefinition.get(val)));
+                }
             }
             else{
-
+                if(!this.table.equals(null)) {
+                    this.table.add(this);
+                }
+                else{
+                    throw new Exception("No table to link");
+                }
             }
+            this.linked = true;
+        }
+    }
+
+    public void link(TableMirror table) throws Exception {
+        if(checkBindings()){
+            this.setTable(table);
+            this.table.add(this);
             this.linked = true;
         }
     }
 
     public void set(Value atribute, Value newValue) throws SQLException {
         if(this.bindDefinition.keySet().contains(atribute)){
+            atribute.set_value(newValue);
             this.edit(bindDefinition.get(atribute), newValue);
         }
     }
@@ -104,5 +120,6 @@ public abstract class LinkedObject extends RowMirror{
         this.active = false;
     }
 
+    protected abstract void defineBind();
 
 }

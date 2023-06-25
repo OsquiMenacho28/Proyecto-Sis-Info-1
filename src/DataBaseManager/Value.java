@@ -4,8 +4,8 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 
 public abstract class Value {
-	DataType type;
-	
+	protected DataType type;
+	protected Object value;
 	public Value(DataType type) {
 		this.type = type;
 	}
@@ -33,9 +33,9 @@ public abstract class Value {
 		if(dataType == DataType.DATE_TYPE) return new Date_Value(Date.valueOf(LocalDateTime.now().toLocalDate()));
 		return null;
 	}
-
+	public abstract Object get_value();
+	public abstract void set_value(Object value);
 	public abstract String to_string();
-
 	public DataType get_type() {
 		return type;
 	};

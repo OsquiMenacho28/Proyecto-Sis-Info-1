@@ -14,6 +14,10 @@ public class Date_Value extends Value {
 		return value;
 	}
 
+	public void set_value(Object value){
+		this.value = (Date)value;
+	};
+
 	@Override
 	public String to_string() {
 		return String.valueOf(value);

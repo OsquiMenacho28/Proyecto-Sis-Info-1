@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RowMirror {
-	private RelVar relvar;
-	private TableMirror table = null;
+	protected RelVar relvar;
+	protected TableMirror table = null;
 
 	protected boolean active = false;
 	protected HashMap<String, Value> record = new HashMap<>();
