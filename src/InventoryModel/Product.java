@@ -69,42 +69,72 @@ public class Product extends LinkedObject {
 	public String getName() {
 		return name.get_value();
 	}
-	public void setName(String name) throws SQLException {
-		set(this.name, Value.create(name));
+	public void setName(String name) throws Exception {
+		if(!name.equals("")){
+			set(this.name, Value.create(name));
+		}
+		else{
+			throw new Exception("Not valid product name");
+		}
 	}
 
 	public String getDescription() {
 		return description.get_value();
 	}
-	public void setDescription(String description) throws SQLException {
-		set(this.description, Value.create(description));
+	public void setDescription(String description) throws Exception {
+		if(!description.equals("")){
+			set(this.description, Value.create(description));
+		}
+		else{
+			throw new Exception("Not valid description");
+		}
 	}
 
 	public String getColor() {
-		return color.get_value();
+			return color.get_value();
 	}
-	public void setColor(String color) throws SQLException {
-		set(this.color, Value.create(color));
+	public void setColor(String color) throws Exception {
+		if(!color.equals("")){
+			set(this.color, Value.create(color));
+		}
+		else{
+			throw new Exception("Not valid color");
+		}
 	}
 
 	public String getBrand() {
 		return brand.get_value();
 	}
-	public void setBrand(String brand) throws SQLException {
-		set(this.brand, Value.create(brand));
+	public void setBrand(String brand) throws Exception {
+		if(!brand.equals("")){
+			set(this.brand, Value.create(brand));
+		}
+		else{
+			throw new Exception("Not valid brand");
+		}
 	}
 
 	public String getCategory() {
 		return category.get_value();
 	}
-	public void setCategory(String category) throws SQLException {
-		set(this.category, Value.create(category));
+	public void setCategory(String category) throws Exception {
+		if(!category.equals("")){
+			set(this.category, Value.create(category));
+		}
+		else{
+			throw new Exception("Not valid category");
+		}
 	}
 
 	public float getPrice() {
 		return price.get_value();
 	}
-	public void setPrice(int price) throws SQLException {
-		set(this.price, Value.create(price));
+	public void setPrice(Float price) throws Exception {
+		if(price > 0){
+			set(this.price, Value.create(price));
+		}
+		else{
+			throw new Exception("Not a valid price");
+		}
 	}
 }
