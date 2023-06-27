@@ -1,5 +1,7 @@
 package InventoryModel;
 import DataBaseManager.*;
+import SalesModel.AddedProduct;
+import SalesModel.Cart;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,8 +19,9 @@ public class Product extends LinkedObject {
 	protected String_Value category;
 	protected Float_Value price;
 	
-	
-	public Product(int code, int quantity, String name, String description, String color, String brand, String category, float price) throws Exception {
+	private ArrayList<AddedProduct> pendingProducts;
+	private Inventory inventory;
+	public Product(Inventory inventory, int code, int quantity, String name, String description, String color, String brand, String category, float price) throws Exception {
 		super(Inventory.productRV,
 									Value.create(code),
 									Value.create(name),
@@ -27,12 +30,16 @@ public class Product extends LinkedObject {
 									Value.create(brand),
 									Value.create(category),
 									Value.create(price));
+		this.pendingProducts = new ArrayList<AddedProduct>();
+		this.inventory = inventory;
 		defineBind();
 		link();
 	}
 
-	public Product(RowMirror record) throws Exception {
+	public Product(Inventory inventory, RowMirror record) throws Exception {
 		super(record);
+		this.pendingProducts = new ArrayList<AddedProduct>();
+		this.inventory = inventory;
 		defineBind();
 		link();
 	}
@@ -46,6 +53,80 @@ public class Product extends LinkedObject {
 		bind("marca", brand);
 		bind("categoria", category);
 		bind("precio", price);
+	}
+
+	public AddedProduct addToCart(int cant, Cart cart) throws Exception {
+		if(!cart.equals(null)) {
+			AddedProduct addedProduct = new AddedProduct(this, cant, cart);
+			decrement(cant);
+			this.pendingProducts.add(addedProduct);
+			return addedProduct;
+		}
+		else{
+			throw new Exception("Null cart");
+		}
+	}
+
+	public void backToInventory(AddedProduct product) throws Exception {
+		if(pendingProducts.contains(product)) {
+			pendingProducts.remove(product);
+			increment(product.getCant());
+		}
+		else{
+			throw new Exception("Not valid AddedProduct");
+		}
+	}
+
+	public void addUnits(Inventory inventory, int cant){
+
+	}
+
+	public void retireUnits(Inventory inventory, int cant){
+
+	}
+	public void moveUnits(AddedProduct product, int cant) throws Exception {
+		if(pendingProducts.contains(product)){
+			if(cant >= 0){
+				if(getQuantity()-cant >= 0) {
+					product.incrementQuantity(cant);
+					decrement(cant);
+				}
+				else{
+					throw new Exception("Not enough Stock");
+				}
+			}
+			else{
+				product.reduceQuantity(-cant);
+				increment(cant);
+			}
+		}
+		else{
+			throw new Exception("Not valid AddedProduct");
+		}
+	}
+
+	private void increment(int cant) throws Exception {
+		if(cant > 0){
+			setQuantity(getQuantity() + cant);
+		}
+		else{
+			throw new Exception("Not valid quantity for retirement");
+		}
+	}
+
+	private void decrement(int cant) throws Exception {
+		if(cant >= 0 ){
+			if(getQuantity()-cant >= 0){
+				setQuantity(getQuantity() - cant);
+			}
+			else{
+				throw new Exception("Not enough Stock");
+			}
+
+		}
+		else{
+			throw new Exception("Not valid quantity for retirement");
+		}
 	}
 	public Integer getCode() {
 		return code.get_value();

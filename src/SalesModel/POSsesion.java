@@ -1,28 +1,43 @@
 package SalesModel;
 
+import DataBaseManager.DataType;
+import DataBaseManager.RelVar;
 import application.Interface.POS.POSOpen;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class POSsesion {
+
+    public static final RelVar saleRV;
+
+    static {
+        try {
+            saleRV = new RelVar(
+                    new ArrayList<String>(Arrays.asList("", "")),
+                    new ArrayList<DataType>(Arrays.asList(DataType.INTEGER_TYPE, DataType.STRING_TYPE)));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private Float OpeningCount;
 
     private Float ClosingCount;
     private LocalDateTime beginning;
     private LocalDateTime ending;
-    private Float sum;
+    private Cart cart;
     private ArrayList<Sale> sales;
-    private application.Interface.POS.POSOpen POSOpen;
+    private POSOpen POSOpen;
 
     public POSsesion(Float OpeningCount, LocalDateTime beginning, LocalDateTime ending, POSOpen POSOpen){
         this.OpeningCount = OpeningCount;
         this.beginning = beginning;
         this.ending = ending;
-        this.sum = 0f;
+        this.cart = new Cart(this);
         this.sales = new ArrayList<Sale>();
         this.POSOpen = POSOpen;
     }
@@ -40,10 +55,15 @@ public class POSsesion {
     }
 
 
-    public void addSale(Client c, ObservableList<AddedProduct> cart) throws IOException {
-        Sale aux = new Sale(c.getName(), c.getNIT(), cart);
-        sum += aux.getMonto();
-        sales.add(aux);
-        POSOpen.clearCart();
+    public void addSale(Client c) throws Exception {
+        if(cart.isNotEmpty()){
+            Sale sale = new Sale(c, cart);
+            sales.add(sale);
+            clearCart();
+        }
+    }
+
+    public void clearCart() throws Exception {
+        cart.clear();
     }
 }

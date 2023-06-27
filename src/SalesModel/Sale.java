@@ -1,83 +1,32 @@
 package SalesModel;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import DataBaseManager.LinkedObject;
+import DataBaseManager.Value;
+import InventoryModel.Inventory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Sale {
-	private String name;
-	private int NIT;
+public class Sale extends LinkedObject {
+	private Client client;
+	private Cart cart;
+	private LocalDateTime time;
 
-	private Date date;
-	private ObservableList<AddedProduct> cart = FXCollections.observableArrayList();
-
-	public Sale(String name, int nIT, ObservableList<AddedProduct> cart) {
-		this.cart = cart;
-	}
-	
-	
-	
-	/**
-	 * @return the cart
-	 */
-	public ObservableList<AddedProduct> getCart() {
-		return cart;
-	}
-
-
-
-	/**
-	 * @param cart the cart to set
-	 */
-	public void setCart(ObservableList<AddedProduct> cart) {
-		this.cart = cart;
-	}
-
-
-
-	/**
-	 * @return the monto
-	 */
-	public float getMonto() {
-		float monto = 0;
-		for(AddedProduct e : cart) {
-			monto += e.getTprice(); 
+	public Sale(Client client, Cart cart) throws Exception {
+		super(POSsesion.saleRV,
+				Value.create(1)); ////Modificar
+		if(client.equals(null) || cart.equals(null) || !cart.isNotEmpty()){
+			throw new Exception("Invalid inicialization");
 		}
-		return monto;
+		this.client = client;
+		this.cart = cart;
+		this.time = LocalDateTime.now();
 	}
-	/**
-	 * @return the date
-	 */
 
-	public Date getDate(){
-		return this.date;
+	@Override
+	protected void defineBind() {
+			//Hacer el bind
 	}
-	public String getName() {
-		return name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @return the nIT
-	 */
-	public int getNIT() {
-		return NIT;
-	}
-	/**
-	 * @param nIT the nIT to set
-	 */
-	public void setNIT(int nIT) {
-		NIT = nIT;
-	}
-	
-	public String getsNIT() {
-		return String.valueOf(NIT);
-	}
-	
-	
 }

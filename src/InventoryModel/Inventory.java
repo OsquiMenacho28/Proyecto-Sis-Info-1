@@ -12,7 +12,8 @@ public class Inventory {
 
     static {
         try {
-            productRV = new RelVar(new ArrayList<String>(Arrays.asList("code","quantity", "name", "description", "color", "brand", "category", "price")),
+            productRV = new RelVar(
+                    new ArrayList<String>(Arrays.asList("code","quantity", "name", "description", "color", "brand", "category", "price")),
                     new ArrayList<DataType>(Arrays.asList(DataType.INTEGER_TYPE, DataType.INTEGER_TYPE, DataType.STRING_TYPE, DataType.STRING_TYPE,
                                                           DataType.STRING_TYPE, DataType.STRING_TYPE, DataType.STRING_TYPE, DataType.FLOAT_TYPE)));
         } catch (Exception e) {

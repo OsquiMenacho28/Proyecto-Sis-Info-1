@@ -17,18 +17,24 @@ public abstract class LinkedObject extends RowMirror{
         if(record.isActive()){
             this.activate();
         }
+        this.bindDefinition = new HashMap<Value, String>();
+        this.bindState = new HashMap<String, Value>();
         this.linked = false;
         clearBindings();
     }
 
     public LinkedObject(RelVar relvar, ArrayList<Value> values) throws Exception {
         super(relvar, values);
+        this.bindDefinition = new HashMap<Value, String>();
+        this.bindState = new HashMap<String, Value>();
         this.linked = false;
         clearBindings();
     }
 
     public LinkedObject(RelVar relvar, Value... values) throws Exception {
        super(relvar, values);
+        this.bindDefinition = new HashMap<Value, String>();
+        this.bindState = new HashMap<String, Value>();
        this.linked = false;
        clearBindings();
     }

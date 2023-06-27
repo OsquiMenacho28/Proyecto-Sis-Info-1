@@ -1,49 +1,70 @@
 package SalesModel;
 
 import InventoryModel.Product;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
 
-public class AddedProduct extends Product {
+
+public class AddedProduct{
 
 	private Product product;
-	private SimpleIntegerProperty cant;
-	public AddedProduct(int code, int quantity, String description, String name, float price, String brand, int cant, String color, String category) {
-		super(code, quantity, name, description, color, brand, category, price);
-		this.cant = new SimpleIntegerProperty(this,"CantListener", 1);
-	}
+	private int cant;
+
+	private Cart cart;
 	
-	public AddedProduct(Product p, int  cant ) {
-		super(p.getCode(), p.getQuantity(), p.getName(), p.getDescription(), p.getColor(), p.getBrand(), p.getCategory(), p.getPrice());
-		this.cant = new SimpleIntegerProperty(this,"CantListener", 1);
+	public AddedProduct(Product product, int  cant, Cart cart) throws Exception {
+		if(!product.equals(null) && !cart.equals(null)) {
+			this.product = product;
+			this.cant = cant;
+			this.cart = cart;
+		}
+		else{
+			throw new Exception("Not valid inicialization");
+		}
 	}
 
-	public void incrementQuantity() {
-		cant.set(cant.intValue() + 1);;
+	public void incrementQuantity() throws Exception {
+		this.product.moveUnits(this, 1);
+	}
+	public void incrementQuantity(int cant) throws Exception {
+		this.product.moveUnits(this, cant);
 	}
 	
-	public void reduceQuantity() {
-		cant.set(cant.intValue() - 1);;
+	public void reduceQuantity() throws Exception {
+		if(cant > 1){
+			this.product.moveUnits(this, -1);
+		}
+		else{
+			this.product.backToInventory(this);
+		}
+	}
+
+	public void reduceQuantity(int cant) throws Exception {
+		if(this.cant >  cant){
+			this.product.moveUnits(this, -cant);
+		}
+		else{
+			this.product.backToInventory(this);
+		}
 	}
 	
-	public void addCantListener(ChangeListener <Number> list) {
-		cant.addListener(list);
-	}
-	
-	public float getTotalPrice() {
-		return cant.longValue() * price;
+	public float getPrice() {
+		return cant * product.getPrice();
 	}
 
 	public int getCant() {
-		return cant.intValue();
+		return cant;
 	}
 
-	public void setCant(int  cant) {
-		this.cant.set(cant);
+	public void setCant(int  cant) throws Exception {
+		if(this.cant > cant){
+			reduceQuantity(this.cant - cant);
+		}
+		else{
+			incrementQuantity(cant-this.cant);
+		}
 	}
 
-	public void setCantProperty(SimpleIntegerProperty cant) {
-		this.cant = cant;
+	public void backToInventory() throws Exception {
+		this.product.backToInventory(this);
 	}
 
 }
