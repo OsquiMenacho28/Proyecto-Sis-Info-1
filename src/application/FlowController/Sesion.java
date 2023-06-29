@@ -31,7 +31,6 @@ public class Sesion {
     public void updateClients(ObservableList<Client> clients) {
         this.clients = clients;
     }
-
     public void updateSales(ObservableList<Sale> sales) {
         this.sales = sales;
     }

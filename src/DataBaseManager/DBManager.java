@@ -171,4 +171,10 @@ public class DBManager {
 		Statement s = connection.createStatement();
 		s.executeUpdate(query);
 	}
+
+	public void putTable(String name, TableMirror table){
+		if(tables.contains(table)){
+			table_data.put(name, table);
+		}
+	}
 }

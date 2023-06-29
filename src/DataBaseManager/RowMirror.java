@@ -12,7 +12,6 @@ public class RowMirror {
 	protected boolean active = false;
 	protected HashMap<String, Value> record = new HashMap<>();
 
-
 	public RowMirror(RelVar rel, ArrayList<Value> values) throws Exception {
 		this.relvar = rel;
 
@@ -147,6 +146,15 @@ public class RowMirror {
 		else{
 			throw new Exception("Invalid table");
 		}
+	}
+
+	public void add(TableMirror table) throws Exception {
+		setTable(table);
+		this.table.add(this);
+	}
+
+	public void add() throws Exception {
+		add(this.table);
 	}
 
 	public void deactivate(){

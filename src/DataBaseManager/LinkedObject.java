@@ -16,6 +16,7 @@ public abstract class LinkedObject extends RowMirror{
         super(record.get_relvar(), record.getValues());
         if(record.isActive()){
             this.activate();
+            record.add();
         }
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();

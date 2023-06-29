@@ -2,6 +2,7 @@ package InventoryModel;
 
 import DataBaseManager.DataType;
 import DataBaseManager.RelVar;
+import SalesModel.Sale;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Inventory {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
     }
 
 

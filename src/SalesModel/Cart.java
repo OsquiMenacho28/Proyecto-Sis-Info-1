@@ -1,7 +1,7 @@
 package SalesModel;
 
+import InventoryModel.Product.AddedProduct;
 import InventoryModel.Product;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;

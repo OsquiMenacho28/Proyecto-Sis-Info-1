@@ -122,4 +122,11 @@ public class TableMirror {
 		res += "-----------------------------------------------------------------------------------\n";
 		return "TableMirror [" + res + "]";
 	}
+
+	public String getName(){
+		return name;
+	}
+	public DBManager getManager(){
+		return manager;
+	}
 }
