@@ -1,6 +1,8 @@
 package DataBaseManager;
 
 import InventoryModel.Inventory;
+import javafx.beans.value.ChangeListener;
+
 
 import java.lang.reflect.Field;
 import java.sql.SQLException;
@@ -10,6 +12,7 @@ import java.util.HashMap;
 public abstract class LinkedObject extends RowMirror{
 
     protected Boolean linked;
+    private ChangeListener listener;
     private HashMap<Value, String> bindDefinition;
     private HashMap<String, Value> bindState;
     public LinkedObject(RowMirror record) throws Exception {
@@ -114,6 +117,7 @@ public abstract class LinkedObject extends RowMirror{
         if(this.bindDefinition.keySet().contains(atribute)){
             atribute.set_value(newValue);
             this.edit(bindDefinition.get(atribute), newValue);
+            this.fireChangeEvent();
         }
     }
 
@@ -128,5 +132,15 @@ public abstract class LinkedObject extends RowMirror{
     }
 
     protected abstract void defineBind();
+
+    private void fireChangeEvent(){
+        if(this.listener != null){
+            listener.changed(null,null, null);
+        }
+    }
+
+    public void addListener(ChangeListener listener){
+        this.listener = listener;
+    }
 
 }

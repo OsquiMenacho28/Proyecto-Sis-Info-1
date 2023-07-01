@@ -76,12 +76,26 @@ public class Product extends LinkedObject {
 		}
 	}
 
-	public void addUnits(Inventory inventory, int cant){
-
+	public void addUnits(Inventory inventory, int cant) throws Exception {
+		if(cant >= 0){
+			if(!inventory.contains(this).equals(null)){
+				increment(getQuantity() + cant);
+			}
+		}
+		else{
+			throw new Exception("Not valid quantity");
+		}
 	}
 
-	public void retireUnits(Inventory inventory, int cant){
-
+	public void retireUnits(Inventory inventory, int cant) throws Exception {
+		if(cant >= 0 && getQuantity() >= cant){
+			if(!inventory.contains(this).equals(null)){
+				decrement(getQuantity() - cant);
+			}
+		}
+		else{
+			throw new Exception("Not valid quantity");
+		}
 	}
 	public void moveUnits(AddedProduct product, int cant) throws Exception {
 		if(pendingProducts.contains(product)){

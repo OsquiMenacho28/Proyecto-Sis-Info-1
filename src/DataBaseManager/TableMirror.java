@@ -123,6 +123,10 @@ public class TableMirror {
 		return "TableMirror [" + res + "]";
 	}
 
+	public ArrayList<RowMirror> getRows(){
+		return rows;
+	}
+
 	public String getName(){
 		return name;
 	}

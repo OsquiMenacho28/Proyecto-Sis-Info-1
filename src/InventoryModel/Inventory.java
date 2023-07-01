@@ -1,14 +1,14 @@
 package InventoryModel;
 
-import DataBaseManager.DataType;
-import DataBaseManager.RelVar;
+import DataBaseManager.*;
 import SalesModel.Sale;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Inventory {
+public class Inventory extends LinkedCollection {
     public static final RelVar productRV;
 
     static {
@@ -23,8 +23,25 @@ public class Inventory {
 
     }
 
-
-    public Inventory() throws Exception {
-
+    private ObservableList<RowMirror> inventory;
+    public Inventory(DBManager manager, String table) throws Exception {
+        super(manager.getTable(table));
     }
+
+    public void materialIntake(Product product, int cant) throws Exception {
+        if(this.inventory.contains(product)){
+            product.addUnits(this, cant);
+        }
+    }
+
+    public void materialWithdrawal(Product product, int cant) throws Exception {
+        if(this.inventory.contains(product)){
+            product.retireUnits(this, cant);
+        }
+    }
+
+    public ObservableList<RowMirror> getInventory(){
+        return inventory;
+    }
+
 }
