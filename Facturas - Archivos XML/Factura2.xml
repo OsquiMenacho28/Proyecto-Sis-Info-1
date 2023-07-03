@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><FacturaElectronicaFerreteriaDIMACO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FacturaElectronicaFerreteriaDIMACO.xsd">
+    <cabecera>
+        <nitEmisor>1098448019</nitEmisor>
+        <razonSocialEmisor>FERRETERÍA DIMACO - DISTRIBUIDORA DE MATERIALES DE CONSTRUCCIÓN</razonSocialEmisor>
+        <municipio>LA PAZ</municipio>
+        <telefono>70129668</telefono>
+        <numeroFactura>2</numeroFactura>
+        <cuf>USZ16Q6FENLEY9CIC93KXSJGPOH7EETE6DZIEWV10257391FYFN2C68CB9KX</cuf>
+        <cufd>PTrJ0Ea72MLWlxINwIpAHxJBaEmFPaHkZ1SQ3YN5PQjWwL=pjjSX6j=FyFieNwWuD2mUNN</cufd>
+        <codigoSucursal>0</codigoSucursal>
+        <direccion>CALLE PICADA CHACO NRO. 876 FINAL CEMENTERIO GENERAL, ZONA BAJO TEJAR</direccion>
+        <codigoPuntoVenta>0</codigoPuntoVenta>
+        <fechaEmision>2023-07-03T05:41:31.225457500</fechaEmision>
+        <nombreRazonSocial>Menacho</nombreRazonSocial>
+        <codigoTipoDocumentoIdentidad>1</codigoTipoDocumentoIdentidad>
+        <numeroDocumento>6986979</numeroDocumento>
+        <complemento xsi:nil="true"/>
+        <codigoCliente>1111</codigoCliente>
+        <codigoMetodoPago>1</codigoMetodoPago>
+        <numeroTarjeta xsi:nil="true"/>
+        <montoTotal>501</montoTotal>
+        <montoTotalSujetoIva>501</montoTotalSujetoIva>
+        <codigoMoneda>1</codigoMoneda>
+        <tipoCambio>1</tipoCambio>
+        <montoTotalMoneda>501</montoTotalMoneda>
+        <montoGiftCard xsi:nil="true"/>
+        <descuentoAdicional xsi:nil="true"/>
+        <codigoExcepcion xsi:nil="true"/>
+        <cafc xsi:nil="true"/>
+        <leyenda>Ley N° 453: Tienes derecho a recibir información sobre las características y contenidos de los servicios que utilices.</leyenda>
+        <usuario>Andrés Hinojosa</usuario>
+        <codigoDocumentoSector>1</codigoDocumentoSector>
+    </cabecera>
+    <detalle>
+        <actividadEconomica>461090</actividadEconomica>
+        <codigoProductoSin>61265</codigoProductoSin>
+        <codigoProducto>60198470</codigoProducto>
+        <descripcion>DERECHOS ACADEMICOS 1-2023</descripcion>
+        <cantidad>3</cantidad>
+        <unidadMedida>58</unidadMedida>
+        <precioUnitario>83.5</precioUnitario>
+        <montoDescuento>0.0</montoDescuento>
+        <subTotal>250.5</subTotal>
+        <numeroSerie xsi:nil="true"/>
+        <numeroImei xsi:nil="true"/>
+    </detalle>
+    <detalle>
+        <actividadEconomica>461090</actividadEconomica>
+        <codigoProductoSin>61265</codigoProductoSin>
+        <codigoProducto>60198470</codigoProducto>
+        <descripcion>DERECHOS ACADEMICOS 1-2023</descripcion>
+        <cantidad>3</cantidad>
+        <unidadMedida>58</unidadMedida>
+        <precioUnitario>83.5</precioUnitario>
+        <montoDescuento>0.0</montoDescuento>
+        <subTotal>250.5</subTotal>
+        <numeroSerie xsi:nil="true"/>
+        <numeroImei xsi:nil="true"/>
+    </detalle>
+</FacturaElectronicaFerreteriaDIMACO>

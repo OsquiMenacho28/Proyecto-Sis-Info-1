@@ -11,6 +11,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.Timer;
@@ -24,8 +25,8 @@ public class GenerateInvoice extends PromptWindow {
     @FXML
     private Label generatingInvoiceLabel;
 
-    public GenerateInvoice(SesionAtCl ses, PromptWindow origin) throws Exception {
-        super(ses, "GenerateInvoice.fxml", origin);
+    public GenerateInvoice(SesionAtCl ses, Stage stage, PromptWindow origin) throws Exception {
+        super(ses, stage, "GenerateInvoice.fxml", origin);
         stage.setWidth(413);
         stage.setHeight(219);
         this.load();
