@@ -1,5 +1,6 @@
 package application;
 
+import ElectronicInvoice.GenerateInvoice;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -41,8 +42,12 @@ public class PaymentConfirmed extends PromptWindow implements Initializable {
         });
 
         Continue_B.setOnAction(actionEvent -> {
-            origin.ses2.POSOpen.cart.clear();
-            back();
+            dispose();
+            try {
+                GenerateInvoice generateInvoice = new GenerateInvoice(null, this.origin);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

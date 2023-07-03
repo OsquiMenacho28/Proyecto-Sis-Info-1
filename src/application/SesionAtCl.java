@@ -13,7 +13,7 @@ public class SesionAtCl extends Sesion {
 	
 	POSOpening POSOpening;
 	POSClosure POSClosure;
-	POSOpen POSOpen;
+	public POSOpen POSOpen;
 	AddProd AddProd;
 	CashPayment cpp;
 	SalesHist sH;

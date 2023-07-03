@@ -8,14 +8,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class PromptWindow extends GridPane {
-	Stage stage;
+	public Stage stage;
 
 	Scene scene;
 
 	SesionAdmin ses1;
-	SesionAtCl ses2;
+	public SesionAtCl ses2;
 	String FXMLname;
-	PromptWindow origin;
+	public PromptWindow origin;
 	FXMLLoader loader;
 
 	public PromptWindow(SesionAdmin ses1, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
