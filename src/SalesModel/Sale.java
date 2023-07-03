@@ -25,7 +25,6 @@ public class Sale extends LinkedObject {
 		this.time = LocalDateTime.now();
 	}
 
-	@Override
 	protected void defineBind() {
 			//Hacer el bind
 	}

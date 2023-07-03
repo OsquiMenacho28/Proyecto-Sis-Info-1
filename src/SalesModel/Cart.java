@@ -2,63 +2,51 @@ package SalesModel;
 
 import InventoryModel.Product.AddedProduct;
 import InventoryModel.Product;
+import com.sun.javafx.collections.ObservableListWrapper;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Cart {
-    private ArrayList<AddedProduct> productList;
+public class Cart extends ObservableListWrapper<AddedProduct> {
     private Float cartTotal;
     private POSsesion sesion;
     public Cart(POSsesion sesion){
-        this.productList = new ArrayList<AddedProduct>();
+        super(new ArrayList<AddedProduct>());
         this.cartTotal = 0f;
         this.sesion = sesion;
     }
 
     public Cart(POSsesion sesion, ArrayList<AddedProduct> products){
+        super(products);
         this.cartTotal = 0f;
         this.sesion = sesion;
-
-        add(products);
     }
 
     public void add(Product product, int cant) throws Exception {
-        productList.add(product.addToCart(cant, this));
-    }
-
-    public void add(AddedProduct product){
-        productList.add(product);
-    }
-
-    public void add(ArrayList<AddedProduct> products){
-        productList.addAll(products);
-    }
-
-    public void remove(AddedProduct product){
-        productList.remove(product);
-    }
-
-    public void remove(int i){
-        productList.remove(i);
+        this.add(product.addToCart(cant, this));
     }
 
     public float getTotalPrice(){
         float sum = 0f;
-        for(AddedProduct product : productList){
+        for(AddedProduct product : this){
             sum += product.getPrice();
         }
         return sum;
     }
 
-    public void clear() throws Exception {
-        for(AddedProduct product : productList){
-            product.backToInventory();
-            productList.remove(product);
+    public void clear() {
+        for(AddedProduct product : this){
+            try {
+                product.backToInventory();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            this.remove(product);
         }
     }
 
     public boolean isNotEmpty(){
-        return !productList.isEmpty();
+        return !this.isEmpty();
     }
 }

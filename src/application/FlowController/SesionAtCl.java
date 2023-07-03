@@ -1,5 +1,6 @@
 package application.FlowController;
 
+import SalesModel.Cart;
 import application.Interface.LI.SelectAccount;
 import application.Interface.POS.*;
 import application.Interface.PromptWindow;
@@ -63,6 +64,8 @@ public class SesionAtCl extends Sesion {
 	}
 
 	public void run() throws IOException{
+		this.showPOSOpen();
+		blurPOS();
 		this.showPOSOpening();
 	}
 
@@ -85,10 +88,33 @@ public class SesionAtCl extends Sesion {
 		showNotifications();
 	}
 
-	public void paymentRequest() throws IOException {
+	public void paymentRequest(Cart cart) throws IOException {
+		if (cart.isEmpty()) {
+			Alert alertDialog = new Alert(Alert.AlertType.ERROR);
+			alertDialog.setTitle("ERROR!");
+			alertDialog.setHeaderText("¡El Carrito de Compras se encuentra vacio!");
+			alertDialog.setContentText("Por favor, añada productos al Carrito de Compras");
+			alertDialog.initStyle(StageStyle.DECORATED);
+			java.awt.Toolkit.getDefaultToolkit().beep();
+			blurPOS();
+			alertDialog.showAndWait();
+			unblurPOS();
+		}
+		else {
+			blurPOS();
+			try {
+				PaymentRequest paymentRequest = new PaymentRequest(cart,null, this);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	public void paymentConfirmedRequest() throws IOException {
 		blurPOS();
 		showPaymentRequest();
 	}
+
 
 	public void salesRequest() throws IOException {
 		blurPOS();
@@ -167,7 +193,7 @@ public class SesionAtCl extends Sesion {
 		POSClosure.show();
 	}
 	private void showNotifications() throws IOException {
-		POSClosure.show();
+		Notifications.show();
 	}
 	private void showPaymentRequest() throws IOException {
 		PaymentRequest.restart();

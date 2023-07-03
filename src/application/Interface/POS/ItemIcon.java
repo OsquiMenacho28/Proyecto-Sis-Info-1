@@ -38,16 +38,16 @@ public class ItemIcon extends GridPane implements Initializable {
 	
 	MenuItem deleteBtn;
 	
-	int code;
+	Product product;
 	Boolean side = false;
 	
-	public ItemIcon(Product x) throws IOException {
+	public ItemIcon(Product product) throws IOException {
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("ItemIcon.fxml"));
 		loader.setRoot(this);
 		loader.setController(this);
-		
+		this.product = product;
 		loader.load();
-		setContent(x);
+		updateContent();
 	}
 	
 	@Override
@@ -90,14 +90,14 @@ public class ItemIcon extends GridPane implements Initializable {
 			}	
 		});	
 		
-		ItemIcon cla = this;
+		ItemIcon icon = this;
 		
 		this.addEventFilter(ContextMenuEvent.CONTEXT_MENU_REQUESTED, new EventHandler<ContextMenuEvent>() {
 			
 			@Override
 			public void handle(ContextMenuEvent event) {
 				event.getSource();
-				rmenu.show(cla, event.getScreenX(), event.getScreenY());
+				rmenu.show(icon, event.getScreenX(), event.getScreenY());
 				event.consume();
 			}
 		});
@@ -118,24 +118,15 @@ public class ItemIcon extends GridPane implements Initializable {
 	}
 	
 	
-	public void setContent(Product x) {
-		this.code = x.getCode();
-		ProductLabel.setText(x.getName());
-		PriceLabel.setText("Precio : " + x.getPrice());
-		StockLabel.setText("Cantidad : " + x.getQuantity());
-		BrandLabel.setText("Marca : " + x.getBrand());
-	}
-	
-	public void setItemCode(int code) {
-		this.code = code;
+	public void updateContent() {
+		ProductLabel.setText(product.getName());
+		PriceLabel.setText("Precio : " + product.getPrice());
+		StockLabel.setText("Cantidad : " + product.getQuantity());
+		BrandLabel.setText("Marca : " + product.getBrand());
 	}
 
-	public int getItemCode() {
-		return code;
-	}
-	
-	public String getProduct() {
-		return ProductLabel.getText();
+	public Product getProduct() {
+		return product;
 	}
 
 }

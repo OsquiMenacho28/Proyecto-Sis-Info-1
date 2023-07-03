@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class RowMirror {
 	protected RelVar relvar;
@@ -76,7 +77,7 @@ public class RowMirror {
 
 	public void edit(String col, String val1) throws SQLException {
 		String_Value val = Value.create(val1);
-		if (col == get_pk_val()) {
+		if (Objects.equals(col, get_pk_val())) {
 			return;
 		}
 		if (relvar.get_type(col) == val.get_type()) {
@@ -87,7 +88,7 @@ public class RowMirror {
 	
 	public void edit(String col, int val2) throws SQLException {
 		Int_Value val = Value.create(val2);
-		if (col == get_pk_val()) {
+		if (Objects.equals(col, get_pk_val())) {
 			return;
 		}
 		if (relvar.get_type(col) == val.get_type()) {
@@ -98,7 +99,7 @@ public class RowMirror {
 	
 	public void edit(String col, float val3) throws SQLException {
 		Float_Value val = Value.create(val3);
-		if (col == get_pk_val()) {
+		if (Objects.equals(col, get_pk_val())) {
 			return;
 		}
 		if (relvar.get_type(col) == val.get_type()) {
@@ -109,7 +110,7 @@ public class RowMirror {
 	
 	public void edit(String col, Date val4) throws SQLException {
 		Date_Value val = Value.create(val4);
-		if (col == get_pk_val()) {
+		if (Objects.equals(col, get_pk_val())) {
 			return;
 		}
 		if (relvar.get_type(col) == val.get_type()) {
@@ -119,7 +120,7 @@ public class RowMirror {
 	}
 
 	public void edit(String col, Value val) throws SQLException {
-		if (col == get_pk_val()) {
+		if (Objects.equals(col, get_pk_val())) {
 			return;
 		}
 		if (relvar.get_type(col) == val.get_type()) {
@@ -135,8 +136,8 @@ public class RowMirror {
 	}
 	
 	public void activate() throws Exception {
-		if(!this.table.equals(null)){
-			if(!this.table.contains(this).equals(null)){
+		if(this.table != null){
+			if(this.table.contains(this) != null){
 				this.active = true;
 			}
 			else{
@@ -154,10 +155,13 @@ public class RowMirror {
 	}
 
 	public void add() throws Exception {
-		add(this.table);
+		if(this.table != null){
+			add(this.table);
+		}
 	}
 
-	public void deactivate(){
+	public void deactivate() throws SQLException {
+		this.table.remove(this);
 		this.active = false;
 	}
 
@@ -182,9 +186,9 @@ public class RowMirror {
 	}
 	@Override
 	public String toString() {
-		String res = "";
+		StringBuilder res = new StringBuilder();
 		for(String atribute : relvar.get_columns()) {
-			res += record.get(atribute).to_string()+ "\t\t";
+			res.append(record.get(atribute).to_string()).append("\t\t");
 		}
 		return "Row[" + res + "]";
 	}

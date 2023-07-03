@@ -29,8 +29,7 @@ public class DBManager {
 	}
 
 	public Connection getConexionMYSQL() throws SQLException {
-		Connection conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
-		return conn;
+		return (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
 	}
 	
 	public void connect() throws SQLException {
@@ -91,7 +90,7 @@ public class DBManager {
 	    }
 	}
 
-	public RelVar retrieveRelvar(String table_name) throws Exception {
+	public void retrieveRelvar(String table_name) throws Exception {
 		//ResultSet rs = run_query("select * from information_schema.columns where table_name = '" + table_name + "'");
 		String columnName = null;
 		String columnDataType = null;
@@ -139,8 +138,8 @@ public class DBManager {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-		
-		return table_struct.get(table_name);
+
+		table_struct.get(table_name);
 	}
 
 	public void retrieveDatabase() throws Exception {
@@ -163,8 +162,7 @@ public class DBManager {
 	
 	public ResultSet runQuery(String query) throws SQLException {
 		Statement s = connection.createStatement();
-		ResultSet rs = s.executeQuery(query);
-		return rs;
+		return s.executeQuery(query);
 	}
 	
 	public void updateQuery(String query) throws SQLException {
@@ -173,7 +171,7 @@ public class DBManager {
 	}
 
 	public void putTable(String name, TableMirror table){
-		if(tables.contains(table)){
+		if(table_data.containsValue(table)){
 			table_data.put(name, table);
 		}
 	}

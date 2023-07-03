@@ -1,10 +1,13 @@
 package application.Interface.POS;
 
+import SalesModel.Cart;
+import SalesModel.POSsesion;
 import application.Interface.generic.Inventory;
 import application.Interface.generic.Notifications;
 import application.Interface.generic.Sales;
-import SalesModel.AddedProduct;
+
 import InventoryModel.Product;
+import InventoryModel.Product.AddedProduct;
 import application.Interface.PromptWindow;
 import application.FlowController.SesionAtCl;
 import application.Interface.LI.SelectAccount;
@@ -122,39 +125,25 @@ public class POSOpen extends PromptWindow implements Initializable {
 	@FXML
 	private Button Clear_B;
 
-	private ObservableList<Product> products = FXCollections.observableArrayList();
-	private ObservableList<AddedProduct> cart = FXCollections.observableArrayList();
-	private ObservableList<String> categories = FXCollections.observableArrayList();
-	private ObservableList<String> brands = FXCollections.observableArrayList();
+	private Inventory inventory;
+	private Cart cart;
+	private POSsesion POSsesion;
+	private SesionAtCl sesion;
+
 	private AddedProduct focusedItem;
 	private ObservableList<AddedProduct> selectedItems;
-
-	public POSOpen(ObservableList<Product> products,
-				   SesionAtCl ses, PromptWindow origin) throws IOException {
+	public POSOpen(SesionAtCl ses, PromptWindow origin, Inventory inventory) throws IOException {
 		super(ses, "POSOpen.fxml", origin, "PUNTO DE VENTA");
-		super.stage.setResizable(true);
-		super.stage.setMaximized(true);
-		this.products = products;
+		this.inventory = inventory;
 		this.load();
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		stage.setOnCloseRequest(windowEvent -> {
-			quitRequest();
-		});
+		stage.setOnCloseRequest(windowEvent -> exitRequest(););
 
-		Clear_B.setOnAction(actionEvent -> cart.clear());
-
-		Notification_B.setOnAction(actionEvent -> {
-			stage.getScene().getRoot().setEffect(blurEffect);
-			try {
-				Notifications notifications = new Notifications((SesionAtCl) null,this);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+		Notification_B.setOnAction(actionEvent -> notificationRequest(););
 
 		LightMode_Opt.setOnAction(actionEvent -> {
 
@@ -164,109 +153,28 @@ public class POSOpen extends PromptWindow implements Initializable {
 
 		});
 
-		Close_B.setOnAction(actionEvent -> {
-			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-			alert.setTitle("CERRAR SESIÓN");
-			alert.setHeaderText("¡AVISO!");
-			alert.setContentText("¿Está seguro de Cerrar Sesión?");
-			alert.initStyle(StageStyle.DECORATED);
-			stage.getScene().getRoot().setEffect(blurEffect);
-			Optional <ButtonType> result = alert.showAndWait();
-			if (result.get() == ButtonType.OK) {
-				dispose();
-				try {
-					new SelectAccount();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
-			}
-			else {
-				stage.getScene().getRoot().setEffect(null);
-			}
-		});
+		Close_B.setOnAction(actionEvent -> endSesionRequest(););
 
-		Sales_Opt.setOnAction(actionEvent -> {
-			stage.getScene().getRoot().setEffect(blurEffect);
-			try {
-				Sales sales = new Sales((SesionAtCl) null, this);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+		Sales_Opt.setOnAction(actionEvent -> salesRequest(););
 
-		Inventory_Opt.setOnAction(actionEvent -> {
-			stage.getScene().getRoot().setEffect(blurEffect);
-			try {
-				Inventory inventory = new Inventory((SesionAtCl) null, this);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+		Inventory_Opt.setOnAction(actionEvent -> inventoryRequest(););
 
-		Closure_Opt.setOnAction(actionEvent -> {
-			stage.getScene().getRoot().setEffect(blurEffect);
-			try {
-				POSClosure posClosure = new POSClosure(OpeningCount, 0,null,this);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+		Closure_Opt.setOnAction(actionEvent -> closureRequest()););
 		
 		Back_B.setOnAction(e -> back());
 
 		Pay_B.setOnAction(actionEvent -> {
-			if (cart.isEmpty()) {
-				Alert alertDialog = new Alert(Alert.AlertType.ERROR);
-				alertDialog.setTitle("ERROR!");
-				alertDialog.setHeaderText("¡El Carrito de Compras se encuentra vacio!");
-				alertDialog.setContentText("Por favor, añada productos al Carrito de Compras");
-				alertDialog.initStyle(StageStyle.DECORATED);
-				java.awt.Toolkit.getDefaultToolkit().beep();
-				stage.getScene().getRoot().setEffect(blurEffect);
-				alertDialog.showAndWait();
-				stage.getScene().getRoot().setEffect(null);
-			}
-			else {
-				stage.getScene().getRoot().setEffect(blurEffect);
-				try {
-					PaymentRequest paymentRequest = new PaymentRequest(cart,null, this);
-					paymentRequest.stage.setTitle("CONFIRMAR PAGO");
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
-			}
-		});
-		
-		cart.addListener(new ListChangeListener<AddedProduct>() {
-			@Override
-			public void onChanged(Change<? extends AddedProduct> c) {
-					if(cart.isEmpty()) {
-						Total_L.setText("");
-					}
-					else {
-						setTotalLabel();
-					}
-			}
-		});
-		
-		
-		CartList_T.prefWidthProperty().bind(LeftPane.widthProperty());
-
-		
-		ListScroll.setFitToWidth(true);
-		//ListScroll.setFitToHeight(true);
-
-		
-		SearchProduct_F.textProperty().addListener(e -> {
 			try {
-				refreshProducts();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+				paymentRequest();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
 			}
 		});
-		
-		CategoryFilter_C.setItems(CategoryList);
-		BrandFilter_C.setItems(BrandList);
+
+		Clear_B.setOnAction(actionEvent -> cart.clear());
+
+		CartList_T.prefWidthProperty().bind(LeftPane.widthProperty());
+		cart.addListener((ListChangeListener<? super AddedProduct>) e -> setTotalLabel());
 
 		ItemColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, String>("name"));
 		PriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("price"));
@@ -274,11 +182,13 @@ public class POSOpen extends PromptWindow implements Initializable {
 		PartialPriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("tprice"));
 		CantColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 		
-		
 		CantColumn.setOnEditCommit((e) -> {
-			AddedProduct x = e.getRowValue();
-			x.setCant(e.getNewValue());
-			CartList_T.refresh();
+			AddedProduct product = e.getRowValue();
+			try {
+				product.setCant(e.getNewValue());
+			} catch (Exception ex) {
+				throw new RuntimeException(ex);
+			}
 		});
 		
 		selectedItems = CartList_T.getSelectionModel().getSelectedItems();
@@ -308,59 +218,62 @@ public class POSOpen extends PromptWindow implements Initializable {
 					cart.remove(focusedItem);
 				}
 				if(pKey == KeyCode.EQUALS) {
-					focusedItem.Add();
+					try {
+						focusedItem.incrementQuantity();
+					} catch (Exception ex) {
+						throw new RuntimeException(ex);
+					}
 				}
 				if(pKey == KeyCode.MINUS) {
-					focusedItem.Sub();
+					try {
+						focusedItem.reduceQuantity();
+					} catch (Exception ex) {
+						throw new RuntimeException(ex);
+					}
 				}
 				if(pKey == KeyCode.BACK_SPACE) {
-					focusedItem.setCant(focusedItem.getCant() / 10);
+					try {
+						focusedItem.setCant(focusedItem.getCant() / 10);
+					} catch (Exception ex) {
+						throw new RuntimeException(ex);
+					}
 				}
 				if(pKey.isDigitKey()) {
-					focusedItem.setCant(focusedItem.getCant() * 10 + Integer.parseInt(pKey.getChar()) );
+					try {
+						focusedItem.setCant(focusedItem.getCant() * 10 + Integer.parseInt(pKey.getChar()) );
+					} catch (Exception ex) {
+						throw new RuntimeException(ex);
+					}
 				}
 			}
 		});
 		CartList_T.setItems(cart);
+
+		ListScroll.setFitToWidth(true);
+		SearchProduct_F.textProperty().addListener(e -> {
+			try {
+				refreshProducts();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		});
+
+		//CategoryFilter_C.setItems(CategoryList);
+		//BrandFilter_C.setItems(BrandList);
 		
 		FillList();
-		
-		refreshProductList(this.products);	
+		try {
+			refreshProducts();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 
-	private Product getProductWithId(int code) {
-		int index;
-		for(index = 0; index < products.size(); index++) {
-			if (products.get(index).getCode() == code) {
-				return products.get(index);
-			}
-		}
-		return null;
-	}
-	
-	private int getIndexOfAP(ObservableList<AddedProduct> list, int code) {
-		int i;
-		for(i = 0; i < list.size(); i++) {
-			if (list.get(i).getCode() == code) {
-				return i;
-			}
-		}
-		return -1;
-	}
-	
 	private void setTotalLabel() {
-		Total_L.setText(String.valueOf(TotalPrice()));
+		Total_L.setText(String.valueOf(cart.getTotalPrice()));
 	}
-	
-	public float TotalPrice() {
-		int x = 0;
-		for(AddedProduct e : cart) {
-			x += e.getTprice();
-		}
-		return x;
-	}
-	
+
 	public void refreshProducts() throws SQLException {
 		
 		String filter = CategoryFilter_C.getValue();
@@ -378,18 +291,6 @@ public class POSOpen extends PromptWindow implements Initializable {
 		}
 	}
 
-	public void getCategoryList() throws SQLException {
-		CategoryList.clear();
-		for(Product p : this.products) {
-			String cat = p.getCategory();;
-			if(!CategoryList.contains(cat)) {
-				CategoryList.add(cat);
-			}
-			
-		}
-	}
-	
-	
 	public void refreshProductList(ObservableList<Product> products) {
 		ProductList.getChildren().clear();
 		try {
@@ -413,18 +314,7 @@ public class POSOpen extends PromptWindow implements Initializable {
 							else {
 								AddedProduct aux = new AddedProduct(getProductWithId(id), 1); 	
 								
-								aux.addCantListener(new ChangeListener<Number>(){
-									@Override
-									public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-										if(newValue.intValue() <= 1) 
-										{
-											SimpleIntegerProperty x= (SimpleIntegerProperty)observable;
-											cart.remove(x.getBean());
-										};
-										CartList_T.refresh();
-										setTotalLabel();
-									}
-								});
+
 								
 								cart.add(aux);
 							}
@@ -448,36 +338,17 @@ public class POSOpen extends PromptWindow implements Initializable {
 	}
 	
 	private void paymentRequest() throws IOException {
-		ses.paymentRequest(cart);
+		sesion.paymentRequest(cart);
 	}
 
 	private void quitRequest(){
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("CERRAR APLICACIÓN");
-		alert.setHeaderText("¡ADVERTENCIA!");
-		alert.setContentText("Se cerrará la aplicación. ¿Desea continuar?");
-		alert.initStyle(StageStyle.DECORATED);
-		stage.getScene().getRoot().setEffect(blurEffect);
-		Optional <ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			Platform.exit();
-		}
-		else {
-			stage.getScene().getRoot().setEffect(null);
-			windowEvent.consume();
-		}
+		sesion.quitRequest();
 	}
 
 	private void POSClosure() throws IOException {
 		ses.closureRequest(OpeningCount, this);
-		dispose();
 	}
-	
-	public void refreshProducts(ObservableList<Product> x) {
-		this.products = x;
-		refreshProductList(this.products);
-	}
-	
+
 	private void FillList() {
 		for(int i = 0; i < 20; i++) {
 			Product aux = new Product(i, (int)Math.floor(Math.random()*(30-0+1)+0), "Producto " + i, "", "", "Marca " + i, "", (float)Math.floor(Math.random()*(1000-100+1)+100));

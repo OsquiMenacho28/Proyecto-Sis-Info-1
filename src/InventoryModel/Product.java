@@ -1,6 +1,11 @@
 package InventoryModel;
 import DataBaseManager.*;
 import SalesModel.Cart;
+import application.Interface.POS.ItemIcon;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ObservableValueBase;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +25,7 @@ public class Product extends LinkedObject {
 	
 	private ArrayList<AddedProduct> pendingProducts;
 	private Inventory inventory;
+	private ItemIcon icon;
 	public Product(Inventory inventory, int code, int quantity, String name, String description, String color, String brand, String category, float price) throws Exception {
 		super(Inventory.productRV,
 									Value.create(code),
@@ -29,8 +35,11 @@ public class Product extends LinkedObject {
 									Value.create(brand),
 									Value.create(category),
 									Value.create(price));
+
 		this.pendingProducts = new ArrayList<AddedProduct>();
 		this.inventory = inventory;
+		this.icon = new ItemIcon(this);
+		addListener( e -> {icon.updateContent();});
 		defineBind();
 		link();
 	}
@@ -39,6 +48,8 @@ public class Product extends LinkedObject {
 		super(record);
 		this.pendingProducts = new ArrayList<AddedProduct>();
 		this.inventory = inventory;
+		this.icon = new ItemIcon(this);
+		addListener( e -> {icon.updateContent();});
 		defineBind();
 		link();
 	}
@@ -78,7 +89,7 @@ public class Product extends LinkedObject {
 
 	public void addUnits(Inventory inventory, int cant) throws Exception {
 		if(cant >= 0){
-			if(!inventory.contains(this).equals(null)){
+			if(inventory.contains(this)){
 				increment(getQuantity() + cant);
 			}
 		}
@@ -89,7 +100,7 @@ public class Product extends LinkedObject {
 
 	public void retireUnits(Inventory inventory, int cant) throws Exception {
 		if(cant >= 0 && getQuantity() >= cant){
-			if(!inventory.contains(this).equals(null)){
+			if(inventory.contains(this)){
 				decrement(getQuantity() - cant);
 			}
 		}
@@ -233,7 +244,7 @@ public class Product extends LinkedObject {
 	}
 
 
-	public class AddedProduct {
+	public class AddedProduct extends ObservableValueBase {
 
 		private Product product;
 		private int cant;
@@ -241,10 +252,23 @@ public class Product extends LinkedObject {
 		private Cart cart;
 
 		public AddedProduct(Product product, int cant, Cart cart) throws Exception {
-			if (!product.equals(null) && !cart.equals(null)) {
+			if (product != null && cart != null) {
 				this.product = product;
 				this.cant = cant;
 				this.cart = cart;
+
+				addListener(new ChangeListener<Number>(){
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						if(newValue.intValue() <= 1)
+						{
+							SimpleIntegerProperty x= (SimpleIntegerProperty)observable;
+							cart.remove(x.getBean());
+						};
+						CartList_T.refresh();
+						setTotalLabel();
+					}
+				});
 			} else {
 				throw new Exception("Not valid inicialization");
 			}
@@ -252,18 +276,16 @@ public class Product extends LinkedObject {
 
 		public void incrementQuantity() throws Exception {
 			this.product.moveUnits(this, 1);
+			fireValueChangedEvent();
 		}
 
 		public void incrementQuantity(int cant) throws Exception {
 			this.product.moveUnits(this, cant);
+			fireValueChangedEvent();
 		}
 
 		public void reduceQuantity() throws Exception {
-			if (cant > 1) {
-				this.product.moveUnits(this, -1);
-			} else {
-				this.product.backToInventory(this);
-			}
+			reduceQuantity(1);
 		}
 
 		public void reduceQuantity(int cant) throws Exception {
@@ -293,6 +315,11 @@ public class Product extends LinkedObject {
 		public void backToInventory() throws Exception {
 			this.product.backToInventory(this);
 			this.product = null;
+		}
+
+		@Override
+		public Object getValue() {
+			return cant;
 		}
 	}
 

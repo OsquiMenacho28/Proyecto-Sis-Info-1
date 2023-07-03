@@ -1,7 +1,11 @@
 package DataBaseManager;
 
 import InventoryModel.Inventory;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ObservableValueBase;
 
 
 import java.lang.reflect.Field;
@@ -9,26 +13,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class LinkedObject extends RowMirror{
+public class LinkedObject extends ObservableValueBase<Value> {
 
     protected Boolean linked;
-    private ChangeListener listener;
+    private RowMirror tuple;
     private HashMap<Value, String> bindDefinition;
     private HashMap<String, Value> bindState;
+    private ArrayList<ChangeListener<Value>> changeListeners;
     public LinkedObject(RowMirror record) throws Exception {
-        super(record.get_relvar(), record.getValues());
+        this.tuple =record;
         if(record.isActive()){
-            this.activate();
+            record.activate();
             record.add();
         }
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();
+        this.changeListeners = new ArrayList<ChangeListener<Value>>();
         this.linked = false;
         clearBindings();
     }
 
     public LinkedObject(RelVar relvar, ArrayList<Value> values) throws Exception {
-        super(relvar, values);
+        this.tuple = new RowMirror(relvar, values);
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();
         this.linked = false;
@@ -36,7 +42,7 @@ public abstract class LinkedObject extends RowMirror{
     }
 
     public LinkedObject(RelVar relvar, Value... values) throws Exception {
-       super(relvar, values);
+        this.tuple = new RowMirror(relvar, values);
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();
        this.linked = false;
@@ -45,12 +51,12 @@ public abstract class LinkedObject extends RowMirror{
 
 
     protected void bind(String relvar_column, Value atribute){
-        atribute = get_value(relvar_column);
+        atribute = getValue(relvar_column);
         if(bindDefinition.containsKey(atribute)){
             String last_column = bindDefinition.get(atribute);
             bindState.put(last_column, null);
         }
-        if(!bindState.get(relvar_column).equals(null)){
+        if(bindState.get(relvar_column) != null){
             Value last_value = bindState.get(relvar_column);
             bindDefinition.remove(last_value);
         }
@@ -70,15 +76,15 @@ public abstract class LinkedObject extends RowMirror{
     }
 
     private void clearBindings(){
-        for(String atribute : record.keySet()){
+        for(String atribute : tuple.getColumns()){
             bindState.put(atribute, null);
         }
     }
 
     private boolean checkBindings(){
-        Boolean s = true;
-        for(Value f: bindState.values()){
-            if(f.equals(null)){
+        boolean s = true;
+        for(String f: bindState.keySet()){
+            if(bindState.get(f) != null){
                 s =false;
                 break;
             }
@@ -88,14 +94,14 @@ public abstract class LinkedObject extends RowMirror{
 
     public void link() throws Exception {
         if(checkBindings()){
-            if(this.isActive()){
+            if(this.tuple.isActive()){
                 for(Value val : bindDefinition.keySet()){
-                    val.set_value(this.get_value(bindDefinition.get(val)));
+                    val.set_value(this.getValue(bindDefinition.get(val)));
                 }
             }
             else{
-                if(!this.table.equals(null)) {
-                    this.table.add(this);
+                if(this.tuple.getTable() != null) {
+                    this.tuple.add();
                 }
                 else{
                     throw new Exception("No table to link");
@@ -107,40 +113,33 @@ public abstract class LinkedObject extends RowMirror{
 
     public void link(TableMirror table) throws Exception {
         if(checkBindings()){
-            this.setTable(table);
-            this.table.add(this);
+            this.tuple.add(table);
             this.linked = true;
         }
     }
 
     public void set(Value atribute, Value newValue) throws SQLException {
-        if(this.bindDefinition.keySet().contains(atribute)){
+        if(this.bindDefinition.containsKey(atribute)){
             atribute.set_value(newValue);
-            this.edit(bindDefinition.get(atribute), newValue);
-            this.fireChangeEvent();
+            this.tuple.edit(bindDefinition.get(atribute), newValue);
+            this.fireValueChangedEvent();
         }
+    }
+    public Value getValue(String column){
+        return bindState.get(column);
     }
 
     public void unlink(){
         this.linked = false;
     }
 
-    @Override
-    public void deactivate(){
+    public void deactivate() throws SQLException {
         this.linked = false;
-        this.active = false;
+        this.tuple.deactivate();
     }
 
-    protected abstract void defineBind();
-
-    private void fireChangeEvent(){
-        if(this.listener != null){
-            listener.changed(null,null, null);
-        }
+    @Override
+    public Value getValue() {
+        return null;
     }
-
-    public void addListener(ChangeListener listener){
-        this.listener = listener;
-    }
-
 }

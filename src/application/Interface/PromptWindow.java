@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class PromptWindow extends GridPane {
-	Stage stage;
+	protected Stage stage;
 
 	Scene scene;
 
@@ -28,6 +28,8 @@ public class PromptWindow extends GridPane {
 		loader.setRoot(this);
 		loader.setController(this);
 
+		stage.setResizable(true);
+		stage.setMaximized(true);
 
 		createWindow();
 		show();

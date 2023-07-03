@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Inventory extends LinkedCollection {
+public class Inventory extends LinkedCollection<Product> {
     public static final RelVar productRV;
 
     static {
@@ -23,25 +23,40 @@ public class Inventory extends LinkedCollection {
 
     }
 
-    private ObservableList<RowMirror> inventory;
     public Inventory(DBManager manager, String table) throws Exception {
         super(manager.getTable(table));
     }
 
+    public Inventory(TableMirror table) throws Exception {
+        super(table);
+    }
+
+    private Product getProductWithId(int code) {
+        int index;
+        for(index = 0; index < this.size(); index++) {
+            Product product = ((Product)this.get(index));
+            if (product.getCode() == code) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+
+    @Override
+    public boolean add(RowMirror row) throws Exception {
+        return super.add(new Product(this, row));
+    }
+
     public void materialIntake(Product product, int cant) throws Exception {
-        if(this.inventory.contains(product)){
+        if(this.contains(product)){
             product.addUnits(this, cant);
         }
     }
 
     public void materialWithdrawal(Product product, int cant) throws Exception {
-        if(this.inventory.contains(product)){
+        if(this.contains(product)){
             product.retireUnits(this, cant);
         }
     }
-
-    public ObservableList<RowMirror> getInventory(){
-        return inventory;
-    }
-
 }

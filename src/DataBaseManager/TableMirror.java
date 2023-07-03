@@ -61,21 +61,21 @@ public class TableMirror {
 		RelVar rrelvar = row.get_relvar(); 
 		if(rrelvar.is_compatible(this.relvar)) {
 			RowMirror savedRow = contains(row);
-			if(!savedRow.equals(null)){
+			if(savedRow != null){
 				this.remove(savedRow);
 				savedRow.deactivate();
 			}
-			String aux = "";
-			String aux1 = "";
+			StringBuilder aux = new StringBuilder();
+			StringBuilder aux1 = new StringBuilder();
 			ArrayList <String> attributes = row.get_relvar().get_columns();
 			for(int i = 0; i < row.get_relvar().get_size(); i++) {
-				aux += row.get_value(attributes.get(i)).to_string() + ", ";
+				aux.append(row.get_value(attributes.get(i)).to_string()).append(", ");
 			}
 			for(int i = 0; i < row.get_relvar().get_size(); i++) {
-				aux1 += attributes.get(i) + ", ";
+				aux1.append(attributes.get(i)).append(", ");
 			}
-			aux = aux.substring(0, aux.length() - 2);
-			aux1 = aux1.substring(0, aux1.length() - 2);
+			aux = new StringBuilder(aux.substring(0, aux.length() - 2));
+			aux1 = new StringBuilder(aux1.substring(0, aux1.length() - 2));
 			//System.out.println("insert into " + name + " (" + aux1 + ") values (" + aux + ")");
 			manager.updateQuery("insert into " + name + " (" + aux1 + ") values (" + aux + ")");
 
@@ -110,16 +110,16 @@ public class TableMirror {
 
 	@Override
 	public String toString() {
-		String res = this.name + "\n";
+		StringBuilder res = new StringBuilder(this.name + "\n");
 		for(String atribute : relvar.get_columns()) {
-			res += atribute + "\t\t";
+			res.append(atribute).append("\t\t");
 		}
-		res += "-----------------------------------------------------------------------------------\n";
+		res.append("-----------------------------------------------------------------------------------\n");
 		
 		for(RowMirror row : rows) {
-			res += row.toString() + "\n";
+			res.append(row.toString()).append("\n");
 		}
-		res += "-----------------------------------------------------------------------------------\n";
+		res.append("-----------------------------------------------------------------------------------\n");
 		return "TableMirror [" + res + "]";
 	}
 
