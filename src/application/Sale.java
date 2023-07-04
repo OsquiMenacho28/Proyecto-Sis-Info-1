@@ -11,6 +11,7 @@ public class Sale {
 	private static final int paymentMethodCode = 1;
 	private static final int coinCode = 1;
 	private static final int exchangeRate = 1;
+	private static final double discountAmount = 0.0;
 
 	private Date date;
 	private ObservableList<AddedProduct> cart = FXCollections.observableArrayList();
@@ -29,6 +30,10 @@ public class Sale {
 
 	public static int getExchangeRate() {
 		return exchangeRate;
+	}
+
+	public static double getDiscountAmount() {
+		return discountAmount;
 	}
 
 	/**

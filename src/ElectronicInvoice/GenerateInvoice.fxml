@@ -37,6 +37,14 @@
             <Insets top="60.0" />
          </GridPane.margin>
       </Button>
+      <Label fx:id="countDownLabel" textFill="RED" visible="false" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets right="25.0" top="45.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Metropolis-Regular" size="21.0" />
+         </font>
+      </Label>
    </children>
    <cursor>
       <Cursor fx:constant="WAIT" />

@@ -7,7 +7,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,12 +18,11 @@ import javafx.util.Duration;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class GenerateInvoice extends PromptWindow implements Initializable {
+public class GenerateInvoice extends PromptWindow {
     @FXML
     private GridPane loadingInvoiceGridPane;
     @FXML
@@ -33,6 +31,8 @@ public class GenerateInvoice extends PromptWindow implements Initializable {
     private Label generatingInvoiceLabel;
     @FXML
     private Button openInvoiceButton;
+    @FXML
+    private Label countDownLabel;
 
     public GenerateInvoice(SesionAtCl ses, Stage stage, PromptWindow origin) throws Exception {
         super(ses, stage, "GenerateInvoice.fxml", origin);
@@ -42,20 +42,10 @@ public class GenerateInvoice extends PromptWindow implements Initializable {
         generateInvoice();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        openInvoiceButton.setOnAction(actionEvent -> {
-            File invoicePath = new File("C:/Users/usuario/Downloads");
-            try {
-                Desktop.getDesktop().open(invoicePath);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
     private void generateInvoice() throws Exception {
         Invoice invoiceGenerated = new Invoice(null, null);
+        String invoiceFileName = "Factura" + Invoice.getInvoiceNumber() + ".pdf";
+        String invoiceFilePath = "C:/Users/usuario/Downloads/" + invoiceFileName;
         try {
             class Progress {
                 double value = 0.0;
@@ -85,9 +75,31 @@ public class GenerateInvoice extends PromptWindow implements Initializable {
                     loadingInvoiceGridPane.setCursor(Cursor.DEFAULT);
                     generatingInvoiceLabel.setText("Factura N° " + Invoice.getInvoiceNumber() + " generada exitosamente!");
                     openInvoiceButton.setVisible(true);
+                    openInvoiceButton.setOnAction(actionEvent -> {
+                        File invoicePath = new File(invoiceFilePath);
+                        try {
+                            Desktop.getDesktop().open(invoicePath);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    countDownLabel.setVisible(true);
+                    Timer countDown = new Timer();
+                    AtomicInteger seconds = new AtomicInteger(5);
+                    int delay = 1000;
+                    int period = 1000;
+                    countDown.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            Platform.runLater(() -> {
+                                if (seconds.get() == 1) countDown.cancel();
+                                countDownLabel.setText(String.valueOf(seconds.getAndDecrement()));
+                            });
+                        }
+                    }, delay, period);
                 });
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
+                Timer showAndWait = new Timer();
+                showAndWait.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         Platform.runLater(() -> {
@@ -95,7 +107,7 @@ public class GenerateInvoice extends PromptWindow implements Initializable {
                             back();
                         });
                     }
-                }, 4000);
+                }, 6000);
             }).start();
         } catch (Exception e) {
             throw new RuntimeException(e);
