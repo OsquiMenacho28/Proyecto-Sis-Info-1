@@ -7,30 +7,51 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GenerateInvoice extends PromptWindow {
+public class GenerateInvoice extends PromptWindow implements Initializable {
     @FXML
     private GridPane loadingInvoiceGridPane;
     @FXML
     private ProgressIndicator invoiceProgressIndicator;
     @FXML
     private Label generatingInvoiceLabel;
+    @FXML
+    private Button openInvoiceButton;
 
     public GenerateInvoice(SesionAtCl ses, Stage stage, PromptWindow origin) throws Exception {
         super(ses, stage, "GenerateInvoice.fxml", origin);
         stage.setWidth(413);
-        stage.setHeight(219);
+        stage.setHeight(247);
         this.load();
         generateInvoice();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        openInvoiceButton.setOnAction(actionEvent -> {
+            File invoicePath = new File("C:/Users/usuario/Downloads");
+            try {
+                Desktop.getDesktop().open(invoicePath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private void generateInvoice() throws Exception {
@@ -63,6 +84,7 @@ public class GenerateInvoice extends PromptWindow {
                 Platform.runLater(() -> {
                     loadingInvoiceGridPane.setCursor(Cursor.DEFAULT);
                     generatingInvoiceLabel.setText("Factura N° " + Invoice.getInvoiceNumber() + " generada exitosamente!");
+                    openInvoiceButton.setVisible(true);
                 });
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {

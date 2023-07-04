@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<fx:root fx:id="loadingInvoiceGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="302.0" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="loadingInvoiceGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="209.0" prefWidth="302.0" style="-fx-border-width: 3px; -fx-border-color: #00D1FF;" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="137.9999796549479" minHeight="-Infinity" prefHeight="88.66666666666667" valignment="BOTTOM" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="134.66667938232422" minHeight="67.99998982747395" prefHeight="85.33333333333333" valignment="TOP" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="137.9999796549479" minHeight="-Infinity" prefHeight="88.00001017252605" valignment="BOTTOM" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="134.66667938232422" minHeight="67.99998982747395" prefHeight="113.99998982747394" valignment="TOP" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <ProgressIndicator fx:id="invoiceProgressIndicator" prefHeight="91.0" prefWidth="108.0" progress="0.0">
@@ -28,6 +29,14 @@
             <Insets top="20.0" />
          </GridPane.margin>
       </Label>
+      <Button fx:id="openInvoiceButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Abrir Factura" textFill="#0739ff" underline="true" visible="false" GridPane.rowIndex="1">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <GridPane.margin>
+            <Insets top="60.0" />
+         </GridPane.margin>
+      </Button>
    </children>
    <cursor>
       <Cursor fx:constant="WAIT" />
