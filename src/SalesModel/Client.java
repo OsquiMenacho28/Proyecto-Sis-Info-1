@@ -1,39 +1,37 @@
 package SalesModel;
 
 public class Client {
-	String name;
-	int NIT;
-	
-	
-	
-	public Client(String name, int nIT) {
-	
+	private String name;
+	private int documentTypeCode;
+	private int NIT;
+
+	public Client(String name, int documentTypeCode, int NIT) {
 		this.name = name;
-		this.NIT = nIT;
+		this.documentTypeCode = documentTypeCode;
+		this.NIT = NIT;
 	}
-	/**
-	 * @return the name
-	 */
+
 	public String getName() {
 		return name;
 	}
-	/**
-	 * @param name the name to set
-	 */
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	/**
-	 * @return the nIT
-	 */
+
+	public int getDocumentTypeCode() {
+		return documentTypeCode;
+	}
+
+	public void setDocumentTypeCode(int documentTypeCode) {
+		this.documentTypeCode = documentTypeCode;
+	}
+
 	public int getNIT() {
 		return NIT;
 	}
-	/**
-	 * @param nIT the nIT to set
-	 */
-	public void setNIT(int nIT) {
-		NIT = nIT;
+
+	public void setNIT(int NIT) {
+		this.NIT = NIT;
 	}
-	
 }

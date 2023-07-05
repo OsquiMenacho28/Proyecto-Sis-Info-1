@@ -1,11 +1,13 @@
 package application.Interface.POS;
 
-import application.Interface.PromptWindow;
 import application.FlowController.SesionAtCl;
+import application.Interface.PromptWindow;
 import application.Interface.generic.Inventory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,8 +46,12 @@ public class PaymentConfirmed extends PromptWindow implements Initializable {
         });
 
         Continue_B.setOnAction(actionEvent -> {
-            origin.ses2.POSOpen.cart.clear();
-            back();
+            dispose();
+            try {
+                GenerateInvoice generateInvoice = new GenerateInvoice(null, new Stage(StageStyle.UNDECORATED), this.origin);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }
