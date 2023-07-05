@@ -1,25 +1,15 @@
 package application.Interface.POS;
 
 import InventoryModel.Inventory;
-import SalesModel.Cart;
-import SalesModel.POSsesion;
-import application.Interface.AtClPromptWindow;
-import application.Interface.generic.Notifications;
-import application.Interface.generic.Sales;
-
 import InventoryModel.Product;
 import InventoryModel.Product.AddedProduct;
-import application.Interface.PromptWindow;
+import SalesModel.Cart;
+import SalesModel.POSsesion;
 import application.FlowController.SesionAtCl;
-import application.Interface.LI.SelectAccount;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
+import application.Interface.AtClPromptWindow;
+import application.Interface.PromptWindow;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -28,23 +18,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.StageStyle;
 import javafx.util.converter.IntegerStringConverter;
+import org.apache.commons.text.similarity.JaccardDistance;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Comparator;
-import java.util.Optional;
 import java.util.ResourceBundle;
-
-
-import org.apache.commons.text.similarity.*;
 public class POSOpen extends AtClPromptWindow implements Initializable {
 
 	PaymentRequest paymentRequest;
@@ -219,7 +203,7 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 
 		stage.setOnCloseRequest(windowEvent -> {
 			try {
-				exitRequest();
+				sesion.closeApplicationRequest(windowEvent);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -406,10 +390,6 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 
 	private void POSClosure() throws IOException {
 		//sesion.closureRequest(OpeningCount, this);
-	}
-
-	public void exitRequest() throws IOException {
-		sesion.exitRequest();
 	}
 
 	public TableView<AddedProduct> getCartTable(){
