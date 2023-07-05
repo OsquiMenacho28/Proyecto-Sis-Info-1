@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class SesionAtCl extends Sesion {
+public class SesionAtCl extends Sesion{
 
 	private application.Interface.POS.POSOpening POSOpening;
 	private application.Interface.POS.POSOpen POSOpen;
@@ -232,5 +232,9 @@ public class SesionAtCl extends Sesion {
 
 	private void unblurPOS(){
 		POSOpen.setEffect(null);
+	}
+
+	public User getUser(){
+		return super.LogedUser;
 	}
 }

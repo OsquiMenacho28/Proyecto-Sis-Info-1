@@ -1,6 +1,7 @@
 package application.Interface.POS;
 
-import SalesModel.AddedProduct;
+import InventoryModel.Product;
+import InventoryModel.Product.AddedProduct;
 import SalesModel.Sale;
 import application.Interface.PromptWindow;
 import application.FlowController.SesionAtCl;
@@ -33,7 +34,7 @@ public class PaymentRequest extends PromptWindow implements Initializable {
     private Button Confirm_B;
 
     @FXML
-    private TableView<AddedProduct> CartList_T;
+    private TableView<Product.AddedProduct> CartList_T;
 
     @FXML
     private TextField Name_F;

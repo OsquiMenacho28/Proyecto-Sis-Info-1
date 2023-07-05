@@ -3,6 +3,7 @@ package SalesModel;
 import DataBaseManager.DataType;
 import DataBaseManager.RelVar;
 import InventoryModel.Inventory;
+import application.FlowController.SesionAtCl;
 import application.Interface.POS.POSOpen;
 import javafx.collections.ObservableList;
 
@@ -31,9 +32,9 @@ public class POSsesion {
     private LocalDateTime beginning;
     private LocalDateTime ending;
     private Cart cart;
-
     private ArrayList<Sale> sales;
     private POSOpen POSOpen;
+    private SesionAtCl sesion;
 
     public POSsesion(Float OpeningCount, LocalDateTime beginning, LocalDateTime ending, POSOpen POSOpen){
         this.OpeningCount = OpeningCount;
@@ -42,10 +43,10 @@ public class POSsesion {
         this.cart = new Cart(this);
         this.sales = new ArrayList<Sale>();
         this.POSOpen = POSOpen;
+        this.sesion = POSOpen.getSesion();
     }
     public POSsesion(Float OpeningCount, POSOpen POSOpen){
         this(OpeningCount,LocalDateTime.now(), null, POSOpen);
-        this.OpeningCount = OpeningCount;
     }
 
     public POSsesion(POSOpen POSOpen){
@@ -56,16 +57,23 @@ public class POSsesion {
         ending = LocalDateTime.now();
     }
 
-
-    public void addSale(Client c) throws Exception {
+    public Cart newCart(){
+        this.cart = new Cart(this);
+        return this.cart;
+    }
+    public void commitSale(Client c) throws Exception {
         if(cart.isNotEmpty()){
-            Sale sale = new Sale(c, cart);
+            Sale sale = new Sale(c, cart, sesion.getUser());
             sales.add(sale);
-            clearCart();
+            newCart();
         }
     }
 
     public void clearCart() throws Exception {
         cart.clear();
+    }
+
+    public POSOpen getPOSOpen(){
+        return POSOpen;
     }
 }

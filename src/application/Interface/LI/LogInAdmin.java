@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class LogInAdmin extends LogIn {
 
     public  LogInAdmin(Stage stage, PromptWindow origin) throws IOException {
-        super((SesionAdmin) null, stage, "LogInAdmin.fxml", origin);
+        super((SesionAdmin) null, stage, "FERRETERÍA DIMACO - ADMINISTRADOR", origin);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class LogInAdmin extends LogIn {
 
         LogIn_B.setOnAction((e) -> {
             open();
-            origin.dispose();
+            dispose();
         });
 
         Back_B.setOnAction((e) -> back());
@@ -49,7 +49,7 @@ public class LogInAdmin extends LogIn {
             KeyCode pKey = e.getCode();
             if (pKey == KeyCode.ENTER) {
                 open();
-                origin.dispose();
+                dispose();
             }
         });
     }

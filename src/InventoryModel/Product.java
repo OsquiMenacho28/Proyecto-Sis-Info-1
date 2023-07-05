@@ -9,7 +9,6 @@ import javafx.beans.value.ObservableValueBase;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Product extends LinkedObject {
 
@@ -22,6 +21,7 @@ public class Product extends LinkedObject {
 	protected String_Value brand;
 	protected String_Value category;
 	protected Float_Value price;
+	protected Int_Value visible;
 	
 	private ArrayList<AddedProduct> pendingProducts;
 	private Inventory inventory;
@@ -49,6 +49,7 @@ public class Product extends LinkedObject {
 		this.pendingProducts = new ArrayList<AddedProduct>();
 		this.inventory = inventory;
 		this.icon = new ItemIcon(this);
+		this.visible = Value.create(1);
 		addListener( e -> {icon.updateContent();});
 		defineBind();
 		link();
@@ -63,6 +64,7 @@ public class Product extends LinkedObject {
 		bind("marca", brand);
 		bind("categoria", category);
 		bind("precio", price);
+		//bind()
 	}
 
 	public AddedProduct addToCart(int cant, Cart cart) throws Exception {
@@ -112,7 +114,7 @@ public class Product extends LinkedObject {
 		if(pendingProducts.contains(product)){
 			if(cant >= 0){
 				if(getQuantity()-cant >= 0) {
-					product.cant += cant;
+					product.cant.set(product.cant.getValue() + cant);
 					decrement(cant);
 				}
 				else{
@@ -120,7 +122,7 @@ public class Product extends LinkedObject {
 				}
 			}
 			else{
-				product.cant -= cant;
+				product.cant.set(product.cant.getValue() - cant);
 				increment(cant);
 			}
 		}
@@ -165,11 +167,9 @@ public class Product extends LinkedObject {
 	public void setQuantity(Integer quantity) throws SQLException {
 		if(quantity > 0){
 			 set(this.quantity, Value.create(quantity));
-			 fireValueChangedEvent();
 		}
 		else if(quantity == 0){
 			set(this.quantity, Value.create(0));
-			fireValueChangedEvent();
 		}
 	}
 
@@ -245,30 +245,39 @@ public class Product extends LinkedObject {
 		}
 	}
 
+	public boolean isVisible(){
+		return visible.get_value() == 1;
+	}
 
-	public class AddedProduct extends ObservableValueBase {
+	public ItemIcon getIcon(){
+		return this.icon;
+	}
+
+	public class AddedProduct extends ObservableValueBase<Integer> {
 
 		private Product product;
-		private int cant;
-
+		private SimpleIntegerProperty cant;
 		private Cart cart;
 
 		public AddedProduct(Product product, int cant, Cart cart) throws Exception {
 			if (product != null && cart != null) {
 				this.product = product;
-				this.cant = cant;
+				this.cant = new SimpleIntegerProperty(cant);
 				this.cart = cart;
 
-				addListener(new ChangeListener<Number>(){
+				this.cant.addListener(new ChangeListener<Number>(){
 					@Override
 					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 						if(newValue.intValue() <= 1)
 						{
-							SimpleIntegerProperty x= (SimpleIntegerProperty)observable;
-							cart.remove(x.getBean());
+							try {
+								backToInventory();
+							} catch (Exception e) {
+								throw new RuntimeException(e);
+							}
 						};
-						CartList_T.refresh();
-						setTotalLabel();
+						cart.getCartTable().refresh();
+						cart.getPOSsesion().getPOSOpen().setTotalLabel();
 					}
 				});
 			} else {
@@ -292,7 +301,7 @@ public class Product extends LinkedObject {
 		}
 
 		public void reduceQuantity(int cant) throws Exception {
-			if (this.cant > cant) {
+			if (this.cant.getValue() > cant) {
 				this.product.moveUnits(this, -cant);
 			} else {
 				this.product.backToInventory(this);
@@ -301,29 +310,30 @@ public class Product extends LinkedObject {
 		}
 
 		public float getPrice() {
-			return cant * product.getPrice();
+			return cant.getValue() * product.getPrice();
 		}
 
 		public int getCant() {
-			return cant;
+			return cant.getValue();
 		}
 
 		public void setCant(int cant) throws Exception {
-			if (this.cant > cant) {
-				reduceQuantity(this.cant - cant);
+			if (this.cant.getValue() > cant) {
+				reduceQuantity(this.cant.getValue() - cant);
 			} else {
-				incrementQuantity(cant - this.cant);
+				incrementQuantity(cant - this.cant.getValue());
 			}
 		}
 
 		public void backToInventory() throws Exception {
 			this.product.backToInventory(this);
+			this.cart.remove(this);
 			this.product = null;
 		}
 
 		@Override
-		public Object getValue() {
-			return cant;
+		public Integer getValue() {
+			return cant.getValue();
 		}
 	}
 

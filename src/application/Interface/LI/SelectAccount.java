@@ -28,7 +28,6 @@ public class SelectAccount extends PromptWindow implements Initializable {
         Admin_B.setOnAction((e) -> {
             try {
                 LogInAdmin logInAdmin = new LogInAdmin(null, this);
-                logInAdmin.stage.setTitle("FERRETERÍA DIMACO - ADMINISTRADOR");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -37,7 +36,6 @@ public class SelectAccount extends PromptWindow implements Initializable {
         AtCl_B.setOnAction((e) -> {
             try {
                 LogInAtCl logInAtCl = new LogInAtCl(null, this);
-                logInAtCl.stage.setTitle("FERRETERÍA DIMACO - ATENCIÓN AL CLIENTE");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

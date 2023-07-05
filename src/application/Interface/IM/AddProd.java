@@ -255,7 +255,7 @@ public class AddProd extends PromptWindow implements Initializable{
 
 		if(v(name) && v(description) && v(code) && v(quantity) && v(color) && v(brand) && v(category) && v(price)) {
 			Product aux = new Product(Integer.parseInt(code), Integer.parseInt(quantity), name, description, color, brand, category, Float.parseFloat(price));
-			ses2.addProduct(aux);
+			sesion.addProduct(aux);
 		}
 		
 	}

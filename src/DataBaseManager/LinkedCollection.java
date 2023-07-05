@@ -9,15 +9,15 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public abstract class LinkedCollection<T extends LinkedObject> extends ObservableListWrapper<LinkedObject> {
+public abstract class LinkedCollection<T extends LinkedObject> extends ObservableListWrapper<T> {
 
     protected TableMirror table;
     public LinkedCollection(DBManager manager, String name, RelVar relvar) throws Exception {
-        super(new ArrayList<LinkedObject>());
+        super(new ArrayList<T>());
         this.table = new TableMirror(manager, name, relvar);
     }
     public LinkedCollection(TableMirror table) throws Exception {
-        super(new ArrayList<LinkedObject>());
+        super(new ArrayList<T>());
         this.table = table;
     }
 
@@ -37,9 +37,16 @@ public abstract class LinkedCollection<T extends LinkedObject> extends Observabl
     }
 
     public abstract boolean add(RowMirror row) throws Exception;
-    public void remove(LinkedObject row) throws Exception {
-        this.remove(row);
-        row.deactivate();
+    public abstract boolean remove(RowMirror row) throws Exception;
+    public boolean remove(LinkedObject row) throws Exception {
+        if(row != null){
+            this.remove(row);
+            row.deactivate();
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public void fill() throws Exception {

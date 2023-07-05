@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class LogInAtCl extends LogIn {
 
     public  LogInAtCl(Stage stage, PromptWindow origin) throws IOException {
-        super((SesionAtCl) null, stage, "LogInAtCl.fxml", origin);
+        super((SesionAtCl) null, stage, "FERRETERÍA DIMACO - ATENCIÓN AL CLIENTE", origin);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class LogInAtCl extends LogIn {
 
         LogIn_B.setOnAction((e) -> {
             open();
-            origin.dispose();
+            dispose();
         });
 
         Back_B.setOnAction((e) -> back());
@@ -49,7 +49,7 @@ public class LogInAtCl extends LogIn {
             KeyCode pKey = e.getCode();
             if (pKey == KeyCode.ENTER) {
                 open();
-                origin.dispose();
+                dispose();
             }
         });
     }

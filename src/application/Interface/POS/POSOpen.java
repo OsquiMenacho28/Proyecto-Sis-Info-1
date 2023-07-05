@@ -1,9 +1,9 @@
 package application.Interface.POS;
 
+import InventoryModel.Inventory;
 import SalesModel.Cart;
 import SalesModel.POSsesion;
 import application.Interface.AtClPromptWindow;
-import application.Interface.generic.Inventory;
 import application.Interface.generic.Notifications;
 import application.Interface.generic.Sales;
 
@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -38,9 +39,12 @@ import javafx.util.converter.IntegerStringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+
+import org.apache.commons.text.similarity.*;
 public class POSOpen extends AtClPromptWindow implements Initializable {
 
 	PaymentRequest paymentRequest;
@@ -129,15 +133,87 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 	private Inventory inventory;
 	private Cart cart;
 	private POSsesion POSsesion;
-
 	private AddedProduct focusedItem;
 	private ObservableList<AddedProduct> selectedItems;
+	private ObservableList<Node> visibleProducts;
 	public POSOpen(SesionAtCl ses, PromptWindow origin, Inventory inventory) throws IOException {
 		super(ses, "POSOpen.fxml", origin, "PUNTO DE VENTA");
 		this.inventory = inventory;
+		this.cart = null;
+		this.POSsesion = null;
 		this.load();
 	}
 
+	private class NameComparator implements Comparator<ItemIcon> {
+		String target;
+		private NameComparator(String target){
+			this.target = target;
+		}
+		@Override
+		public int compare(ItemIcon i1, ItemIcon i2) {
+			Product p1 = i1.getProduct();
+			Product p2 = i2.getProduct();
+
+			String name1 = p1.getName();
+			String name2 = p2.getName();
+
+			return (int)(1000*(NameDistance(name1, this.target) - NameDistance(name2, this.target)));
+		}
+		private double NameDistance(String shot, String target){
+			LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
+			JaccardDistance jaccardDistance = new JaccardDistance();
+			Integer maxLen = Math.max(target.length(), shot.length());
+			return 0.7*(levenshteinDistance.apply(target, shot)/maxLen) + 0.3*jaccardDistance.apply(target, shot);
+		}
+	}
+
+
+	private class CodeComparator implements Comparator<ItemIcon> {
+		String target;
+		private CodeComparator(String target){
+			this.target = target;
+		}
+		@Override
+		public int compare(ItemIcon i1, ItemIcon i2) {
+			Product p1 = i1.getProduct();
+			Product p2 = i2.getProduct();
+
+			String name1 = String.valueOf(p1.getCode());
+			String name2 = String.valueOf(p2.getCode());
+
+			return (int)(1000*(CodeDistance(name1, this.target) - CodeDistance(name2, this.target)));
+		}
+		private double CodeDistance(String shot, String target){
+			LevenshteinDistance levenshteinDistance = new LevenshteinDistance();
+			JaccardDistance jaccardDistance = new JaccardDistance();
+			Integer maxLen = Math.max(target.length(), shot.length());
+			return 0.3*(levenshteinDistance.apply(target, shot)/maxLen) + 0.7*(target.equals(shot) ? 1 : 0);
+		}
+	}
+
+	public SesionAtCl getSesion(){
+		return sesion;
+	}
+	public void activate(POSsesion POSsesion){
+		if(POSsesion != null){
+			this.POSsesion = POSsesion;
+			this.cart = POSsesion.newCart();
+		}
+	}
+
+	public void deactivate(){
+		this.POSsesion = null;
+		this.cart = null;
+	}
+	public boolean isActive(){
+		if(this.POSsesion != null){
+			return true;
+		}
+		return false;
+	}
+	public POSsesion getPOSsesion(){
+		return POSsesion;
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -149,7 +225,7 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			}
 		});
 
-		Notification_B.setOnAction(actionEvent -> notificationRequest());
+		//Notification_B.setOnAction(actionEvent -> notificationRequest());
 
 		LightMode_Opt.setOnAction(actionEvent -> {
 
@@ -159,15 +235,15 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 
 		});
 
-		Close_B.setOnAction(actionEvent -> endSesionRequest(););
+		//Close_B.setOnAction(actionEvent -> endSesionRequest(););
 
-		Sales_Opt.setOnAction(actionEvent -> salesRequest(););
+		//Sales_Opt.setOnAction(actionEvent -> salesRequest(););
 
-		Inventory_Opt.setOnAction(actionEvent -> inventoryRequest(););
+		//Inventory_Opt.setOnAction(actionEvent -> inventoryRequest(););
 
-		Closure_Opt.setOnAction(actionEvent -> closureRequest()););
+		//Closure_Opt.setOnAction(actionEvent -> closureRequest()););
 		
-		Back_B.setOnAction(e -> back());
+		//Back_B.setOnAction(e -> back());
 
 		Pay_B.setOnAction(actionEvent -> {
 			try {
@@ -187,15 +263,6 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 		CantColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Integer>("cant"));
 		PartialPriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("tprice"));
 		CantColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		
-		CantColumn.setOnEditCommit((e) -> {
-			AddedProduct product = e.getRowValue();
-			try {
-				product.setCant(e.getNewValue());
-			} catch (Exception ex) {
-				throw new RuntimeException(ex);
-			}
-		});
 		
 		selectedItems = CartList_T.getSelectionModel().getSelectedItems();
 		selectedItems.addListener(new ListChangeListener<AddedProduct>() {
@@ -221,7 +288,11 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			else if(focusedItem != null) {
 				
 				if((pKey == KeyCode.DELETE)) {
-					cart.remove(focusedItem);
+					try {
+						cart.remove(focusedItem);
+					} catch (Exception ex) {
+						throw new RuntimeException(ex);
+					}
 				}
 				if(pKey == KeyCode.EQUALS) {
 					try {
@@ -257,116 +328,93 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 
 		ListScroll.setFitToWidth(true);
 		SearchProduct_F.textProperty().addListener(e -> {
-			try {
-				refreshProducts();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			if(!SearchCode_F.getText().equals("")){SearchCode_F.clear();}
+			nameSearch();
+		});
+		SearchCode_F.textProperty().addListener(e -> {
+			if(!SearchProduct_F.getText().equals("")){SearchProduct_F.clear();}
+			codeSearch();
 		});
 
 		//CategoryFilter_C.setItems(CategoryList);
 		//BrandFilter_C.setItems(BrandList);
-		
-		FillList();
-		try {
-			refreshProducts();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+
+
+		this.visibleProducts = ProductList.getChildren();
+
+		//Extract the visible Items from inventory
+		for(ItemIcon icon : inventory.getIcons()){
+			if(icon.getProduct().isVisible()){
+				icon.setOnMouseClicked(e -> {
+					try {
+						icon.getProduct().addToCart(1, cart);
+					} catch (Exception ex) {
+						throw new RuntimeException(ex);
+					}
+				});
+				visibleProducts.add(icon);
+			}
 		}
+
+		//Update visible products in case the inventory is changed
+		inventory.getIcons().addListener((ListChangeListener<? super ItemIcon>) c -> {
+			while (c.next()) {
+				if (c.wasRemoved()) {
+					for (ItemIcon icon : c.getRemoved()) {
+						visibleProducts.remove(icon);
+					}
+				} else if (c.wasAdded()) {
+					for (ItemIcon icon : c.getAddedSubList()) {
+						if (icon.getProduct().isVisible()) {
+							icon.setOnMouseClicked(e -> {
+								try {
+									icon.getProduct().addToCart(1, cart);
+								} catch (Exception ex) {
+									throw new RuntimeException(ex);
+								}
+							});
+							visibleProducts.add(icon);
+						}
+					}
+				}
+			}
+		});
 
 	}
 
-	private void setTotalLabel() {
+	public void setTotalLabel() {
 		Total_L.setText(String.valueOf(cart.getTotalPrice()));
 	}
 
-	public void refreshProducts() throws SQLException {
-		
-		String filter = CategoryFilter_C.getValue();
-		if(filter.equals("") || filter == null) {
-			refreshProductList(this.products);
-		}
-		else {
-			ObservableList<Product> newList = FXCollections.observableArrayList();
-			for(Product e : this.products) {
-				if(e.category .equals(filter)) {
-					newList.add(e);
-				}
-			}
-			refreshProductList(newList);
-		}
+	private void nameSearch(){
+		String productQuery = SearchProduct_F.getText();
+		visibleProducts.sort((Comparator) new NameComparator(productQuery));
 	}
 
-	public void refreshProductList(ObservableList<Product> products) {
-		ProductList.getChildren().clear();
-		try {
-			for (Product e : products) {
-				
-				ItemIcon ItemIcon = new ItemIcon(e);
-				
-				ItemIcon.setOnMouseClicked(new EventHandler<MouseEvent>() {
-					
-					@Override
-					public void handle(MouseEvent event) {
-						if(event.getButton() == MouseButton.PRIMARY) {
-							
-							int id = ItemIcon.getItemCode();
-							
-							int pos = getIndexOfAP(cart, id);
-							
-							if(pos >= 0) {
-								cart.get(pos).Add();
-							}
-							else {
-								AddedProduct aux = new AddedProduct(getProductWithId(id), 1); 	
-								
-
-								
-								cart.add(aux);
-							}
-					}}
-				});
-
-				ItemIcon.deleteBtn.setOnAction(f -> {
-					deleteItem(ItemIcon.code);
-				});
-				ProductList.getChildren().add(ItemIcon);
-	    	}
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}	
+	private void codeSearch(){
+		String codeQuery = SearchCode_F.getText();
+		visibleProducts.sort((Comparator) new CodeComparator(codeQuery));
 	}
 
-	private void deleteItem(int code){
-		products.remove(code);
-		ProductList.getChildren().remove(code);
-	}
-	
 	private void paymentRequest() throws IOException {
 		sesion.paymentRequest(cart);
 	}
 
 	private void quitRequest(){
-		sesion.quitRequest();
+		//sesion.quitRequest();
 	}
 
 	private void POSClosure() throws IOException {
-		ses.closureRequest(OpeningCount, this);
-	}
-
-	private void FillList() {
-		for(int i = 0; i < 20; i++) {
-			Product aux = new Product(i, (int)Math.floor(Math.random()*(30-0+1)+0), "Producto " + i, "", "", "Marca " + i, "", (float)Math.floor(Math.random()*(1000-100+1)+100));
-			products.add(aux);
-		}
+		//sesion.closureRequest(OpeningCount, this);
 	}
 
 	public void exitRequest() throws IOException {
 		sesion.exitRequest();
 	}
 
-
+	public TableView<AddedProduct> getCartTable(){
+		return this.CartList_T;
+	};
 	public void clearCart() {
 		cart.clear();
 	}

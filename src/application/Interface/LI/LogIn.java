@@ -23,6 +23,8 @@ public abstract class LogIn extends PromptWindow implements Initializable {
     @FXML
     PasswordField Password_F;
 
+    @FXML
+    Button FPassword_B;
     protected final User userManager = new User(null, null, null);
     public LogIn(SesionAtCl ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
         super(ses, FXMLname, origin);

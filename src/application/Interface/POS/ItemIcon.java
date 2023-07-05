@@ -65,7 +65,9 @@ public class ItemIcon extends GridPane implements Initializable {
 		
 		ProductImage.setPreserveRatio(true);
 		ProductImage.setVisible(true);
-		
+
+
+
 		
 		ItemIcon container = this;
 		this.addEventFilter(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>(){
