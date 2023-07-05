@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="asposewords">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/Aspose_Java/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/Aspose_Java/lib" recursive="false" />
+  </library>
+</component>
