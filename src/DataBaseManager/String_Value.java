@@ -19,4 +19,9 @@ public class String_Value extends Value {
 	public String to_string() {
 		return "'" + value + "'";
 	}
+
+	@Override
+	public Object getValue() {
+		return value;
+	}
 }

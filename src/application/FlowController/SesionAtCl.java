@@ -1,5 +1,9 @@
 package application.FlowController;
 
+import DataBaseManager.DBManager;
+import DataBaseManager.LinkedObject;
+import DataBaseManager.RowMirror;
+import InventoryModel.Product;
 import SalesModel.Cart;
 import application.Interface.LI.SelectAccount;
 import application.Interface.POS.*;
@@ -9,6 +13,7 @@ import application.Interface.generic.Notifications;
 import application.Interface.generic.Sales;
 import SalesModel.POSsesion;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -30,6 +35,9 @@ public class SesionAtCl extends Sesion {
 	private application.Interface.generic.Inventory Inventory;
 
 	private ArrayList<POSsesion> POSsesions;
+
+	private InventoryModel.Inventory inventory;
+	private DBManager manager;
 
 	public SesionAtCl(User InputUser) throws Exception {
 		super(InputUser);
@@ -59,6 +67,10 @@ public class SesionAtCl extends Sesion {
 		this.Inventory.hide();
 
 		this.POSsesions = new ArrayList<POSsesion>();
+
+		this.manager = new DBManager("", "","");
+
+		this.inventory = new InventoryModel.Inventory(manager, "inventario_final_diario");
 
 		this.run();
 	}

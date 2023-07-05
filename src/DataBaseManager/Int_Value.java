@@ -20,4 +20,9 @@ public class Int_Value extends Value {
 	public String to_string() {
 	    return Integer.toString(value);
 	}
+
+	@Override
+	public Object getValue() {
+		return value;
+	}
 }

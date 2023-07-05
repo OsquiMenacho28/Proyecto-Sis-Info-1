@@ -165,9 +165,11 @@ public class Product extends LinkedObject {
 	public void setQuantity(Integer quantity) throws SQLException {
 		if(quantity > 0){
 			 set(this.quantity, Value.create(quantity));
+			 fireValueChangedEvent();
 		}
-		else{
+		else if(quantity == 0){
 			set(this.quantity, Value.create(0));
+			fireValueChangedEvent();
 		}
 	}
 
@@ -281,11 +283,12 @@ public class Product extends LinkedObject {
 
 		public void incrementQuantity(int cant) throws Exception {
 			this.product.moveUnits(this, cant);
-			fireValueChangedEvent();
+			this.fireValueChangedEvent();
 		}
 
 		public void reduceQuantity() throws Exception {
 			reduceQuantity(1);
+			this.fireValueChangedEvent();
 		}
 
 		public void reduceQuantity(int cant) throws Exception {
@@ -294,6 +297,7 @@ public class Product extends LinkedObject {
 			} else {
 				this.product.backToInventory(this);
 			}
+			this.fireValueChangedEvent();
 		}
 
 		public float getPrice() {

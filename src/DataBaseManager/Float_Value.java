@@ -19,4 +19,9 @@ public class Float_Value extends Value {
 	public String to_string() {
 		return Float.toString(value);
 	}
+
+	@Override
+	public Object getValue() {
+		return value;
+	}
 }

@@ -7,8 +7,10 @@ import java.util.HashMap;
 public final class User {
 	String userName;
 	String password;
+
+	Integer cashierID;
 	Boolean validated;
-	Boolean admin;
+	Boolean adminPermission;
 	
 	private static HashMap<String, String> users = new HashMap<String, String>(){
 		{
@@ -23,7 +25,13 @@ public final class User {
 	public User(String userName, String password, Boolean admin) {
 		this.userName = userName;
 		this.password = password;
-		this.admin = admin;
+		this.adminPermission = admin;
+		if(!adminPermission){
+			cashierID = (int)(10*Math.random()+1);
+		}
+		else{
+			cashierID = null;
+		}
 		this.validated = false;
 	}
 	
@@ -31,8 +39,9 @@ public final class User {
 		if(users.keySet().contains(userName)) {
 			if(users.get(userName).equals(password)) {
 				System.out.println("Logged");
-
-				return new User(userName, password, true);
+				User user = new User(userName, password, true);
+				user.validated = true;
+				return user;
 			}
 		}
 	return null;
@@ -52,6 +61,10 @@ public final class User {
 		return validated;
 	}
 	public Boolean isAdmin(){
-		return admin;
+		return adminPermission;
+	}
+
+	public int getCashierID(){
+		return cashierID;
 	}
 }

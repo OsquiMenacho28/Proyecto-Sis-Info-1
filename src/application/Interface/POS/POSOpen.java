@@ -2,6 +2,7 @@ package application.Interface.POS;
 
 import SalesModel.Cart;
 import SalesModel.POSsesion;
+import application.Interface.AtClPromptWindow;
 import application.Interface.generic.Inventory;
 import application.Interface.generic.Notifications;
 import application.Interface.generic.Sales;
@@ -40,7 +41,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class POSOpen extends PromptWindow implements Initializable {
+public class POSOpen extends AtClPromptWindow implements Initializable {
 
 	PaymentRequest paymentRequest;
 
@@ -128,7 +129,6 @@ public class POSOpen extends PromptWindow implements Initializable {
 	private Inventory inventory;
 	private Cart cart;
 	private POSsesion POSsesion;
-	private SesionAtCl sesion;
 
 	private AddedProduct focusedItem;
 	private ObservableList<AddedProduct> selectedItems;
@@ -141,9 +141,15 @@ public class POSOpen extends PromptWindow implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		stage.setOnCloseRequest(windowEvent -> exitRequest(););
+		stage.setOnCloseRequest(windowEvent -> {
+			try {
+				exitRequest();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 
-		Notification_B.setOnAction(actionEvent -> notificationRequest(););
+		Notification_B.setOnAction(actionEvent -> notificationRequest());
 
 		LightMode_Opt.setOnAction(actionEvent -> {
 
@@ -355,7 +361,12 @@ public class POSOpen extends PromptWindow implements Initializable {
 			products.add(aux);
 		}
 	}
-	
+
+	public void exitRequest() throws IOException {
+		sesion.exitRequest();
+	}
+
+
 	public void clearCart() {
 		cart.clear();
 	}

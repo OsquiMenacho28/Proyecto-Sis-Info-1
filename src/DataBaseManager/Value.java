@@ -1,9 +1,11 @@
 package DataBaseManager;
 
+import javafx.beans.value.ObservableValueBase;
+
 import java.sql.Date;
 import java.time.LocalDateTime;
 
-public abstract class Value {
+public abstract class Value extends ObservableValueBase {
 	protected DataType type;
 	protected Object value;
 	public Value(DataType type) {

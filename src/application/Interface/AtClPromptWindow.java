@@ -9,7 +9,7 @@ import java.io.IOException;
 public class AtClPromptWindow extends PromptWindow {
 
 
-    SesionAtCl ses;
+    protected SesionAtCl ses;
 
     public AtClPromptWindow(Sesion ses, String FXMLname, PromptWindow origin) throws IOException {
         super(ses, FXMLname, origin);

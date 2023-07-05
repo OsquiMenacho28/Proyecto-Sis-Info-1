@@ -2,6 +2,7 @@ package SalesModel;
 
 import DataBaseManager.DataType;
 import DataBaseManager.RelVar;
+import InventoryModel.Inventory;
 import application.Interface.POS.POSOpen;
 import javafx.collections.ObservableList;
 
@@ -30,6 +31,7 @@ public class POSsesion {
     private LocalDateTime beginning;
     private LocalDateTime ending;
     private Cart cart;
+
     private ArrayList<Sale> sales;
     private POSOpen POSOpen;
 

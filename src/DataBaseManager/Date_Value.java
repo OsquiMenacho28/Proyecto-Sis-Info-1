@@ -22,4 +22,9 @@ public class Date_Value extends Value {
 	public String to_string() {
 		return String.valueOf(value);
 	}
+
+	@Override
+	public Object getValue() {
+		return value;
+	}
 }
