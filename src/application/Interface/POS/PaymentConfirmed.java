@@ -1,5 +1,6 @@
 package application.Interface.POS;
 
+import ElectronicInvoice.GenerateInvoice;
 import application.FlowController.SesionAtCl;
 import application.Interface.PromptWindow;
 import application.Interface.generic.Inventory;

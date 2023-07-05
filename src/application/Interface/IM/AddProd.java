@@ -1,8 +1,8 @@
 package application.Interface.IM;
 
 import InventoryModel.Product;
-import application.Interface.PromptWindow;
 import application.FlowController.SesionAdmin;
+import application.Interface.PromptWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -48,12 +48,11 @@ public class AddProd extends PromptWindow implements Initializable{
 	
 	@FXML
 	TextField ProductQuantityField;
-	
-	//@FXML
-	//TextField SerialNumberField;
 
 	@FXML
 	TextArea ProductDescriptionArea;
+
+	private SesionAdmin sesionAdmin;
 	
 	/*@FXML
 	TableView<Product> Table;

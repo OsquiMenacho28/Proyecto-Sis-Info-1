@@ -1,25 +1,20 @@
 package application.Interface.IM;
 
 import InventoryModel.Product;
-import application.Interface.PromptWindow;
 import application.FlowController.SesionAdmin;
-import application.FlowController.SesionAtCl;
-import application.Interface.LI.SelectAccount;
-import application.Interface.generic.Notifications;
-import application.Interface.generic.Sales;
-import javafx.application.Platform;
+import application.Interface.PromptWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.effect.BoxBlur;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Font;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class InventoryManagement extends PromptWindow implements Initializable {
@@ -76,8 +71,7 @@ public class InventoryManagement extends PromptWindow implements Initializable {
 
     int clickCount = 0;
     boolean isButtonEnabled = false;
-
-    private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
+    private SesionAdmin sesionAdmin;
 
     public InventoryManagement(SesionAdmin ses, PromptWindow origin) throws IOException {
         super(ses, "InventoryManagement.fxml", origin);
@@ -89,31 +83,9 @@ public class InventoryManagement extends PromptWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        stage.setOnCloseRequest(windowEvent -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("CERRAR APLICACIÓN");
-            alert.setHeaderText("¡ADVERTENCIA!");
-            alert.setContentText("Se cerrará la aplicación. ¿Desea continuar?");
-            alert.initStyle(StageStyle.DECORATED);
-            stage.getScene().getRoot().setEffect(blurEffect);
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                Platform.exit();
-            }
-            else {
-                stage.getScene().getRoot().setEffect(null);
-                windowEvent.consume();
-            }
-        });
+        stage.setOnCloseRequest(windowEvent -> sesionAdmin.closeApplicationRequest(windowEvent));
 
-        Notification_B.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
-            try {
-                Notifications notifications = new Notifications((SesionAtCl) null,this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        Notification_B.setOnAction(actionEvent -> sesionAdmin.notificationsRequest());
 
         LightMode_Opt.setOnAction(actionEvent -> {
 
@@ -123,53 +95,13 @@ public class InventoryManagement extends PromptWindow implements Initializable {
 
         });
 
-        Close_B.setOnAction(actionEvent -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("CERRAR SESIÓN");
-            alert.setHeaderText("¡AVISO!");
-            alert.setContentText("¿Está seguro de Cerrar Sesión?");
-            alert.initStyle(StageStyle.DECORATED);
-            stage.getScene().getRoot().setEffect(blurEffect);
-            Optional <ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                dispose();
-                try {
-                    new SelectAccount();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            else {
-                stage.getScene().getRoot().setEffect(null);
-            }
-        });
+        Close_B.setOnAction(actionEvent -> sesionAdmin.logOutRequest());
 
-        Sales_Opt.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
-            try {
-                Sales sales = new Sales((SesionAdmin) null, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        Sales_Opt.setOnAction(actionEvent -> sesionAdmin.salesRequest());
 
-        AddProduct_Opt.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
-            try {
-                AddProd addProd = new AddProd(products, null, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        AddProduct_Opt.setOnAction(actionEvent -> sesionAdmin.addProductRequest());
 
-        EditProduct_B.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
-            try {
-                EditProduct editProduct = new EditProduct(null, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        EditProduct_B.setOnAction(actionEvent -> sesionAdmin.editProductRequest());
 
         EnableProduct_B.setOnMouseClicked(mouseEvent -> {
             clickCount++;
@@ -188,41 +120,13 @@ public class InventoryManagement extends PromptWindow implements Initializable {
             }
         });
 
-        DeleteProduct_B.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
-            try {
-                DeleteProduct deleteProduct = new DeleteProduct(null, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        DeleteProduct_B.setOnAction(actionEvent -> sesionAdmin.deleteProductRequest());
 
-        EntryProduct_B.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
-            try {
-                EntryProduct entryProduct = new EntryProduct(null, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        EntryProduct_B.setOnAction(actionEvent -> sesionAdmin.entryProductRequest());
 
-        /*Metrics_B.setOnAction(actionEvent -> {
-            stage.getScene().getRoot().setEffect(blurEffect);
-            try {
-                Metrics metrics = new Metrics(null, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });*/
+        Metrics_B.setOnAction(actionEvent -> sesionAdmin.metricsRequest());
 
-        Back_B.setOnAction(e -> {
-            try {
-                origin = new SelectAccount();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            back();
-        });
+        Back_B.setOnAction(actionEvent -> back());
 
         ListScroll.setFitToWidth(true);
         //ListScroll.setFitToHeight(true);

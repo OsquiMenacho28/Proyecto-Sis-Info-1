@@ -5,13 +5,13 @@ import DataBaseManager.LinkedObject;
 import DataBaseManager.RowMirror;
 import InventoryModel.Product;
 import SalesModel.Cart;
+import SalesModel.POSsesion;
 import application.Interface.LI.SelectAccount;
 import application.Interface.POS.*;
 import application.Interface.PromptWindow;
 import application.Interface.generic.Inventory;
 import application.Interface.generic.Notifications;
 import application.Interface.generic.Sales;
-import SalesModel.POSsesion;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.Event;
@@ -45,7 +45,7 @@ public class SesionAtCl extends Sesion{
 		super.mainWindow = this.POSOpening;
 		this.POSOpening.hide();
 
-		this.POSOpen = new POSOpen(products, this, mainWindow);
+		this.POSOpen = new POSOpen(this, this.POSOpening, this.Inventory); //products, this, mainWindow
 		this.POSOpen.hide();
 
 		this.POSClosure = new POSClosure(0, 0, this, this.POSOpen);
@@ -115,7 +115,7 @@ public class SesionAtCl extends Sesion{
 		else {
 			blurPOS();
 			try {
-				PaymentRequest paymentRequest = new PaymentRequest(cart,null, this);
+				PaymentRequest paymentRequest = new PaymentRequest(cart,null, this.POSOpen);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -124,9 +124,8 @@ public class SesionAtCl extends Sesion{
 
 	public void paymentConfirmedRequest() throws IOException {
 		blurPOS();
-		showPaymentRequest();
+		showPaymentConfirmed();
 	}
-
 
 	public void salesRequest() throws IOException {
 		blurPOS();
@@ -138,7 +137,7 @@ public class SesionAtCl extends Sesion{
 		showInventory();
 	}
 
-	public void exitRequest() throws IOException{
+	public void logOutRequest() throws IOException{
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("CERRAR SESIÓN");
 		alert.setHeaderText("¡AVISO!");
@@ -161,7 +160,7 @@ public class SesionAtCl extends Sesion{
 		}
 	}
 
-	public void disposeRequest(Event windowEvent) throws IOException{
+	public void closeApplicationRequest(Event windowEvent) throws IOException{
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("CERRAR APLICACIÓN");
 		alert.setHeaderText("¡ADVERTENCIA!");
