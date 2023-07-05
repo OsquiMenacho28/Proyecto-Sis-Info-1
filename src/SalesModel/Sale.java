@@ -1,16 +1,21 @@
 package SalesModel;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import DataBaseManager.*;
-import InventoryModel.Inventory;
 import InventoryModel.Product;
 import application.FlowController.User;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDateTime;
+
 public class Sale extends LinkedObject {
+
+	private Client client;
+	private Cart cart;
+	private LocalDateTime time;
+	private static final int paymentMethodCode = 1;
+	private static final int coinCode = 1;
+	private static final int exchangeRate = 1;
+	private static final double discountAmount = 0.0;
 
 	private Int_Value idVenta;
 	private Date_Value dateTime;
@@ -19,9 +24,6 @@ public class Sale extends LinkedObject {
 	private Int_Value idClient;
 
 	private ObservableList<Product.AddedProduct> products;
-	private Client client;
-	private Cart cart;
-	private LocalDateTime time;
 
 	public Sale(Client client, Cart cart, User user) throws Exception {
 		super(, Value.create(), Value.create(cart.getTotalPrice()), Value.create(user.getCashierID(), Value.create(client.getID()));
@@ -37,5 +39,21 @@ public class Sale extends LinkedObject {
 			bind("total", total);
 			bind("caja_id_caja", cashier);
 			bind("cliente_id_cliente", idClient)
+	}
+
+	public static int getPaymentMethodCode() {
+		return paymentMethodCode;
+	}
+
+	public static int getCoinCode() {
+		return coinCode;
+	}
+
+	public static int getExchangeRate() {
+		return exchangeRate;
+	}
+
+	public static double getDiscountAmount() {
+		return discountAmount;
 	}
 }

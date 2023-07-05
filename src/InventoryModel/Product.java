@@ -21,6 +21,8 @@ public class Product extends LinkedObject {
 	protected String_Value brand;
 	protected String_Value category;
 	protected Float_Value price;
+	private static int measurementUnitCode = 58;
+
 	protected Int_Value visible;
 	
 	private ArrayList<AddedProduct> pendingProducts;
@@ -55,7 +57,7 @@ public class Product extends LinkedObject {
 		link();
 	}
 
-	protected void defineBind(){
+	/*protected void defineBind(){
 		bind("codigo", code);
 		bind("cantidad", quantity);
 		bind("nombre", name);
@@ -65,6 +67,17 @@ public class Product extends LinkedObject {
 		bind("categoria", category);
 		bind("precio", price);
 		//bind()
+	}*/
+
+	protected void defineBind(){
+		bind("id_producto", code);
+		bind("nombre", name);
+		bind("descripcion", description);
+		bind("precio_unitario", price);
+		bind("stock", quantity);
+		bind("color_producto_id_color_producto", color);
+		bind("marca_producto_id_marca", brand);
+		bind("categoria_producto_id_categoria_producto", category);
 	}
 
 	public AddedProduct addToCart(int cant, Cart cart) throws Exception {
@@ -243,6 +256,14 @@ public class Product extends LinkedObject {
 		else{
 			throw new Exception("Not a valid price");
 		}
+	}
+
+	public static int getMeasurementUnitCode() {
+		return measurementUnitCode;
+	}
+
+	public static void setMeasurementUnitCode(int measurementUnitCode) {
+		Product.measurementUnitCode = measurementUnitCode;
 	}
 
 	public boolean isVisible(){
