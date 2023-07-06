@@ -1,6 +1,8 @@
 package ElectronicInvoice;
 
-import application.*;
+import application.Client;
+import application.Sale;
+import application.User;
 import com.aspose.words.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -109,17 +111,17 @@ public class Invoice {
         headBoard.appendChild(InvIssueDate);
 
         Element socialReasonName = XMLDocument.createElement("nombreRazonSocial");
-        Text socialReasonNameText = XMLDocument.createTextNode(client.getName());
+        Text socialReasonNameText = XMLDocument.createTextNode("Menacho");
         socialReasonName.appendChild(socialReasonNameText);
         headBoard.appendChild(socialReasonName);
 
         Element identityDocumentTypeCode = XMLDocument.createElement("codigoTipoDocumentoIdentidad");
-        Text identityDocumentTypeCodeText = XMLDocument.createTextNode(String.valueOf(client.getDocumentTypeCode()));
+        Text identityDocumentTypeCodeText = XMLDocument.createTextNode(String.valueOf(1));
         identityDocumentTypeCode.appendChild(identityDocumentTypeCodeText);
         headBoard.appendChild(identityDocumentTypeCode);
 
         Element documentNumber = XMLDocument.createElement("numeroDocumento");
-        Text documentNumberText = XMLDocument.createTextNode(String.valueOf(client.getNIT()));
+        Text documentNumberText = XMLDocument.createTextNode(String.valueOf(6986979));
         documentNumber.appendChild(documentNumberText);
         headBoard.appendChild(documentNumber);
 
@@ -128,12 +130,12 @@ public class Invoice {
         headBoard.appendChild(complement);
 
         Element clientCode = XMLDocument.createElement("codigoCliente");
-        Text clientCodeText = XMLDocument.createTextNode(String.valueOf(1111)); // String.valueOf(Código del cliente registrado en la base de datos);
+        Text clientCodeText = XMLDocument.createTextNode(String.valueOf(320)); // String.valueOf(Código del cliente registrado en la base de datos);
         clientCode.appendChild(clientCodeText);
         headBoard.appendChild(clientCode);
 
         Element paymentMethodCode = XMLDocument.createElement("codigoMetodoPago");
-        Text paymentMethodCodeText = XMLDocument.createTextNode(String.valueOf(Sale.getPaymentMethodCode()));
+        Text paymentMethodCodeText = XMLDocument.createTextNode(String.valueOf(1));
         paymentMethodCode.appendChild(paymentMethodCodeText);
         headBoard.appendChild(paymentMethodCode);
 
@@ -142,27 +144,27 @@ public class Invoice {
         headBoard.appendChild(cardNumber);
 
         Element totalAmount = XMLDocument.createElement("montoTotal");
-        Text totalAmountText = XMLDocument.createTextNode(String.valueOf(sale.getMonto()));
+        Text totalAmountText = XMLDocument.createTextNode(String.valueOf(501));
         totalAmount.appendChild(totalAmountText);
         headBoard.appendChild(totalAmount);
 
         Element ivaSubjectTotalAmount = XMLDocument.createElement("montoTotalSujetoIva");
-        Text ivaSubjectTotalAmountText = XMLDocument.createTextNode(String.valueOf(sale.getMonto()));
+        Text ivaSubjectTotalAmountText = XMLDocument.createTextNode(String.valueOf(501));
         ivaSubjectTotalAmount.appendChild(ivaSubjectTotalAmountText);
         headBoard.appendChild(ivaSubjectTotalAmount);
 
         Element coinCode = XMLDocument.createElement("codigoMoneda");
-        Text coinCodeText = XMLDocument.createTextNode(String.valueOf(Sale.getCoinCode()));
+        Text coinCodeText = XMLDocument.createTextNode(String.valueOf(1));
         coinCode.appendChild(coinCodeText);
         headBoard.appendChild(coinCode);
 
         Element exchangeRate = XMLDocument.createElement("tipoCambio");
-        Text exchangeRateText = XMLDocument.createTextNode(String.valueOf(Sale.getExchangeRate()));
+        Text exchangeRateText = XMLDocument.createTextNode(String.valueOf(1));
         exchangeRate.appendChild(exchangeRateText);
         headBoard.appendChild(exchangeRate);
 
         Element coinTotalAmount = XMLDocument.createElement("montoTotalMoneda");
-        Text coinTotalAmountText = XMLDocument.createTextNode(String.valueOf(sale.getMonto()));
+        Text coinTotalAmountText = XMLDocument.createTextNode(String.valueOf(501));
         coinTotalAmount.appendChild(coinTotalAmountText);
         headBoard.appendChild(coinTotalAmount);
 
@@ -187,7 +189,7 @@ public class Invoice {
         caption.appendChild(captionText);
         headBoard.appendChild(caption);
 
-        String userName = userData.getNames() + " " + userData.getLastNames();
+        String userName = "Andrés Hinojosa";
         Element user = XMLDocument.createElement("usuario");
         Text userText = XMLDocument.createTextNode(userName);
         user.appendChild(userText);
@@ -200,7 +202,7 @@ public class Invoice {
 
         XMLDocument.getDocumentElement().appendChild(headBoard);
 
-        for (AddedProduct product : sale.getCart()) {
+        for (int i = 0; i < 1; i++) {
             Element detail = XMLDocument.createElement("detalle");
 
             Element economicActivity = XMLDocument.createElement("actividadEconomica");
@@ -214,36 +216,36 @@ public class Invoice {
             detail.appendChild(SINProductCode);
 
             Element productCode = XMLDocument.createElement("codigoProducto");
-            Text productCodeText = XMLDocument.createTextNode(String.valueOf(product.getCode()));
+            Text productCodeText = XMLDocument.createTextNode(String.valueOf(60198470));
             productCode.appendChild(productCodeText);
             detail.appendChild(productCode);
 
             Element description = XMLDocument.createElement("descripcion");
-            Text descriptionText = XMLDocument.createTextNode(product.getDescription());
+            Text descriptionText = XMLDocument.createTextNode("Martillo 322 Verde");
             description.appendChild(descriptionText);
             detail.appendChild(description);
 
             Element quantity = XMLDocument.createElement("cantidad");
-            Text quantityText = XMLDocument.createTextNode(String.valueOf(product.getCant()));
+            Text quantityText = XMLDocument.createTextNode(String.valueOf(3));
             quantity.appendChild(quantityText);
             detail.appendChild(quantity);
 
             Element measurementUnit = XMLDocument.createElement("unidadMedida");
-            Text measurementUnitText = XMLDocument.createTextNode(String.valueOf(Product.getMeasurementUnitCode()));
+            Text measurementUnitText = XMLDocument.createTextNode(String.valueOf(58));
             measurementUnit.appendChild(measurementUnitText);
             detail.appendChild(measurementUnit);
 
             Element unitPrice = XMLDocument.createElement("precioUnitario");
-            Text unitPriceText = XMLDocument.createTextNode(String.valueOf(product.getPrice()));
+            Text unitPriceText = XMLDocument.createTextNode(String.valueOf(83.5));
             unitPrice.appendChild(unitPriceText);
             detail.appendChild(unitPrice);
 
             Element discountAmount = XMLDocument.createElement("montoDescuento");
-            Text discountAmountText = XMLDocument.createTextNode(String.valueOf(Sale.getDiscountAmount()));
+            Text discountAmountText = XMLDocument.createTextNode(String.valueOf(0.0));
             discountAmount.appendChild(discountAmountText);
             detail.appendChild(discountAmount);
 
-            double subTotalCalculation = (product.getCant() * product.getPrice()) - Sale.getDiscountAmount();
+            double subTotalCalculation = (3 * 83.5) - 0;
             Element subTotal = XMLDocument.createElement("subTotal");
             Text subTotalText = XMLDocument.createTextNode(String.valueOf(subTotalCalculation));
             subTotal.appendChild(subTotalText);
