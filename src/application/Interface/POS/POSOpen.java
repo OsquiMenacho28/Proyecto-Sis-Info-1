@@ -11,8 +11,6 @@ import application.FlowController.SesionAtCl;
 import application.Interface.AtClPromptWindow;
 import application.Interface.PromptWindow;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -21,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -159,7 +156,6 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 		}
 	}
 
-
 	private class CodeComparator implements Comparator<ItemIcon> {
 		String target;
 		private CodeComparator(String target){
@@ -217,7 +213,13 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			}
 		});
 
-		Notification_B.setOnAction(actionEvent -> notificationRequest());
+		Notification_B.setOnAction(actionEvent -> {
+			try {
+				sesion.notificationsRequest();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 
 		LightMode_Opt.setOnAction(actionEvent -> {
 
@@ -227,19 +229,43 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 
 		});
 
-		Close_B.setOnAction(actionEvent -> endSesionRequest(););
+		Close_B.setOnAction(actionEvent -> {
+			try {
+				sesion.logOutRequest();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 
-		Sales_Opt.setOnAction(actionEvent -> salesRequest(););
+		Sales_Opt.setOnAction(actionEvent -> {
+			try {
+				sesion.salesRequest();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 
-		Inventory_Opt.setOnAction(actionEvent -> inventoryRequest(););
+		Inventory_Opt.setOnAction(actionEvent -> {
+			try {
+				sesion.inventoryRequest();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 
-		Closure_Opt.setOnAction(actionEvent -> closureRequest()););
+		Closure_Opt.setOnAction(actionEvent -> {
+			try {
+				sesion.closePOSrequest(POSsesion);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 		
 		Back_B.setOnAction(e -> back());
 
 		Pay_B.setOnAction(actionEvent -> {
 			try {
-				paymentRequest();
+				sesion.paymentRequest(cart);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -464,18 +490,6 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 	private void codeSearch(){
 		String codeQuery = SearchCode_F.getText();
 		visibleProducts.sort((Comparator) new CodeComparator(codeQuery));
-	}
-
-	private void paymentRequest() throws IOException {
-		sesion.paymentRequest(cart);
-	}
-
-	private void quitRequest(){
-		sesion.quitRequest();
-	}
-
-	private void POSClosure() throws IOException {
-		sesion.closureRequest(OpeningCount, this);
 	}
 
 	public TableView<AddedProduct> getCartTable(){

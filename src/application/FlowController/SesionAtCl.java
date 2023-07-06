@@ -1,9 +1,6 @@
 package application.FlowController;
 
 import DataBaseManager.DBManager;
-import DataBaseManager.LinkedObject;
-import DataBaseManager.RowMirror;
-import InventoryModel.Product;
 import SalesModel.Cart;
 import SalesModel.POSsesion;
 import application.Interface.LI.SelectAccount;
@@ -13,7 +10,6 @@ import application.Interface.generic.Inventory;
 import application.Interface.generic.Notifications;
 import application.Interface.generic.Sales;
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -85,11 +81,11 @@ public class SesionAtCl extends Sesion{
 		if(!POSOpen.isActive()){
 			this.POSOpening.hide();
 			this.showPOSOpen();
-			this.POSOpen.openSesion(OpeningCount);
+			this.POSOpen.activate(new POSsesion(OpeningCount, this.POSOpen));
 		}
 	}
 	public void closePOSrequest(POSsesion POSsesion) throws IOException{
-		if(POSOpen.isActive()){
+		if(POSOpen.isActive()) {
 			blurPOS();
 			this.showPOSClosure();
 		}

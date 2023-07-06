@@ -2,21 +2,20 @@ package application.Interface.POS;
 
 import InventoryModel.Product;
 import InventoryModel.Product.AddedProduct;
-import SalesModel.Sale;
-import application.Interface.PromptWindow;
+import SalesModel.Cart;
 import application.FlowController.SesionAtCl;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import application.Interface.PromptWindow;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,18 +53,11 @@ public class PaymentRequest extends PromptWindow implements Initializable {
     @FXML
     private TableColumn<AddedProduct, Float> TPriceColumn;
 
-    Sale sale;
-    ObservableList<AddedProduct> cart = FXCollections.observableArrayList();
-
-    String name;
-    int NIT;
+    private Cart cart;
     
-	public PaymentRequest(ObservableList<AddedProduct> cart, SesionAtCl ses, POSOpen origin) throws IOException {
-		super(ses, "PaymentRequest.fxml", origin, "Confirmar Pago");
-		this.cart = cart;
-        stage.setTitle("CONFIRMAR PAGO");
-        load();
-        stage.centerOnScreen();
+	public PaymentRequest(SesionAtCl ses, POSOpen origin) throws IOException {
+		super(ses, "PaymentRequest.fxml", origin, "CONFIRMAR PAGO");
+        this.load();
 	}
 
 	@Override
@@ -75,13 +67,35 @@ public class PaymentRequest extends PromptWindow implements Initializable {
 		Confirm_B.setOnAction(e -> dispose());
 
 		CartList_T.setEditable(false);
-		
-		ProductColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, String>("name"));
-		PriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("price"));
-		CantColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Integer>("cant"));
-		TPriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("tprice"));
-		CantColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-	
-		CartList_T.setItems(this.cart);
+
+        ProductColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, String>, ObservableValue<String>>(){
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<AddedProduct, String> addedProductStringCellDataFeatures) {
+                return new SimpleStringProperty(addedProductStringCellDataFeatures.getValue().getProduct().getName());
+            }
+        });
+        PriceColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, Float>, ObservableValue<Float>>(){
+            @Override
+            public ObservableValue<Float> call(TableColumn.CellDataFeatures<AddedProduct, Float> addedProductStringCellDataFeatures) {
+                return new ReadOnlyObjectWrapper(addedProductStringCellDataFeatures.getValue().getProduct().getPrice());
+            }
+        });
+        CantColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, Integer>, ObservableValue<Integer>>(){
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<AddedProduct, Integer> addedProductStringCellDataFeatures) {
+                return new ReadOnlyObjectWrapper(addedProductStringCellDataFeatures.getValue().getCant());
+            }
+        });
+        TPriceColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, Float>, ObservableValue<Float>>(){
+            @Override
+            public ObservableValue<Float> call(TableColumn.CellDataFeatures<AddedProduct, Float> addedProductStringCellDataFeatures) {
+                return new ReadOnlyObjectWrapper(addedProductStringCellDataFeatures.getValue().getPrice());
+            }
+        });
 	}
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+        CartList_T.setItems(this.cart);
+    }
 }
