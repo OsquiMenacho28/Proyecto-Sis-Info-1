@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class LogInAtCl extends LogIn {
 
     public  LogInAtCl(Stage stage, PromptWindow origin) throws IOException {
-        super((SesionAtCl) null, stage, "FERRETERÍA DIMACO - ATENCIÓN AL CLIENTE", origin);
+        super((SesionAtCl) null, stage, "LogInAtCl.fxml", origin, "FERRETERÍA DIMACO - ATENCIÓN AL CLIENTE");
     }
 
     @Override
@@ -68,6 +68,7 @@ public class LogInAtCl extends LogIn {
         if(inputUser != null) {
             try {
                 new SesionAtCl(inputUser);
+                System.out.println("josd");
                 dispose();
             } catch (IOException e) {
                 e.printStackTrace();

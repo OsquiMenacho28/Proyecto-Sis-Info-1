@@ -1,5 +1,6 @@
 package application.Interface.LI;
 
+import application.FlowController.Sesion;
 import application.Interface.PromptWindow;
 import application.FlowController.SesionAdmin;
 import application.FlowController.SesionAtCl;
@@ -26,13 +27,13 @@ public abstract class LogIn extends PromptWindow implements Initializable {
     @FXML
     Button FPassword_B;
 
-    public LogIn(SesionAtCl ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
-        super(ses, FXMLname, origin);
+    public LogIn(Sesion ses, Stage stage, String FXMLname, PromptWindow origin, String title) throws IOException {
+        super(ses, FXMLname, origin, title);
         this.load();
         this.show();
     }
 
-    public LogIn(SesionAdmin ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
+    public LogIn(Sesion ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
         super(ses, FXMLname, origin);
         this.load();
         this.show();

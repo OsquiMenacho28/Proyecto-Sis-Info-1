@@ -28,9 +28,6 @@ public class PromptWindow extends GridPane {
 		loader.setRoot(this);
 		loader.setController(this);
 
-		stage.setResizable(true);
-		stage.setMaximized(true);
-
 		createWindow();
 		show();
 	}
@@ -69,6 +66,9 @@ public class PromptWindow extends GridPane {
 		this.stage = new Stage();
 		this.scene = new Scene(this);
 		stage.setScene(scene);
+
+		stage.setResizable(true);
+		stage.setMaximized(true);
 		//stage.sizeToScene();
 		stage.setResizable(true);
 	}

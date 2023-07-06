@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class LogInAdmin extends LogIn {
 
     public  LogInAdmin(Stage stage, PromptWindow origin) throws IOException {
-        super((SesionAdmin) null, stage, "FERRETERÍA DIMACO - ADMINISTRADOR", origin);
+        super((SesionAdmin) null, stage, "LogInAdmin.fxml", origin, "FERRETERÍA DIMACO - ADMINISTRADOR");
     }
 
     @Override
