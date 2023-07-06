@@ -1,6 +1,7 @@
 package application.Interface.IM;
 
 import InventoryModel.Product;
+import application.Interface.AdminPromptWindow;
 import application.Interface.PromptWindow;
 import application.FlowController.SesionAdmin;
 import javafx.collections.FXCollections;
@@ -20,7 +21,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class EditProduct extends PromptWindow implements Initializable {
+public class EditProduct extends AdminPromptWindow implements Initializable {
 
     @FXML
     Button Back_B;
@@ -52,13 +53,12 @@ public class EditProduct extends PromptWindow implements Initializable {
     @FXML
     TextArea ProductDescriptionArea;
 
-    ObservableList<Product> products = FXCollections.observableArrayList();
-
     private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
 
+    private Product product;
+
     public EditProduct(SesionAdmin ses1, PromptWindow origin) throws IOException {
-        super(ses1, "EditProduct.fxml", origin);
-        stage.setTitle("EDITAR PRODUCTO");
+        super(ses1, "EditProduct.fxml", origin, "EDITAR PRODUCTO");
         stage.setWidth(672);
         stage.setHeight(570);
         this.load();
@@ -67,7 +67,7 @@ public class EditProduct extends PromptWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         stage.setOnCloseRequest(windowEvent -> {
-            origin.stage.getScene().getRoot().setEffect(null);
+            origin.setEffect(null);
         });
 
         ProductNameField.setOnKeyPressed(event -> {
@@ -124,19 +124,24 @@ public class EditProduct extends PromptWindow implements Initializable {
         Back_B.setOnAction(actionEvent -> back());
 
         Edit_B.setOnAction(actionEvent -> {
-            try {
-                update();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            if(this.product != null){
+                if(this.product.isLinked()){
+                    try {
+                        update();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("EDITAR PRODUCTO");
+                    alert.setHeaderText("¡EXITO!");
+                    alert.setContentText("El producto " + ProductNameField.getText() + " se actualizó correctamente");
+                    alert.initStyle(StageStyle.DECORATED);
+                    stage.getScene().getRoot().setEffect(blurEffect);
+                    alert.showAndWait();
+                    back();
+                }
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("EDITAR PRODUCTO");
-            alert.setHeaderText("¡EXITO!");
-            alert.setContentText("El producto " + ProductNameField.getText() + " se actualizó correctamente");
-            alert.initStyle(StageStyle.DECORATED);
-            stage.getScene().getRoot().setEffect(blurEffect);
-            alert.showAndWait();
-            back();
+
         });
     }
 
@@ -144,7 +149,7 @@ public class EditProduct extends PromptWindow implements Initializable {
         return (x != null) && !x.equals("");
     }
 
-    private void update() throws SQLException {
+    private void update() throws Exception {
 
         String name = ProductNameField.getText();
         String description = ProductDescriptionArea.getText();
@@ -155,9 +160,21 @@ public class EditProduct extends PromptWindow implements Initializable {
         String price = ProductPriceField.getText();
 
         if(v(name) && v(description) && v(code) && v(color) && v(brand) && v(category) && v(price)) {
-            Product aux = new Product(Integer.parseInt(code), 0, name, description, color, brand, category, Float.parseFloat(price));
-            products.add(aux);
-            ses2.updateProducts(products);
+            product.setName(name);
+            product.setDescription(description);
+            product.setCode(Integer.parseInt(code));
+            product.setColor(color);
+            product.setBrand(brand);
+            product.setCategory(category);
+            product.setPrice(Float.parseFloat(price));
         }
+    }
+
+    public void setProduct(Product product){
+        this.product = product;
+    }
+
+    public void clear(){
+        this.product = null;
     }
 }

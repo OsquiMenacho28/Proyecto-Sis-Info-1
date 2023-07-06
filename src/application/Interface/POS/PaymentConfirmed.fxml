@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.*?>
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="533.0" style="-fx-background-color: white;" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Font?>
+
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="533.0" style="-fx-background-color: white;" styleClass="VariableContainer" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -56,7 +62,7 @@
             <Cursor fx:constant="HAND" />
         </cursor>
     </Button>
-    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="411.0" text="Los productos vendidos se han retirado del inventario." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="411.0" styleClass="VariableText" text="Los productos vendidos se han retirado del inventario." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
         <GridPane.margin>
             <Insets left="20.0" />
         </GridPane.margin>
@@ -64,7 +70,7 @@
             <Font name="Metropolis-Regular" size="17.0" />
         </font>
     </Label>
-    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Quedan pocas existencias del producto:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="VariableText" text="Quedan pocas existencias del producto:" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
         <GridPane.margin>
             <Insets bottom="15.0" left="20.0" top="15.0" />
         </GridPane.margin>

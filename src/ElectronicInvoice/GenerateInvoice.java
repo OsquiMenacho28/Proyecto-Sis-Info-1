@@ -1,6 +1,7 @@
 package ElectronicInvoice;
 
 import application.FlowController.SesionAtCl;
+import application.Interface.AtClPromptWindow;
 import application.Interface.PromptWindow;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -22,7 +23,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class GenerateInvoice extends PromptWindow {
+public class GenerateInvoice extends AtClPromptWindow {
     @FXML
     private GridPane loadingInvoiceGridPane;
     @FXML
@@ -103,7 +104,7 @@ public class GenerateInvoice extends PromptWindow {
                     @Override
                     public void run() {
                         Platform.runLater(() -> {
-                            origin.ses2.POSOpen.cart.clear();
+                            sesion.get;
                             back();
                         });
                     }

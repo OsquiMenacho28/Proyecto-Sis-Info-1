@@ -11,16 +11,16 @@ import java.io.IOException;
 public class PromptWindow extends GridPane {
 	protected Stage stage;
 
-	Scene scene;
+	protected Scene scene;
 
-	Sesion ses;
-	String FXMLname;
-	PromptWindow origin;
-	FXMLLoader loader;
+	protected Sesion sesion;
+	protected String FXMLname;
+	protected PromptWindow origin;
+	protected FXMLLoader loader;
 
 
 	public PromptWindow(Sesion ses, String FXMLname, PromptWindow origin) throws IOException {
-		this.ses = ses;
+		this.sesion = ses;
 		this.FXMLname = FXMLname;
 		this.origin = origin;
 

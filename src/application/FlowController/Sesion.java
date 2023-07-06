@@ -1,5 +1,7 @@
 package application.FlowController;
 
+import DataBaseManager.DBManager;
+import InventoryModel.Inventory;
 import InventoryModel.Product;
 import application.Interface.PromptWindow;
 import SalesModel.Client;
@@ -13,9 +15,8 @@ public class Sesion {
 
     protected User LogedUser;
 
-    protected ObservableList<Sale> sales = FXCollections.observableArrayList();
-    protected ObservableList<Client> clients = FXCollections.observableArrayList();
-    protected ObservableList<Product> products = FXCollections.observableArrayList();
+    protected DBManager manager;
+    protected Inventory inventory;
 
     protected BoxBlur blurEffect = new BoxBlur(10, 10, 3);
 
@@ -27,11 +28,4 @@ public class Sesion {
         mainWindow.show();
     }
 
-    public void updateProducts(ObservableList<Product> products) {this.products = products;}
-    public void updateClients(ObservableList<Client> clients) {
-        this.clients = clients;
-    }
-    public void updateSales(ObservableList<Sale> sales) {
-        this.sales = sales;
-    }
 }

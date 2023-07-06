@@ -12,6 +12,8 @@ public class Sale extends LinkedObject {
 	private Client client;
 	private Cart cart;
 	private LocalDateTime time;
+
+	private POSsesion sesion;
 	private static final int paymentMethodCode = 1;
 	private static final int coinCode = 1;
 	private static final int exchangeRate = 1;
@@ -25,12 +27,22 @@ public class Sale extends LinkedObject {
 
 	private ObservableList<Product.AddedProduct> products;
 
-	public Sale(Client client, Cart cart, User user) throws Exception {
-		super(, Value.create(), Value.create(cart.getTotalPrice()), Value.create(user.getCashierID(), Value.create(client.getID()));
+	public Sale(Client client, Cart cart, POSsesion sesion) throws Exception {
+		super(SalesList.saleRV,
+				Value.create(sesion.getNewSaleNumber()),
+				Value.create(cart.getTotalPrice()),
+				Value.create(sesion.getCashierNumber()),
+						Value.create(client.getID()));
 
 		this.client = client;
 		this.cart = cart;
+		products = cart.getCartTable().getItems();
 		this.time = LocalDateTime.now();
+		this.sesion = sesion;
+	}
+
+	public Sale(RowMirror row) throws Exception {
+		super(row);
 	}
 
 	protected void defineBind() {
@@ -55,5 +67,13 @@ public class Sale extends LinkedObject {
 
 	public static double getDiscountAmount() {
 		return discountAmount;
+	}
+
+	public Cart getCart(){
+		return this.cart;
+	}
+
+	public float getMonto(){
+		return this.cart.getTotalPrice();
 	}
 }

@@ -203,7 +203,8 @@ public class Invoice {
 
         XMLDocument.getDocumentElement().appendChild(headBoard);
 
-        for (Product product : sale.getCart()) {
+        for (Product.AddedProduct Adproduct : sale.getCart()) {
+            Product product = Adproduct.getProduct();
             Element detail = XMLDocument.createElement("detalle");
 
             Element economicActivity = XMLDocument.createElement("actividadEconomica");

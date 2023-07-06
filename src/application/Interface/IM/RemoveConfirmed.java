@@ -1,5 +1,6 @@
 package application.Interface.IM;
 
+import application.Interface.AdminPromptWindow;
 import application.Interface.PromptWindow;
 import application.FlowController.SesionAdmin;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RemoveConfirmed extends PromptWindow implements Initializable {
+public class RemoveConfirmed extends AdminPromptWindow implements Initializable {
 
     @FXML
     private Label ProductCodeLabel;
@@ -44,7 +45,7 @@ public class RemoveConfirmed extends PromptWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         stage.setOnCloseRequest(windowEvent -> {
-            origin.stage.getScene().getRoot().setEffect(null);
+            origin.setEffect(null);
             back();
         });
 

@@ -1,5 +1,6 @@
 package application.Interface.IM;
 
+import application.Interface.AdminPromptWindow;
 import application.Interface.PromptWindow;
 import application.FlowController.SesionAdmin;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Metrics extends PromptWindow implements Initializable {
+public class Metrics extends AdminPromptWindow implements Initializable {
 
     @FXML
     private LineChart <Integer, Integer> MetricsChart;
@@ -47,7 +48,7 @@ public class Metrics extends PromptWindow implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
+        stage.setOnCloseRequest(windowEvent -> origin.setEffect(null));
 
         Back_B.setOnAction(actionEvent -> back());
     }

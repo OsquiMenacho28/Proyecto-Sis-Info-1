@@ -13,6 +13,8 @@ public final class User {
 	private Boolean validated;
 	private Boolean admin;
 
+	private int cashierNumber;
+
 	private static HashMap<String, String> users = new HashMap<String, String>() {
 		{
 			put("User1", "1234");
@@ -21,14 +23,17 @@ public final class User {
 		}
 	};
 
-	public User(String userName, String password) {
+	private User(String userName, String password) {
 		this(userName, password, false);
 	}
 
-	public User(String userName, String password, Boolean admin) {
+	private User(String userName, String password, Boolean admin) {
 		this.userName = userName;
 		this.password = password;
 		this.admin = admin;
+		if(!admin){
+			this.cashierNumber = (int)(10*Math.random() + 1);
+		}
 		this.validated = false;
 	}
 
@@ -36,8 +41,9 @@ public final class User {
 		if (users.keySet().contains(userName)) {
 			if (users.get(userName).equals(password)) {
 				System.out.println("Logged");
-
-				return new User(userName, password, true);
+				User user = new User(userName, password, true);
+				user.validate();
+				return user;
 			}
 		}
 		return null;
@@ -47,6 +53,10 @@ public final class User {
 		if (credentials.isAdmin()) {
 			user.invalidate();
 		}
+	}
+
+	public int getCashierNumber(){
+		return cashierNumber;
 	}
 
 	private void validate() {

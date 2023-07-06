@@ -32,24 +32,24 @@ public class POSsesion {
     private LocalDateTime beginning;
     private LocalDateTime ending;
     private Cart cart;
-    private ArrayList<Sale> sales;
+    private SalesList sales;
     private POSOpen POSOpen;
     private SesionAtCl sesion;
 
-    public POSsesion(Float OpeningCount, LocalDateTime beginning, LocalDateTime ending, POSOpen POSOpen){
+    public POSsesion(Float OpeningCount, LocalDateTime beginning, LocalDateTime ending, POSOpen POSOpen) throws Exception {
         this.OpeningCount = OpeningCount;
         this.beginning = beginning;
         this.ending = ending;
         this.cart = new Cart(this);
-        this.sales = new ArrayList<Sale>();
+        this.sales = new SalesList(sesion.getManager());
         this.POSOpen = POSOpen;
         this.sesion = POSOpen.getSesion();
     }
-    public POSsesion(Float OpeningCount, POSOpen POSOpen){
+    public POSsesion(Float OpeningCount, POSOpen POSOpen) throws Exception {
         this(OpeningCount,LocalDateTime.now(), null, POSOpen);
     }
 
-    public POSsesion(POSOpen POSOpen){
+    public POSsesion(POSOpen POSOpen) throws Exception {
         this(0f, POSOpen);
     }
 
@@ -63,7 +63,7 @@ public class POSsesion {
     }
     public void commitSale(Client c) throws Exception {
         if(cart.isNotEmpty()){
-            Sale sale = new Sale(c, cart, sesion.getUser());
+            Sale sale = new Sale(c, cart, this);
             sales.add(sale);
             newCart();
         }
@@ -76,4 +76,12 @@ public class POSsesion {
     public POSOpen getPOSOpen(){
         return POSOpen;
     }
+
+    public int getNewSaleNumber(){
+        return sales.getNewPK();
+    }
+
+    public int getCashierNumber(){
+        return sesion.getUser().getCashierNumber();
+    };
 }

@@ -140,6 +140,10 @@ public class LinkedObject extends ObservableValueBase<Value> {
         this.tuple.deactivate();
     }
 
+    public boolean isLinked(){
+        return linked;
+    }
+
     @Override
     public Value getValue() {
         return null;

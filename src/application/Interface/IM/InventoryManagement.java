@@ -2,6 +2,7 @@ package application.Interface.IM;
 
 import InventoryModel.Product;
 import application.FlowController.SesionAdmin;
+import application.Interface.AdminPromptWindow;
 import application.Interface.PromptWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class InventoryManagement extends PromptWindow implements Initializable {
+public class InventoryManagement extends AdminPromptWindow implements Initializable {
 
     @FXML
     private ScrollPane ListScroll;
@@ -71,21 +72,19 @@ public class InventoryManagement extends PromptWindow implements Initializable {
 
     int clickCount = 0;
     boolean isButtonEnabled = false;
-    private SesionAdmin sesionAdmin;
 
     public InventoryManagement(SesionAdmin ses, PromptWindow origin) throws IOException {
-        super(ses, "InventoryManagement.fxml", origin);
+        super(ses, "InventoryManagement.fxml", origin, "GESTIÓN DE INVENTARIO");
         super.stage.setMaximized(true);
-        super.stage.setTitle("GESTIÓN DE INVENTARIO");
         this.load();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        stage.setOnCloseRequest(windowEvent -> sesionAdmin.closeApplicationRequest(windowEvent));
+        stage.setOnCloseRequest(windowEvent -> sesion.closeApplicationRequest(windowEvent));
 
-        Notification_B.setOnAction(actionEvent -> sesionAdmin.notificationsRequest());
+        Notification_B.setOnAction(actionEvent -> sesion.notificationsRequest());
 
         LightMode_Opt.setOnAction(actionEvent -> {
 
@@ -95,13 +94,13 @@ public class InventoryManagement extends PromptWindow implements Initializable {
 
         });
 
-        Close_B.setOnAction(actionEvent -> sesionAdmin.logOutRequest());
+        Close_B.setOnAction(actionEvent -> sesion.logOutRequest());
 
-        Sales_Opt.setOnAction(actionEvent -> sesionAdmin.salesRequest());
+        Sales_Opt.setOnAction(actionEvent -> sesion.salesRequest());
 
-        AddProduct_Opt.setOnAction(actionEvent -> sesionAdmin.addProductRequest());
+        AddProduct_Opt.setOnAction(actionEvent -> sesion.addProductRequest());
 
-        EditProduct_B.setOnAction(actionEvent -> sesionAdmin.editProductRequest());
+        EditProduct_B.setOnAction(actionEvent -> sesion.editProductRequest());
 
         EnableProduct_B.setOnMouseClicked(mouseEvent -> {
             clickCount++;
@@ -120,11 +119,11 @@ public class InventoryManagement extends PromptWindow implements Initializable {
             }
         });
 
-        DeleteProduct_B.setOnAction(actionEvent -> sesionAdmin.deleteProductRequest());
+        DeleteProduct_B.setOnAction(actionEvent -> sesion.deleteProductRequest());
 
-        EntryProduct_B.setOnAction(actionEvent -> sesionAdmin.entryProductRequest());
+        EntryProduct_B.setOnAction(actionEvent -> sesion.entryProductRequest());
 
-        Metrics_B.setOnAction(actionEvent -> sesionAdmin.metricsRequest());
+        Metrics_B.setOnAction(actionEvent -> sesion.metricsRequest());
 
         Back_B.setOnAction(actionEvent -> back());
 

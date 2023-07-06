@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.*?>
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Font?>
+
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" style="-fx-background-color: white;" styleClass="VariableContainer" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
       <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -55,7 +64,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Nombre Cliente:" GridPane.rowIndex="2">
+   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="VariableText" text="Nombre Cliente:" GridPane.rowIndex="2">
       <GridPane.margin>
          <Insets left="20.0" />
       </GridPane.margin>
@@ -74,12 +83,12 @@
          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
       </columnResizePolicy>
    </TableView>
-   <TextField fx:id="Name_F" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="289.0" promptText="Nombre" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
+   <TextField fx:id="Name_F" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="289.0" promptText="Nombre" styleClass="VariableField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
       <GridPane.margin>
          <Insets right="20.0" />
       </GridPane.margin>
    </TextField>
-   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="NIT Cliente:" GridPane.rowIndex="3">
+   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="VariableText" text="NIT Cliente:" GridPane.rowIndex="3">
       <GridPane.margin>
          <Insets left="20.0" />
       </GridPane.margin>
@@ -87,12 +96,12 @@
          <Font name="Metropolis-Regular" size="17.0" />
       </font>
    </Label>
-   <TextField fx:id="NIT_F" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="289.0" promptText="NIT" GridPane.columnIndex="1" GridPane.rowIndex="3">
+   <TextField fx:id="NIT_F" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="289.0" promptText="NIT" styleClass="VariableField" GridPane.columnIndex="1" GridPane.rowIndex="3">
       <GridPane.margin>
          <Insets right="20.0" />
       </GridPane.margin>
    </TextField>
-   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Total a pagar:" GridPane.rowIndex="1">
+   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="VariableText" text="Total a pagar:" GridPane.rowIndex="1">
       <font>
          <Font name="Metropolis-Regular" size="17.0" />
       </font>
@@ -100,7 +109,7 @@
          <Insets left="20.0" />
       </GridPane.margin>
    </Label>
-   <Label text="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+   <Label styleClass="VariableText" text="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
       <font>
          <Font size="17.0" />
       </font>

@@ -1,5 +1,8 @@
 package application.FlowController;
 
+import DataBaseManager.DBManager;
+import InventoryModel.Inventory;
+import InventoryModel.Product;
 import application.Interface.IM.*;
 import application.Interface.LI.SelectAccount;
 import application.Interface.PromptWindow;
@@ -27,13 +30,20 @@ public class SesionAdmin extends Sesion {
     private Sales Sales;
     private Notifications Notifications;
 
+
     public SesionAdmin(User InputUser) throws Exception {
         super(InputUser);
+
+        this.manager = new DBManager("jdbc:mysql://localhost:2808/ferreteria_dimaco_database",
+                "root", "osquimenacho28");
+
+        this.inventory = new InventoryModel.Inventory(manager);
+
         this.InventoryManagement = new InventoryManagement(this, new SelectAccount());
         super.mainWindow = this.InventoryManagement;
         this.InventoryManagement.hide();
 
-        this.AddProd = new AddProd(products, this, this.InventoryManagement);
+        this.AddProd = new AddProd(this, this.InventoryManagement);
         this.AddProd.hide();
 
         this.DeleteProduct = new DeleteProduct(this, this.InventoryManagement);
@@ -144,6 +154,22 @@ public class SesionAdmin extends Sesion {
         }
     }
 
+    public void addProductToInventory(Product product){
+        this.inventory.add(product);
+    }
+
+    public void removeProductFromInventory(Product product) throws Exception {
+        this.inventory.remove(product);
+    }
+
+    public void materialIntake(Product product, int cant) throws Exception {
+        this.inventory.materialIntake(product, cant);
+    }
+
+    public void materialWithdrawal(Product product, int cant) throws Exception {
+        this.inventory.materialWithdrawal(product, cant);
+    }
+
     public void show(PromptWindow origin) {
         origin.show();
     }
@@ -154,5 +180,13 @@ public class SesionAdmin extends Sesion {
 
     private void setNullEffectToStage() {
         InventoryManagement.setEffect(null);
+    }
+
+    public Inventory getInventory(){
+        return inventory;
+    }
+
+    public DBManager getManager(){
+        return manager;
     }
 }

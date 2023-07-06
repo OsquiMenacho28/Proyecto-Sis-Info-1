@@ -1,22 +1,31 @@
 package SalesModel;
 
-public class Client {
-	private String name;
+import DataBaseManager.Int_Value;
+import DataBaseManager.LinkedObject;
+import DataBaseManager.String_Value;
+import DataBaseManager.Value;
+
+import java.sql.SQLException;
+
+public class Client extends LinkedObject {
+	private Int_Value code;
+	private String_Value name;
+	private Int_Value NIT;
 	private int documentTypeCode;
-	private int NIT;
 
 	public Client(String name, int documentTypeCode, int NIT) {
+		super();
 		this.name = name;
 		this.documentTypeCode = documentTypeCode;
 		this.NIT = NIT;
 	}
 
 	public String getName() {
-		return name;
+		return name.get_value();
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String name) throws SQLException {
+		set(this.name,Value.create(name));
 	}
 
 	public int getDocumentTypeCode() {

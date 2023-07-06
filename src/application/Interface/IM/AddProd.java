@@ -1,7 +1,9 @@
 package application.Interface.IM;
 
+import InventoryModel.Inventory;
 import InventoryModel.Product;
 import application.FlowController.SesionAdmin;
+import application.Interface.AdminPromptWindow;
 import application.Interface.PromptWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,7 +22,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class AddProd extends PromptWindow implements Initializable{
+public class AddProd extends AdminPromptWindow implements Initializable{
 	
 	@FXML
 	Button Back_B;
@@ -52,33 +54,18 @@ public class AddProd extends PromptWindow implements Initializable{
 	@FXML
 	TextArea ProductDescriptionArea;
 
-	private SesionAdmin sesionAdmin;
-	
-	/*@FXML
-	TableView<Product> Table;
-	
-	@FXML
-	TableColumn<Product, String> ProductColumn;
-	
-	@FXML
-	TableColumn<Product, Integer> SerialNumberColumn;*/
-	
-	ObservableList<Product> products = FXCollections.observableArrayList();
-
 	private BoxBlur blurEffect = new BoxBlur(10, 10, 3);
-	
-	public AddProd(ObservableList<Product> products, SesionAdmin ses, InventoryManagement origin) throws IOException {
-		super(ses, "AddProd.fxml", origin);
-		stage.setTitle("AÑADIR PRODUCTO");
+
+	public AddProd(SesionAdmin ses, InventoryManagement origin) throws IOException {
+		super(ses, "AddProd.fxml", origin, "AÑADIR PRODUCTO");
 		stage.setWidth(644);
 		stage.setHeight(606);
-		this.products = products;
 		this.load();
 	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
+		stage.setOnCloseRequest(windowEvent -> origin.setEffect(null));
 
 		ProductNameField.setOnKeyPressed(event -> {
 			if (event.getCode() == KeyCode.DOWN) {
@@ -219,7 +206,7 @@ public class AddProd extends PromptWindow implements Initializable{
 		Create_B.setOnAction(e -> {
 			try {
 				add();
-			} catch (SQLException e1) {
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -241,7 +228,7 @@ public class AddProd extends PromptWindow implements Initializable{
 		return (x != null) && !x.equals(""); 
 	}
 	
-	private void add() throws SQLException {
+	private void add() throws Exception {
 		
 		String name = ProductNameField.getText();
 		String description = ProductDescriptionArea.getText();
@@ -253,8 +240,18 @@ public class AddProd extends PromptWindow implements Initializable{
 		String price = ProductPriceField.getText();
 
 		if(v(name) && v(description) && v(code) && v(quantity) && v(color) && v(brand) && v(category) && v(price)) {
-			Product aux = new Product(Integer.parseInt(code), Integer.parseInt(quantity), name, description, color, brand, category, Float.parseFloat(price));
-			sesion.addProduct(aux);
+			Product aux = new Product(
+					sesion.getInventory(),
+					Integer.parseInt(code),
+					name,
+					description,
+					Float.parseFloat(price),
+					Integer.parseInt(quantity),
+					color,
+					brand,
+					category);
+
+			sesion.addProductToInventory(aux);
 		}
 		
 	}

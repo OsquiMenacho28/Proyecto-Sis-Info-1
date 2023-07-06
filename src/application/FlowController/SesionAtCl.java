@@ -245,4 +245,8 @@ public class SesionAtCl extends Sesion{
 	public User getUser(){
 		return super.LogedUser;
 	}
+
+	public DBManager getManager(){
+		return manager;
+	}
 }

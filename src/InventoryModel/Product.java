@@ -212,7 +212,7 @@ public class Product extends LinkedObject {
 	}
 	public void setColor(String color) throws Exception {
 		if(!color.equals("")){
-			set(this.color, Value.create(color));
+			set(this.color, Value.create(inventory.checkColor(color)));
 		}
 		else{
 			throw new Exception("Not valid color");
@@ -224,7 +224,7 @@ public class Product extends LinkedObject {
 	}
 	public void setBrand(String brand) throws Exception {
 		if(!brand.equals("")){
-			set(this.brand, Value.create(brand));
+			set(this.brand, Value.create(inventory.checkBrand(brand)));
 		}
 		else{
 			throw new Exception("Not valid brand");
@@ -236,7 +236,7 @@ public class Product extends LinkedObject {
 	}
 	public void setCategory(String category) throws Exception {
 		if(!category.equals("")){
-			set(this.category, Value.create(category));
+			set(this.category, Value.create(inventory.checkCategory(category)));
 		}
 		else{
 			throw new Exception("Not valid category");
