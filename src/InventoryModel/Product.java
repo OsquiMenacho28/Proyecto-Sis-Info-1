@@ -14,13 +14,19 @@ public class Product extends LinkedObject {
 
 
 	protected Int_Value code;
-	protected Int_Value quantity;
+
 	protected String_Value name;
 	protected String_Value description;
+	protected Float_Value price;
+	protected Int_Value quantity;
+	protected Int_Value colorFK;
+	protected Int_Value brandFK;
+	protected Int_Value categoryFK;
+
 	protected String_Value color;
 	protected String_Value brand;
 	protected String_Value category;
-	protected Float_Value price;
+
 	private static int measurementUnitCode = 58;
 
 	protected Int_Value visible;
@@ -28,15 +34,17 @@ public class Product extends LinkedObject {
 	private ArrayList<AddedProduct> pendingProducts;
 	private Inventory inventory;
 	private ItemIcon icon;
-	public Product(Inventory inventory, int code, int quantity, String name, String description, String color, String brand, String category, float price) throws Exception {
+	public Product(Inventory inventory, int code, String name, String description,float price, int quantity,   String color, String brand, String category) throws Exception {
 		super(Inventory.productRV,
 									Value.create(code),
 									Value.create(name),
 									Value.create(description),
-									Value.create(color),
-									Value.create(brand),
-									Value.create(category),
-									Value.create(price));
+									Value.create(price),
+									Value.create(quantity),
+									Value.create(inventory.checkColor(color)),
+									Value.create(inventory.checkBrand(brand)),
+									Value.create(inventory.checkCategory(category)));
+
 
 		this.pendingProducts = new ArrayList<AddedProduct>();
 		this.inventory = inventory;
@@ -57,27 +65,15 @@ public class Product extends LinkedObject {
 		link();
 	}
 
-	/*protected void defineBind(){
-		bind("codigo", code);
-		bind("cantidad", quantity);
-		bind("nombre", name);
-		bind("desrcipcion", description);
-		bind("color", color);
-		bind("marca", brand);
-		bind("categoria", category);
-		bind("precio", price);
-		//bind()
-	}*/
-
 	protected void defineBind(){
 		bind("id_producto", code);
 		bind("nombre", name);
 		bind("descripcion", description);
 		bind("precio_unitario", price);
 		bind("stock", quantity);
-		bind("color_producto_id_color_producto", color);
-		bind("marca_producto_id_marca", brand);
-		bind("categoria_producto_id_categoria_producto", category);
+		bind("color_producto_id_color_producto", colorFK);
+		bind("marca_producto_id_marca", brandFK);
+		bind("categoria_producto_id_categoria_producto", categoryFK);
 	}
 
 	public AddedProduct addToCart(int cant, Cart cart) throws Exception {
@@ -85,6 +81,7 @@ public class Product extends LinkedObject {
 			AddedProduct addedProduct = new AddedProduct(this, cant, cart);
 			decrement(cant);
 			this.pendingProducts.add(addedProduct);
+			cart.add(addedProduct);
 			return addedProduct;
 		}
 		else{
@@ -274,6 +271,8 @@ public class Product extends LinkedObject {
 		return this.icon;
 	}
 
+
+
 	public class AddedProduct extends ObservableValueBase<Integer> {
 
 		private Product product;
@@ -285,7 +284,6 @@ public class Product extends LinkedObject {
 				this.product = product;
 				this.cant = new SimpleIntegerProperty(cant);
 				this.cart = cart;
-
 				this.cant.addListener(new ChangeListener<Number>(){
 					@Override
 					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -298,7 +296,6 @@ public class Product extends LinkedObject {
 							}
 						};
 						cart.getCartTable().refresh();
-						cart.getPOSsesion().getPOSOpen().setTotalLabel();
 					}
 				});
 			} else {
@@ -350,6 +347,10 @@ public class Product extends LinkedObject {
 			this.product.backToInventory(this);
 			this.cart.remove(this);
 			this.product = null;
+		}
+
+		public Product getProduct(){
+			return this.product;
 		}
 
 		@Override

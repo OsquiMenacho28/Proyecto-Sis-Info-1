@@ -70,7 +70,7 @@ public class SesionAtCl extends Sesion{
 
 		this.manager = new DBManager("", "","");
 
-		this.inventory = new InventoryModel.Inventory(manager, "inventario_final_diario");
+		this.inventory = new InventoryModel.Inventory(manager);
 
 		this.run();
 	}

@@ -67,8 +67,8 @@ public class RowMirror {
 		return this.relvar;
 	}
 	
-	public String get_pk_val() {
-		return record.get(relvar.get_pk()).to_string();
+	public Integer get_pk_val() {
+		return ((Int_Value)record.get(relvar.get_pk())).get_value();
 	}
 
 	public HashMap<String, Value> getRecord() {

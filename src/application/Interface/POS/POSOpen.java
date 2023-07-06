@@ -1,5 +1,7 @@
 package application.Interface.POS;
 
+import InventoryModel.Brand;
+import InventoryModel.Category;
 import InventoryModel.Inventory;
 import InventoryModel.Product;
 import InventoryModel.Product.AddedProduct;
@@ -8,6 +10,11 @@ import SalesModel.POSsesion;
 import application.FlowController.SesionAtCl;
 import application.Interface.AtClPromptWindow;
 import application.Interface.PromptWindow;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +28,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import org.apache.commons.text.similarity.JaccardDistance;
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -58,10 +66,10 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 	private TextField SearchProduct_F;
 
 	@FXML
-	private ComboBox<String> BrandFilter_C;
+	private ComboBox<Brand> BrandFilter_C;
 
 	@FXML
-	private ComboBox<String> CategoryFilter_C;
+	private ComboBox<Category> CategoryFilter_C;
 
 	@FXML
 	private MenuButton Mode_CB;
@@ -209,7 +217,7 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			}
 		});
 
-		//Notification_B.setOnAction(actionEvent -> notificationRequest());
+		Notification_B.setOnAction(actionEvent -> notificationRequest());
 
 		LightMode_Opt.setOnAction(actionEvent -> {
 
@@ -219,15 +227,15 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 
 		});
 
-		//Close_B.setOnAction(actionEvent -> endSesionRequest(););
+		Close_B.setOnAction(actionEvent -> endSesionRequest(););
 
-		//Sales_Opt.setOnAction(actionEvent -> salesRequest(););
+		Sales_Opt.setOnAction(actionEvent -> salesRequest(););
 
-		//Inventory_Opt.setOnAction(actionEvent -> inventoryRequest(););
+		Inventory_Opt.setOnAction(actionEvent -> inventoryRequest(););
 
-		//Closure_Opt.setOnAction(actionEvent -> closureRequest()););
+		Closure_Opt.setOnAction(actionEvent -> closureRequest()););
 		
-		//Back_B.setOnAction(e -> back());
+		Back_B.setOnAction(e -> back());
 
 		Pay_B.setOnAction(actionEvent -> {
 			try {
@@ -242,10 +250,30 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 		CartList_T.prefWidthProperty().bind(LeftPane.widthProperty());
 		cart.addListener((ListChangeListener<? super AddedProduct>) e -> setTotalLabel());
 
-		ItemColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, String>("name"));
-		PriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("price"));
-		CantColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Integer>("cant"));
-		PartialPriceColumn.setCellValueFactory(new PropertyValueFactory<AddedProduct, Float>("tprice"));
+		ItemColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, String>, ObservableValue<String>>(){
+			@Override
+			public ObservableValue<String> call(TableColumn.CellDataFeatures<AddedProduct, String> addedProductStringCellDataFeatures) {
+				return new SimpleStringProperty(addedProductStringCellDataFeatures.getValue().getProduct().getName());
+			}
+		});
+		PriceColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, Float>, ObservableValue<Float>>(){
+			@Override
+			public ObservableValue<Float> call(TableColumn.CellDataFeatures<AddedProduct, Float> addedProductStringCellDataFeatures) {
+				return new ReadOnlyObjectWrapper(addedProductStringCellDataFeatures.getValue().getProduct().getPrice());
+			}
+		});
+		CantColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, Integer>, ObservableValue<Integer>>(){
+			@Override
+			public ObservableValue<Integer> call(TableColumn.CellDataFeatures<AddedProduct, Integer> addedProductStringCellDataFeatures) {
+				return new ReadOnlyObjectWrapper(addedProductStringCellDataFeatures.getValue().getCant());
+			}
+		});
+		PartialPriceColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, Float>, ObservableValue<Float>>(){
+			@Override
+			public ObservableValue<Float> call(TableColumn.CellDataFeatures<AddedProduct, Float> addedProductStringCellDataFeatures) {
+				return new ReadOnlyObjectWrapper(addedProductStringCellDataFeatures.getValue().getPrice());
+			}
+		});
 		CantColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 		
 		selectedItems = CartList_T.getSelectionModel().getSelectedItems();
@@ -320,25 +348,53 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			codeSearch();
 		});
 
-		//CategoryFilter_C.setItems(CategoryList);
-		//BrandFilter_C.setItems(BrandList);
+		CategoryFilter_C.setItems(inventory.getCategoriesTable());
+		BrandFilter_C.setItems(inventory.getBrandsTable());
 
+		CategoryFilter_C.setCellFactory(new Callback<ListView<Category>, ListCell<Category>>() {
+			@Override
+			public ListCell<Category> call(ListView<Category> param) {
+				return new ListCell<Category>() {
+					@Override
+					protected void updateItem(Category item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getCategory());
+						} else {
+							setText(null);
+						}
+					}
+				};
+			}
+		});
+
+		BrandFilter_C.setCellFactory(new Callback<ListView<Brand>, ListCell<Brand>>() {
+			@Override
+			public ListCell<Brand> call(ListView<Brand> param) {
+				return new ListCell<Brand>() {
+					@Override
+					protected void updateItem(Brand item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item != null) {
+							setText(item.getBrand());
+						} else {
+							setText(null);
+						}
+					}
+				};
+			}
+		});
+
+		CategoryFilter_C.valueProperty().addListener(e -> {
+			getVisibleItems();
+		});
+
+		BrandFilter_C.valueProperty().addListener(e -> {
+			getVisibleItems();
+		});
 
 		this.visibleProducts = ProductList.getChildren();
 
-		//Extract the visible Items from inventory
-		for(ItemIcon icon : inventory.getIcons()){
-			if(icon.getProduct().isVisible()){
-				icon.setOnMouseClicked(e -> {
-					try {
-						icon.getProduct().addToCart(1, cart);
-					} catch (Exception ex) {
-						throw new RuntimeException(ex);
-					}
-				});
-				visibleProducts.add(icon);
-			}
-		}
 
 		//Update visible products in case the inventory is changed
 		inventory.getIcons().addListener((ListChangeListener<? super ItemIcon>) c -> {
@@ -363,7 +419,37 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 				}
 			}
 		});
+	}
 
+	public void getVisibleItems(){
+		visibleProducts.clear();
+		//Extract the visible Items from inventory
+		Category cat = CategoryFilter_C.getValue();
+		Brand brand = BrandFilter_C.getValue();
+		for(ItemIcon icon : inventory.getIcons()){
+			if(icon.getProduct().isVisible()){
+				icon.setOnMouseClicked(e -> {
+					try {
+						icon.getProduct().addToCart(1, cart);
+					} catch (Exception ex) {
+						throw new RuntimeException(ex);
+					}
+				});
+				visibleProducts.add(icon);
+
+				if(cat != null){
+					if(cat.getCode() != icon.getProduct().getCode()){
+						visibleProducts.remove(icon);
+					}
+				}
+
+				if(brand != null){
+					if(brand.getCode() != icon.getProduct().getCode()){
+						visibleProducts.remove(icon);
+					}
+				}
+			}
+		}
 	}
 
 	public void setTotalLabel() {
@@ -385,11 +471,11 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 	}
 
 	private void quitRequest(){
-		//sesion.quitRequest();
+		sesion.quitRequest();
 	}
 
 	private void POSClosure() throws IOException {
-		//sesion.closureRequest(OpeningCount, this);
+		sesion.closureRequest(OpeningCount, this);
 	}
 
 	public TableView<AddedProduct> getCartTable(){

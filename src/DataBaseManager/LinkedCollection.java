@@ -20,6 +20,9 @@ public abstract class LinkedCollection<T extends LinkedObject> extends Observabl
         super(new ArrayList<T>());
         this.table = table;
     }
+    public LinkedCollection(DBManager manager, String name) throws Exception {
+        this(manager.getTable(name));
+    }
 
     public boolean add(T object) {
         if(object != null){
@@ -49,6 +52,15 @@ public abstract class LinkedCollection<T extends LinkedObject> extends Observabl
         }
     }
 
+    public T getWithPK(int pk){
+        for(T object: this){
+            if(object.getID() == pk){
+                return object;
+            }
+        }
+        return null;
+    }
+
     public void fill() throws Exception {
         table.fill();
         for(RowMirror row : table.getRows()){
@@ -56,9 +68,22 @@ public abstract class LinkedCollection<T extends LinkedObject> extends Observabl
         }
     }
 
+    public RelVar getRelVar(){
+        return this.table.getRelVar();
+    }
+
     public RowMirror contains(RowMirror row){
         return table.contains(row);
     }
 
+    public int getNewPK(){
+        int i = 0;
+        for(RowMirror row : table.getRows()){
+            if(row.get_pk_val() > i){
+                i = row.get_pk_val();
+            }
+        }
+        return i+1;
+    }
 
 }

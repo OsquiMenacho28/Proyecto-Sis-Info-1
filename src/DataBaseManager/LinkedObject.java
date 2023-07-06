@@ -129,6 +129,8 @@ public class LinkedObject extends ObservableValueBase<Value> {
         return bindState.get(column);
     }
 
+    public Integer getID(){return tuple.get_pk_val();}
+
     public void unlink(){
         this.linked = false;
     }
