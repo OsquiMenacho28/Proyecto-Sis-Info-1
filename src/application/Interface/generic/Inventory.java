@@ -2,6 +2,7 @@ package application.Interface.generic;
 
 import InventoryModel.Product;
 import application.FlowController.Sesion;
+import application.FlowController.SesionAtCl;
 import application.Interface.AtClPromptWindow;
 import application.Interface.PromptWindow;
 import javafx.collections.ObservableList;
@@ -45,7 +46,7 @@ public class Inventory extends AtClPromptWindow implements Initializable {
     private TableColumn<Product, Integer> CantColumn;
 
 
-    public Inventory(Sesion ses1, InventoryModel.Inventory inventory, PromptWindow origin) throws IOException {
+    public Inventory(SesionAtCl ses1, InventoryModel.Inventory inventory, PromptWindow origin) throws IOException {
         super(ses1, "Inventory.fxml", origin);
         stage.setTitle("FERRETERÍA DIMACO - INVENTARIO");
         this.load();

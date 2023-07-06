@@ -55,7 +55,7 @@ public class LogInAtCl extends LogIn {
     }
 
     private User validate() {
-        return userManager.searchDB(User_F.getText(), Password_F.getText());
+        return User.searchDB(User_F.getText(), Password_F.getText());
     }
 
     private void neglected() {

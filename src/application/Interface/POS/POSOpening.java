@@ -64,6 +64,8 @@ public class POSOpening extends PromptWindow implements Initializable{
 									open();
 								} catch (IOException ex) {
 									throw new RuntimeException(ex);
+								} catch (Exception ex) {
+									throw new RuntimeException(ex);
 								}
 							}
 						});
@@ -88,10 +90,13 @@ public class POSOpening extends PromptWindow implements Initializable{
 			open();
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}} });
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+		} });
 	}
 
-	public void open() throws IOException{
+	public void open() throws Exception {
 		this.hide();
 		sesion.openPOS(OpeningCount);
 	}
