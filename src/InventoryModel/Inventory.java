@@ -1,19 +1,10 @@
 package InventoryModel;
 
 import DataBaseManager.*;
-import SalesModel.Sale;
 import application.Interface.POS.ItemIcon;
-import javafx.beans.value.ObservableMapValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 public class Inventory extends LinkedCollection<Product> {
     public static RelVar productRV;
@@ -42,7 +33,7 @@ public class Inventory extends LinkedCollection<Product> {
         this.icons = calculateIcons();
         fill();
 
-        this.addListener((ListChangeListener<Product>) c -> {
+        this.collection.addListener((ListChangeListener<Product>) c -> {
             while (c.next()) {
                 if (c.wasRemoved()) {
                     for(Product product : c.getRemoved()){
@@ -64,7 +55,7 @@ public class Inventory extends LinkedCollection<Product> {
 
     private ObservableList<ItemIcon> calculateIcons(){
         ObservableList<ItemIcon> icons = FXCollections.observableArrayList();
-        for(Product product : this){
+        for(Product product : this.collection){
             icons.add(product.getIcon());
         }
         return icons;
@@ -86,13 +77,13 @@ public class Inventory extends LinkedCollection<Product> {
     }
 
     public void materialIntake(Product product, int cant) throws Exception {
-        if(this.contains(product)){
+        if(this.collection.contains(product)){
             product.addUnits(this, cant);
         }
     }
 
     public void materialWithdrawal(Product product, int cant) throws Exception {
-        if(this.contains(product)){
+        if(this.collection.contains(product)){
             product.retireUnits(this, cant);
         }
     }

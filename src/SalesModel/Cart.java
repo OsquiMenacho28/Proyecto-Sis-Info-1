@@ -1,30 +1,30 @@
 package SalesModel;
 
-import InventoryModel.Product.AddedProduct;
 import InventoryModel.Product;
-import com.sun.javafx.collections.ObservableListWrapper;
+import InventoryModel.Product.AddedProduct;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Cart extends ObservableListWrapper<AddedProduct> {
+public class Cart {
     private Float cartTotal;
     private POSsesion sesion;
     private TableView<AddedProduct> CartList_T;
+    public ObservableList <AddedProduct> collection;
     public Cart(POSsesion sesion){
         this(sesion, new ArrayList<AddedProduct>());
     }
 
     public Cart(POSsesion sesion, ArrayList<AddedProduct> products){
-        super(products);
+        collection = FXCollections.observableArrayList();
         this.cartTotal = 0f;
         this.sesion = sesion;
         this.CartList_T = sesion.getPOSOpen().getCartTable();
 
-        addListener((ListChangeListener<? super AddedProduct>) e -> {
+        collection.addListener((ListChangeListener<? super AddedProduct>) e -> {
             CartList_T.refresh();
             sesion.getPOSOpen().setTotalLabel();
         });
@@ -32,7 +32,7 @@ public class Cart extends ObservableListWrapper<AddedProduct> {
 
     public boolean add(Product product, int cant) throws Exception {
         if(product != null){
-            super.add(product.addToCart(cant, this));
+            collection.add(product.addToCart(cant, this));
             getTotalPrice();
             return true;
         }
@@ -43,7 +43,7 @@ public class Cart extends ObservableListWrapper<AddedProduct> {
 
     public boolean remove(AddedProduct product) throws Exception {
         if(product != null){
-            super.remove(product);
+            collection.remove(product);
             product.backToInventory();
             return true;
         }
@@ -54,7 +54,7 @@ public class Cart extends ObservableListWrapper<AddedProduct> {
 
     public float getTotalPrice(){
         float sum = 0f;
-        for(AddedProduct product : this){
+        for(AddedProduct product : this.collection){
             sum += product.getPrice();
         }
         this.cartTotal = sum;
@@ -62,7 +62,7 @@ public class Cart extends ObservableListWrapper<AddedProduct> {
     }
 
     public void clear() {
-        for(AddedProduct product : this){
+        for(AddedProduct product : this.collection){
             try {
                 this.remove(product);
             } catch (Exception e) {
@@ -76,7 +76,7 @@ public class Cart extends ObservableListWrapper<AddedProduct> {
     }
 
     public boolean isNotEmpty(){
-        return !this.isEmpty();
+        return !this.collection.isEmpty();
     }
 
     public TableView<AddedProduct> getCartTable(){

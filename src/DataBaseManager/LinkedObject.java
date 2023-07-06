@@ -1,25 +1,19 @@
 package DataBaseManager;
 
-import InventoryModel.Inventory;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ObservableValueBase;
 
-
-import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LinkedObject extends ObservableValueBase<Value> {
+public class LinkedObject {
 
     protected Boolean linked;
     private RowMirror tuple;
     private HashMap<Value, String> bindDefinition;
     private HashMap<String, Value> bindState;
-    private ArrayList<ChangeListener<Value>> changeListeners;
+    private ArrayList<ChangeListener<Object>> changeListeners;
+
     public LinkedObject(RowMirror record) throws Exception {
         this.tuple =record;
         if(record.isActive()){
@@ -28,7 +22,7 @@ public class LinkedObject extends ObservableValueBase<Value> {
         }
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();
-        this.changeListeners = new ArrayList<ChangeListener<Value>>();
+        this.changeListeners = new ArrayList<ChangeListener<Object>>();
         this.linked = false;
         clearBindings();
     }
@@ -49,6 +43,9 @@ public class LinkedObject extends ObservableValueBase<Value> {
        clearBindings();
     }
 
+    public void addListener(ChangeListener<Object> listener) {
+        changeListeners.add(listener);
+    }
 
     protected void bind(String relvar_column, Value atribute){
         atribute = getValue(relvar_column);
@@ -144,8 +141,9 @@ public class LinkedObject extends ObservableValueBase<Value> {
         return linked;
     }
 
-    @Override
-    public Value getValue() {
-        return null;
+    public void fireValueChangedEvent() {
+        for (ChangeListener <Object> listener: changeListeners) {
+            listener.changed(null, null, null);
+        }
     }
 }

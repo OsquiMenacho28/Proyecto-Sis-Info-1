@@ -49,7 +49,7 @@ public class Product extends LinkedObject {
 		this.pendingProducts = new ArrayList<AddedProduct>();
 		this.inventory = inventory;
 		this.icon = new ItemIcon(this);
-		addListener( e -> {icon.updateContent();});
+		//addListener( e -> {icon.updateContent();});
 		defineBind();
 		link();
 	}
@@ -60,7 +60,7 @@ public class Product extends LinkedObject {
 		this.inventory = inventory;
 		this.icon = new ItemIcon(this);
 		this.visible = Value.create(1);
-		addListener( e -> {icon.updateContent();});
+		//addListener( e -> {icon.updateContent();});
 		defineBind();
 		link();
 	}
@@ -81,7 +81,7 @@ public class Product extends LinkedObject {
 			AddedProduct addedProduct = new AddedProduct(this, cant, cart);
 			decrement(cant);
 			this.pendingProducts.add(addedProduct);
-			cart.add(addedProduct);
+			cart.collection.add(addedProduct);
 			return addedProduct;
 		}
 		else{
@@ -101,7 +101,7 @@ public class Product extends LinkedObject {
 
 	public void addUnits(Inventory inventory, int cant) throws Exception {
 		if(cant >= 0){
-			if(inventory.contains(this)){
+			if(inventory.collection.contains(this)){
 				increment(getQuantity() + cant);
 			}
 		}
@@ -112,7 +112,7 @@ public class Product extends LinkedObject {
 
 	public void retireUnits(Inventory inventory, int cant) throws Exception {
 		if(cant >= 0 && getQuantity() >= cant){
-			if(inventory.contains(this)){
+			if(inventory.collection.contains(this)){
 				decrement(getQuantity() - cant);
 			}
 		}

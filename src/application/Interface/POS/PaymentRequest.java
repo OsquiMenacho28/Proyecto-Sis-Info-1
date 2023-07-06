@@ -104,6 +104,6 @@ public class PaymentRequest extends PromptWindow implements Initializable {
 
     public void setCart(Cart cart) {
         this.cart = cart;
-        CartList_T.setItems(this.cart);
+        CartList_T.setItems(this.cart.collection);
     }
 }

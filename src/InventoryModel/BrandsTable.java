@@ -29,7 +29,7 @@ public class BrandsTable extends LinkedCollection<Brand> {
     }
 
     public Brand getBrand(String color){
-        for(Brand colorO : this){
+        for(Brand colorO : collection){
             if(colorO.getBrand().equals(color))
                 return colorO;
         }

@@ -1,23 +1,18 @@
 package DataBaseManager;
 
-import InventoryModel.Product;
-import com.sun.javafx.collections.ObservableListWrapper;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableArrayBase;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-public abstract class LinkedCollection<T extends LinkedObject> extends ObservableListWrapper<T> {
+public abstract class LinkedCollection<T extends LinkedObject> {
 
     protected TableMirror table;
+    public ObservableList <T> collection;
     public LinkedCollection(DBManager manager, String name, RelVar relvar) throws Exception {
-        super(new ArrayList<T>());
+        collection = FXCollections.observableArrayList();
         this.table = new TableMirror(manager, name, relvar);
     }
     public LinkedCollection(TableMirror table) throws Exception {
-        super(new ArrayList<T>());
+        collection = FXCollections.observableArrayList();
         this.table = table;
     }
     public LinkedCollection(DBManager manager, String name) throws Exception {
@@ -26,7 +21,7 @@ public abstract class LinkedCollection<T extends LinkedObject> extends Observabl
 
     public boolean add(T object) {
         if(object != null){
-            super.add(object);
+            collection.add(object);
             try {
                 object.link(table);
             } catch (Exception e) {
@@ -53,7 +48,7 @@ public abstract class LinkedCollection<T extends LinkedObject> extends Observabl
     }
 
     public T getWithPK(int pk){
-        for(T object: this){
+        for(T object: collection){
             if(object.getID() == pk){
                 return object;
             }

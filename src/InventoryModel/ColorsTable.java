@@ -22,7 +22,7 @@ public class ColorsTable extends LinkedCollection<Color> {
     }
 
     public Color getColor(String color){
-        for(Color colorO : this){
+        for(Color colorO : this.collection){
             if(colorO.getColor().equals(color))
                 return colorO;
         }

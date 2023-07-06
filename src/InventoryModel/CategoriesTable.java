@@ -28,7 +28,7 @@ public class CategoriesTable extends LinkedCollection<Category> {
     }
 
     public Category getCategory(String color){
-        for(Category colorO : this){
+        for(Category colorO : this.collection){
             if(colorO.getCategory().equals(color))
                 return colorO;
         }

@@ -274,7 +274,7 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 		Clear_B.setOnAction(actionEvent -> cart.clear());
 
 		CartList_T.prefWidthProperty().bind(LeftPane.widthProperty());
-		cart.addListener((ListChangeListener<? super AddedProduct>) e -> setTotalLabel());
+		cart.collection.addListener((ListChangeListener<? super AddedProduct>) e -> setTotalLabel());
 
 		ItemColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, String>, ObservableValue<String>>(){
 			@Override
@@ -362,7 +362,7 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 				}
 			}
 		});
-		CartList_T.setItems(cart);
+		CartList_T.setItems(cart.collection);
 
 		ListScroll.setFitToWidth(true);
 		SearchProduct_F.textProperty().addListener(e -> {
@@ -374,8 +374,8 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			codeSearch();
 		});
 
-		CategoryFilter_C.setItems(inventory.getCategoriesTable());
-		BrandFilter_C.setItems(inventory.getBrandsTable());
+		CategoryFilter_C.setItems(inventory.getCategoriesTable().collection);
+		BrandFilter_C.setItems(inventory.getBrandsTable().collection);
 
 		CategoryFilter_C.setCellFactory(new Callback<ListView<Category>, ListCell<Category>>() {
 			@Override

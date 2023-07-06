@@ -116,7 +116,7 @@ public class SesionAtCl extends Sesion{
 	}
 
 	public void paymentRequest(Cart cart) throws IOException {
-		if (cart.isEmpty()) {
+		if (cart.collection.isEmpty()) {
 			Alert alertDialog = new Alert(Alert.AlertType.ERROR);
 			alertDialog.setTitle("ERROR!");
 			alertDialog.setHeaderText("¡El Carrito de Compras se encuentra vacio!");
