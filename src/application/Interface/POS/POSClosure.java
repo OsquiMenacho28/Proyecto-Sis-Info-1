@@ -1,7 +1,7 @@
 package application.Interface.POS;
 
-import application.Interface.PromptWindow;
 import application.FlowController.SesionAtCl;
+import application.Interface.PromptWindow;
 import javafx.beans.binding.FloatBinding;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.fxml.FXML;
@@ -38,6 +38,7 @@ public class POSClosure extends PromptWindow implements Initializable{
 	Float rClosureCount;
 	SimpleFloatProperty ClosureCount;
 	FloatBinding TotalSalesCount;
+	private SesionAtCl sesion;
 	
 	
 	public POSClosure(float OpeningCount, float ClosureCount, SesionAtCl ses, POSOpen origin) throws IOException {
@@ -56,7 +57,9 @@ public class POSClosure extends PromptWindow implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		stage.setOnCloseRequest(windowEvent -> origin.stage.getScene().getRoot().setEffect(null));
+		stage.setOnCloseRequest(windowEvent -> {
+			//origin.stage.getScene().getRoot().setEffect(null);
+		});
 
 		OpeningLabel.setText(String.valueOf(OpeningCount));
 		TotalSalesLabel.setText(String.valueOf(TotalSalesCount.getValue()));
@@ -86,11 +89,7 @@ public class POSClosure extends PromptWindow implements Initializable{
 		CloseButton.setOnAction(e -> {
 			dispose();
 			if (flag) {
-				try {
-					ClosureConfirmed closureConfirmed = new ClosureConfirmed(null, this.origin);
-				} catch (Exception ex) {
-					throw new RuntimeException(ex);
-				}
+				sesion.onClosureConfirmedRequest();
 			}
 		});
 	}

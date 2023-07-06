@@ -54,6 +54,7 @@ public class PaymentRequest extends PromptWindow implements Initializable {
     private TableColumn<AddedProduct, Float> TPriceColumn;
 
     private Cart cart;
+    private SesionAtCl sesion;
     
 	public PaymentRequest(SesionAtCl ses, POSOpen origin) throws IOException {
 		super(ses, "PaymentRequest.fxml", origin, "CONFIRMAR PAGO");
@@ -64,7 +65,14 @@ public class PaymentRequest extends PromptWindow implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		Back_B.setOnAction(e -> back());
-		Confirm_B.setOnAction(e -> dispose());
+		Confirm_B.setOnAction(e -> {
+            dispose();
+            try {
+                sesion.paymentConfirmedRequest();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
 		CartList_T.setEditable(false);
 

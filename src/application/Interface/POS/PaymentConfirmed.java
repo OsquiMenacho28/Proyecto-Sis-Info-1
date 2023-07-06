@@ -1,14 +1,10 @@
 package application.Interface.POS;
 
-import ElectronicInvoice.GenerateInvoice;
 import application.FlowController.SesionAtCl;
 import application.Interface.PromptWindow;
-import application.Interface.generic.Inventory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +17,7 @@ public class PaymentConfirmed extends PromptWindow implements Initializable {
 
     @FXML
     private Button Continue_B;
+    private SesionAtCl sesion;
 
     public PaymentConfirmed(SesionAtCl ses2, PromptWindow origin) throws IOException {
         super(ses2, "PaymentConfirmed.fxml", origin);
@@ -34,13 +31,13 @@ public class PaymentConfirmed extends PromptWindow implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         stage.setOnCloseRequest(windowEvent -> {
-            origin.ses2.POSOpen.cart.clear();
-            origin.stage.getScene().getRoot().setEffect(null);
+            //origin.ses2.POSOpen.cart.clear();
+            //origin.stage.getScene().getRoot().setEffect(null);
         });
 
         CheckInventory_B.setOnAction(actionEvent -> {
             try {
-                Inventory inventory = new Inventory((SesionAtCl) null, this);
+                sesion.inventoryRequest();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -48,11 +45,7 @@ public class PaymentConfirmed extends PromptWindow implements Initializable {
 
         Continue_B.setOnAction(actionEvent -> {
             dispose();
-            try {
-                GenerateInvoice generateInvoice = new GenerateInvoice(null, new Stage(StageStyle.UNDECORATED), this.origin);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            sesion.onGenerateInvoiceRequest();
         });
     }
 }

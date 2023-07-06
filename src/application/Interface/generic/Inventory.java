@@ -4,8 +4,6 @@ import InventoryModel.Product;
 import application.FlowController.Sesion;
 import application.Interface.AtClPromptWindow;
 import application.Interface.PromptWindow;
-import application.FlowController.SesionAdmin;
-import application.FlowController.SesionAtCl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,9 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
-import javafx.util.converter.IntegerStringConverter;
 
 import javax.sound.sampled.Line;
 import java.io.IOException;
@@ -49,7 +45,7 @@ public class Inventory extends AtClPromptWindow implements Initializable {
     private TableColumn<Product, Integer> CantColumn;
 
 
-    public Inventory(Sesion ses1, Inventory inventory, PromptWindow origin) throws IOException {
+    public Inventory(Sesion ses1, InventoryModel.Inventory inventory, PromptWindow origin) throws IOException {
         super(ses1, "Inventory.fxml", origin);
         stage.setTitle("FERRETERÍA DIMACO - INVENTARIO");
         this.load();
@@ -62,7 +58,7 @@ public class Inventory extends AtClPromptWindow implements Initializable {
 
         stage.setOnCloseRequest(windowEvent -> {
             try {
-                ses.disposeRequest(windowEvent);
+                sesion.closeApplicationRequest(windowEvent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

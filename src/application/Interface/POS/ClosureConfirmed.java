@@ -1,8 +1,8 @@
 package application.Interface.POS;
 
-import application.Interface.PromptWindow;
 import application.FlowController.SesionAtCl;
 import application.Interface.LI.SelectAccount;
+import application.Interface.PromptWindow;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -73,7 +73,7 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
                     if (!windowClosed) {
                         Stage loadingStage = (Stage) progressBar.getScene().getWindow();
                         loadingStage.hide();
-                        origin.dispose();
+                        //origin.dispose();
                         try {
                             new SelectAccount();
                         } catch (IOException e) {
@@ -92,7 +92,7 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
         //progressBar.setStyle("-fx-accent: #18E625;");
         stage.setOnCloseRequest(windowEvent -> {
             windowClosed = true;
-            origin.stage.getScene().getRoot().setEffect(null);
+            //origin.stage.getScene().getRoot().setEffect(null);
         });
 
         CancelButton.setOnAction(actionEvent -> {

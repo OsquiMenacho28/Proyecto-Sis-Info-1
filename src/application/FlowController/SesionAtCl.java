@@ -1,6 +1,7 @@
 package application.FlowController;
 
 import DataBaseManager.DBManager;
+import ElectronicInvoice.GenerateInvoice;
 import SalesModel.Cart;
 import SalesModel.POSsesion;
 import application.Interface.LI.SelectAccount;
@@ -13,6 +14,7 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
@@ -29,6 +31,8 @@ public class SesionAtCl extends Sesion{
 	private application.Interface.POS.PaymentConfirmed PaymentConfirmed;
 	private application.Interface.generic.Sales Sales;
 	private application.Interface.generic.Inventory Inventory;
+	private ClosureConfirmed ClosureConfirmed;
+	private GenerateInvoice GenerateInvoice;
 
 	private ArrayList<POSsesion> POSsesions;
 
@@ -37,36 +41,44 @@ public class SesionAtCl extends Sesion{
 
 	public SesionAtCl(User InputUser) throws Exception {
 		super(InputUser);
+
+		this.manager = new DBManager("jdbc:mysql://localhost:2808/ferreteria_dimaco_database",
+				"root", "osquimenacho28");
+
+		this.inventory = new InventoryModel.Inventory(manager);
+
 		this.POSOpening = new POSOpening(this, new SelectAccount());
 		super.mainWindow = this.POSOpening;
 		this.POSOpening.hide();
 
-		this.POSOpen = new POSOpen(this, this.POSOpening, this.Inventory); //products, this, mainWindow
+		this.POSOpen = new POSOpen(this, this.POSOpening, this.inventory);
 		this.POSOpen.hide();
 
 		this.POSClosure = new POSClosure(0, 0, this, this.POSOpen);
 		this.POSClosure.hide();
 
+		this.ClosureConfirmed = new ClosureConfirmed(this, this.POSClosure);
+		this.ClosureConfirmed.hide();
+
 		this.Notifications = new Notifications(this, POSOpen);
 		this.Notifications.hide();
 
-		this.PaymentRequest = new PaymentRequest(null, this, this.POSOpen);
+		this.PaymentRequest = new PaymentRequest(this, this.POSOpen);
 		this.PaymentRequest.hide();
 
 		this.PaymentConfirmed = new PaymentConfirmed(this, this.POSOpen);
 		this.PaymentConfirmed.hide();
 
+		this.GenerateInvoice = new GenerateInvoice(this, new Stage(StageStyle.UNDECORATED), this.POSOpen);
+		this.GenerateInvoice.hide();
+
 		this.Sales = new Sales(this, this.POSOpen);
 		this.Sales.hide();
 
-		this.Inventory = new Inventory(this, this.POSOpen);
+		this.Inventory = new Inventory(this, this.inventory, this.POSOpen);
 		this.Inventory.hide();
 
 		this.POSsesions = new ArrayList<POSsesion>();
-
-		this.manager = new DBManager("", "","");
-
-		this.inventory = new InventoryModel.Inventory(manager);
 
 		this.run();
 	}
@@ -91,6 +103,11 @@ public class SesionAtCl extends Sesion{
 		}
 	}
 
+	public void onClosureConfirmedRequest() {
+		blurPOS();
+		showClosureConfirmed();
+	}
+
 	public void notificationsRequest() throws IOException{
 		blurPOS();
 		showNotifications();
@@ -110,17 +127,18 @@ public class SesionAtCl extends Sesion{
 		}
 		else {
 			blurPOS();
-			try {
-				PaymentRequest paymentRequest = new PaymentRequest(cart,null, this.POSOpen);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			showPaymentRequest();
 		}
 	}
 
 	public void paymentConfirmedRequest() throws IOException {
 		blurPOS();
 		showPaymentConfirmed();
+	}
+
+	public void onGenerateInvoiceRequest() {
+		blurPOS();
+		showGenerateInvoice();
 	}
 
 	public void salesRequest() throws IOException {
@@ -174,21 +192,6 @@ public class SesionAtCl extends Sesion{
 		}
 	}
 
-	public void emptyCart(){
-		Alert alertDialog = new Alert(Alert.AlertType.ERROR);
-		alertDialog.setTitle("ERROR!");
-		alertDialog.setHeaderText("El Carrito de Compras se encuentra vacio!");
-		alertDialog.setContentText("Por favor, añada productos al Carrito de Compras");
-		alertDialog.initStyle(StageStyle.DECORATED);
-		java.awt.Toolkit.getDefaultToolkit().beep();
-
-		blurPOS();
-
-		alertDialog.showAndWait();
-
-		unblurPOS();
-	}
-
 	private void showPOSOpening() throws IOException {
 		POSOpening.restart();
 		POSOpening.show();
@@ -199,6 +202,11 @@ public class SesionAtCl extends Sesion{
 	private void showPOSClosure() throws IOException {
 		POSClosure.show();
 	}
+
+	private void showClosureConfirmed() {
+		ClosureConfirmed.show();
+	}
+
 	private void showNotifications() throws IOException {
 		Notifications.show();
 	}
@@ -210,6 +218,11 @@ public class SesionAtCl extends Sesion{
 		PaymentConfirmed.restart();
 		PaymentConfirmed.show();
 	}
+
+	private void showGenerateInvoice() {
+		GenerateInvoice.show();
+	}
+
 	private void showSales() throws IOException {
 		Sales.show();
 	}

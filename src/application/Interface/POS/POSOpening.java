@@ -1,8 +1,7 @@
 package application.Interface.POS;
 
-import application.Interface.PromptWindow;
 import application.FlowController.SesionAtCl;
-import application.Interface.LI.SelectAccount;
+import application.Interface.PromptWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,9 +19,6 @@ import java.util.ResourceBundle;
 public class POSOpening extends PromptWindow implements Initializable{
 	
 	@FXML
-	Button HisButton;
-	
-	@FXML
 	TextField CashierField;
 	
 	@FXML
@@ -34,6 +30,7 @@ public class POSOpening extends PromptWindow implements Initializable{
 	Boolean flag;
 
 	Float OpeningCount;
+	private SesionAtCl sesion;
 	
 	public POSOpening(SesionAtCl ses, PromptWindow origin) throws IOException {
 		super(ses, "POSOpening.fxml", origin);
@@ -84,21 +81,8 @@ public class POSOpening extends PromptWindow implements Initializable{
 		
 		CashierField.setTextFormatter(new TextFormatter<>(new FloatStringConverter()));
 		CashierField.setText(String.valueOf(OpeningCount));
-		
-		HisButton.setOnAction(e -> {try {
-			ses2.SalesHist(this);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}});
 
-		BackButton.setOnAction(e -> {
-			try {
-				origin = new SelectAccount();
-			} catch (IOException ex) {
-				throw new RuntimeException(ex);
-			}
-			back();
-		});
+		BackButton.setOnAction(e -> back());
 
 		CloseButton.setOnAction(e -> { if (flag) {try {
 			open();
@@ -109,6 +93,6 @@ public class POSOpening extends PromptWindow implements Initializable{
 
 	public void open() throws IOException{
 		this.hide();
-		ses2.POSOpen(OpeningCount);
+		sesion.openPOS(OpeningCount);
 	}
 }
