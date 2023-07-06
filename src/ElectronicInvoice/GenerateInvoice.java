@@ -104,7 +104,11 @@ public class GenerateInvoice extends AtClPromptWindow {
                     @Override
                     public void run() {
                         Platform.runLater(() -> {
-                            sesion.get;
+                            try {
+                                sesion.getPOSSesion().clearCart();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
                             back();
                         });
                     }

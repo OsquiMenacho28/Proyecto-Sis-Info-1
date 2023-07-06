@@ -50,7 +50,7 @@ public class Sale extends LinkedObject {
 			bind("fecha", dateTime );
 			bind("total", total);
 			bind("caja_id_caja", cashier);
-			bind("cliente_id_cliente", idClient)
+			bind("cliente_id_cliente", idClient);
 	}
 
 	public static int getPaymentMethodCode() {

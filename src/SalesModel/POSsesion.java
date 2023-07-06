@@ -33,6 +33,7 @@ public class POSsesion {
     private LocalDateTime ending;
     private Cart cart;
     private SalesList sales;
+    private ClientsList clients;
     private POSOpen POSOpen;
     private SesionAtCl sesion;
 
@@ -42,6 +43,7 @@ public class POSsesion {
         this.ending = ending;
         this.cart = new Cart(this);
         this.sales = new SalesList(sesion.getManager());
+        this.clients = new ClientsList(sesion.getManager());
         this.POSOpen = POSOpen;
         this.sesion = POSOpen.getSesion();
     }

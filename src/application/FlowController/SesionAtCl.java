@@ -89,11 +89,13 @@ public class SesionAtCl extends Sesion{
 		this.showPOSOpening();
 	}
 
-	public void openPOS(Float OpeningCount) throws IOException{
+	public void openPOS(Float OpeningCount) throws Exception {
 		if(!POSOpen.isActive()){
 			this.POSOpening.hide();
 			this.showPOSOpen();
-			this.POSOpen.activate(new POSsesion(OpeningCount, this.POSOpen));
+			POSsesion pos = new POSsesion(OpeningCount, this.POSOpen);
+			POSsesions.add(pos);
+			this.POSOpen.activate(pos);
 		}
 	}
 	public void closePOSrequest(POSsesion POSsesion) throws IOException{
@@ -248,5 +250,9 @@ public class SesionAtCl extends Sesion{
 
 	public DBManager getManager(){
 		return manager;
+	}
+
+	public POSsesion getPOSSesion(){
+		return POSsesions.get(POSsesions.size()-1);
 	}
 }

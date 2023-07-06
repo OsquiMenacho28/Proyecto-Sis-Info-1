@@ -1,9 +1,6 @@
 package SalesModel;
 
-import DataBaseManager.Int_Value;
-import DataBaseManager.LinkedObject;
-import DataBaseManager.String_Value;
-import DataBaseManager.Value;
+import DataBaseManager.*;
 
 import java.sql.SQLException;
 
@@ -11,36 +8,46 @@ public class Client extends LinkedObject {
 	private Int_Value code;
 	private String_Value name;
 	private Int_Value NIT;
-	private int documentTypeCode;
+	private static final int documentTypeCode = 1;
 
-	public Client(String name, int documentTypeCode, int NIT) {
-		super();
-		this.name = name;
-		this.documentTypeCode = documentTypeCode;
-		this.NIT = NIT;
+	public Client(ClientsList list, String name, int documentTypeCode, int NIT) throws Exception {
+		super(ClientsList.clientRV,
+				Value.create(list.getNewPK()),
+				Value.create(name),
+				Value.create(NIT));
+		bindDefinition();
+		link();
+	}
+
+	public Client(RowMirror row) throws Exception {
+		super(row);
+		bindDefinition();
+		link();
+	}
+
+	private void bindDefinition(){
+		bind("id_cliente", code);
+		bind("nombre", name);
+		bind("nit", NIT);
 	}
 
 	public String getName() {
 		return name.get_value();
 	}
 
-	public void setName(String name) throws SQLException {
-		set(this.name,Value.create(name));
-	}
-
 	public int getDocumentTypeCode() {
 		return documentTypeCode;
 	}
 
-	public void setDocumentTypeCode(int documentTypeCode) {
-		this.documentTypeCode = documentTypeCode;
-	}
-
 	public int getNIT() {
-		return NIT;
+		return NIT.get_value();
 	}
 
-	public void setNIT(int NIT) {
-		this.NIT = NIT;
+	public void setNIT(int NIT) throws SQLException {
+		set(this.NIT, Value.create(NIT));
+	}
+
+	public void setName(String name) throws SQLException {
+		set(this.name, Value.create(name));
 	}
 }
