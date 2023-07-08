@@ -163,9 +163,9 @@ public class EditProduct extends AdminPromptWindow implements Initializable {
             product.setName(name);
             product.setDescription(description);
             product.setCode(Integer.parseInt(code));
-            product.setColor(color);
-            product.setBrand(brand);
-            product.setCategory(category);
+            //product.setColor(color);
+            //product.setBrand(brand);
+            //product.setCategory(category);
             product.setPrice(Float.parseFloat(price));
         }
     }

@@ -26,14 +26,11 @@ public class Inventory extends LinkedCollection<Product> {
         colorRV = colorsTable.getRelVar();
         brandRV = brandsTable.getRelVar();
         categoryRV = categoriesTable.getRelVar();
-    }
-
-    public Inventory(TableMirror table) throws Exception {
-        super(table);
-        this.icons = calculateIcons();
         fill();
+        this.icons = calculateIcons();
 
-        this.collection.addListener((ListChangeListener<Product>) c -> {
+
+        this.addListener((ListChangeListener<Product>) c -> {
             while (c.next()) {
                 if (c.wasRemoved()) {
                     for(Product product : c.getRemoved()){
@@ -55,7 +52,7 @@ public class Inventory extends LinkedCollection<Product> {
 
     private ObservableList<ItemIcon> calculateIcons(){
         ObservableList<ItemIcon> icons = FXCollections.observableArrayList();
-        for(Product product : this.collection){
+        for(Product product : this.getCollection()){
             icons.add(product.getIcon());
         }
         return icons;
@@ -77,17 +74,20 @@ public class Inventory extends LinkedCollection<Product> {
     }
 
     public void materialIntake(Product product, int cant) throws Exception {
-        if(this.collection.contains(product)){
+        if(this.getCollection().contains(product)){
             product.addUnits(this, cant);
         }
     }
 
     public void materialWithdrawal(Product product, int cant) throws Exception {
-        if(this.collection.contains(product)){
+        if(this.getCollection().contains(product)){
             product.retireUnits(this, cant);
         }
     }
 
+    public ColorsTable getColorsTable(){
+        return colorsTable;
+    }
     public CategoriesTable getCategoriesTable(){
         return categoriesTable;
     }

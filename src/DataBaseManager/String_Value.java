@@ -7,7 +7,11 @@ public class String_Value extends Value {
 		super(DataType.STRING_TYPE);
 		this.value = value;
 	}
-	
+
+	public String_Value() {
+		super(DataType.STRING_TYPE);
+		this.value = null;
+	}
 	public String get_value() {
 		return value;
 	}

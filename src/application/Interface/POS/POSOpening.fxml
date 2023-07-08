@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="309.0" prefWidth="561.0" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root fx:id="Grid_Container" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" percentWidth="38.0" />
-      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" percentWidth="62.0" />
+      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="24.0" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" percentHeight="0.0" prefHeight="33.999999999999986" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" percentHeight="25.0" valignment="CENTER" vgrow="ALWAYS" />
-      <RowConstraints maxHeight="85.33334350585938" minHeight="-Infinity" prefHeight="85.33334350585938" valignment="CENTER" vgrow="ALWAYS" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" valignment="CENTER" vgrow="ALWAYS" />
    </rowConstraints>
    <children>
-      <TextField fx:id="CashierField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="269.0" promptText="Total en Caja" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
+      <TextField fx:id="CashierField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="214.0" promptText="Total en Caja" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <GridPane.margin>
-            <Insets left="100.0" right="100.0" />
+            <Insets left="20.0" right="20.0" />
          </GridPane.margin>
       </TextField>
-      <Button fx:id="CloseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #ff8500; -fx-border-radius: 10px;" styleClass="FlowButton" stylesheets="@../../../styleFiles/PrompWindows.css" text="ABRIR CAJA" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+      <Button fx:id="CloseButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #ff8500; -fx-border-radius: 10px;" styleClass="FlowButton" stylesheets="@../../../styleFiles/PrompWindows.css" text="ABRIR CAJA" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <font>
             <Font name="Nirmala UI Bold" size="13.0" />
          </font>
@@ -35,36 +41,41 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="448.0" layoutY="143.0" styleClass="SubTitleLabel" text="Monto de Apertura:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+      <Label layoutX="448.0" layoutY="143.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="SubTitleLabel" text="Monto de Apertura:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
          <font>
             <Font name="Encode Sans Bold" size="24.0" />
          </font>
+         <padding>
+            <Insets bottom="20.0" right="20.0" top="20.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
       </Label>
-      <Button fx:id="HisButton" mnemonicParsing="false" style="-fx-background-color: transparent;" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-      <VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #01516e;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
+      <Button fx:id="BackButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #757575; -fx-border-radius: 10px;" text="ATRÁS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+         <font>
+            <Font name="Nirmala UI Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </GridPane.margin>
+      </Button>
+      <VBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" style="-fx-background-color: #01516e;" GridPane.columnSpan="2" GridPane.halignment="CENTER">
          <children>
-            <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="68.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label layoutX="20.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="ABRIR PUNTO DE VENTA" textFill="WHITE">
                      <font>
                         <Font name="Metropolis-Regular" size="18.0" />
                      </font>
                   </Label>
-                  <Line endX="430.6666259765625" endY="1.3333244323730469" layoutX="132.0" layoutY="50.0" startX="-132.00001525878906" stroke="WHITE" />
+                  <Line endX="298.5" layoutX="132.0" layoutY="50.0" startX="-132.00001525878906" stroke="WHITE" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <Button fx:id="BackButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="99.0" style="-fx-background-color: #757575; -fx-border-radius: 10px;" text="ATRÁS" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-         <font>
-            <Font name="Nirmala UI Bold" size="13.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <GridPane.margin>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </GridPane.margin>
-      </Button>
    </children>
 </fx:root>

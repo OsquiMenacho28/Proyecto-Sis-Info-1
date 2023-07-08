@@ -6,34 +6,34 @@ import java.util.ArrayList;
 
 public class Category extends LinkedObject {
 
-    Int_Value pk;
-    String_Value category;
+    Int_Value pk = Value.create(0);
+    String_Value category = Value.create("");
 
     public Category(RowMirror record) throws Exception {
         super(record);
-        bindDefinition();
+        defineBind();
         link();
     }
 
     public Category(RelVar relvar, ArrayList<Value> values) throws Exception {
         super(relvar, values);
-        bindDefinition();
+        defineBind();
         link();
     }
 
     public Category(RelVar relvar, Value... values) throws Exception {
         super(relvar, values);
-        bindDefinition();
+        defineBind();
         link();
     }
-
-    public void bindDefinition(){
-        bind("id_categoria_producto", pk);
-        bind("categoria", category);
+    @Override
+    public void defineBind(){
+        bind("ID_CATEGORIA_PRODUCTO", pk);
+        bind("CATEGORIA", category);
     }
 
     public String getCategory(){
-        return this.category.to_string();
+        return this.category.get_value();
     }
 
     public int getCode(){

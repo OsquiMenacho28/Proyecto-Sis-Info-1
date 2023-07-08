@@ -32,7 +32,6 @@ public class RowMirror {
 	public RowMirror(TableMirror table, RelVar rel, ArrayList<Value> values) throws Exception {
 		this(rel, values);
 		setTable(table);
-		this.activate();
 	}
 
 	public RowMirror(RelVar rel, Value... values) throws Exception {

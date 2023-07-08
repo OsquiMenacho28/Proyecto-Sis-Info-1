@@ -7,6 +7,7 @@ import DataBaseManager.RowMirror;
 public class ColorsTable extends LinkedCollection<Color> {
     public ColorsTable(DBManager manager) throws Exception {
         super(manager, "color_producto");
+        fill();
     }
 
     @Override
@@ -22,7 +23,7 @@ public class ColorsTable extends LinkedCollection<Color> {
     }
 
     public Color getColor(String color){
-        for(Color colorO : this.collection){
+        for(Color colorO : this.getCollection()){
             if(colorO.getColor().equals(color))
                 return colorO;
         }

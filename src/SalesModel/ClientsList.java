@@ -15,11 +15,12 @@ public class ClientsList extends LinkedCollection<Client>{
 
     @Override
     public boolean add(RowMirror row) throws Exception {
-        return false;
+        return super.add(new Client(row));
     }
 
     @Override
     public boolean remove(RowMirror row) throws Exception {
-        return false;
+        Client client = this.getWithPK(row.get_pk_val());
+        return super.remove(client);
     }
 }

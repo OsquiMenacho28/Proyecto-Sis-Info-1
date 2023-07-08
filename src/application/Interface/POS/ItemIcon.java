@@ -124,7 +124,7 @@ public class ItemIcon extends GridPane implements Initializable {
 		ProductLabel.setText(product.getName());
 		PriceLabel.setText("Precio : " + product.getPrice());
 		StockLabel.setText("Cantidad : " + product.getQuantity());
-		BrandLabel.setText("Marca : " + product.getBrand());
+		BrandLabel.setText("Marca : " + product.getBrandString());
 	}
 
 	public Product getProduct() {

@@ -1,6 +1,7 @@
 package application.Interface.POS;
 
 import application.FlowController.SesionAtCl;
+import application.Interface.AtClPromptWindow;
 import application.Interface.LI.SelectAccount;
 import application.Interface.PromptWindow;
 import javafx.animation.Animation;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClosureConfirmed extends PromptWindow implements Initializable {
+public class ClosureConfirmed extends AtClPromptWindow implements Initializable {
 
     @FXML
     private Button CancelButton;
@@ -34,12 +35,10 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
     private boolean windowClosed = false;
 
     public ClosureConfirmed(SesionAtCl ses2, PromptWindow origin) throws Exception {
-        super(ses2, "ClosureConfirmed.fxml", origin);
-        stage.setTitle("CIERRE DE CAJA");
+        super(ses2, "ClosureConfirmed.fxml", origin,"CIERRE DE CAJA");
         stage.setWidth(506);
         stage.setHeight(365);
         this.load();
-        initializeFXML();
     }
 
     private void initializeFXML() {
@@ -73,12 +72,8 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
                     if (!windowClosed) {
                         Stage loadingStage = (Stage) progressBar.getScene().getWindow();
                         loadingStage.hide();
-                        //origin.dispose();
-                        try {
-                            new SelectAccount();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        dispose();
+                        sesion.end();
                     }
                 });
             }).start();
@@ -88,11 +83,16 @@ public class ClosureConfirmed extends PromptWindow implements Initializable {
     }
 
     @Override
+    public void show(){
+        initializeFXML();
+        super.show();
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //progressBar.setStyle("-fx-accent: #18E625;");
         stage.setOnCloseRequest(windowEvent -> {
             windowClosed = true;
-            //origin.stage.getScene().getRoot().setEffect(null);
+            origin.setEffect(null);
         });
 
         CancelButton.setOnAction(actionEvent -> {

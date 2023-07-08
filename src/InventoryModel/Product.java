@@ -13,23 +13,23 @@ import java.util.ArrayList;
 public class Product extends LinkedObject {
 
 
-	protected Int_Value code;
+	protected Int_Value code = new Int_Value();
 
-	protected String_Value name;
-	protected String_Value description;
-	protected Float_Value price;
-	protected Int_Value quantity;
-	protected Int_Value colorFK;
-	protected Int_Value brandFK;
-	protected Int_Value categoryFK;
+	protected String_Value name = new String_Value();
+	protected String_Value description = new String_Value();
+	protected Float_Value price = new Float_Value();
+	protected Int_Value quantity = new Int_Value();
+	protected Int_Value colorFK = new Int_Value();
+	protected Int_Value brandFK = new Int_Value();
+	protected Int_Value categoryFK = new Int_Value();
 
-	protected String_Value color;
-	protected String_Value brand;
-	protected String_Value category;
+	protected Color color;
+	protected Brand brand;
+	protected Category category;
 
 	private static int measurementUnitCode = 58;
 
-	protected Int_Value visible;
+	protected Int_Value visible = Value.create(1);
 	
 	private ArrayList<AddedProduct> pendingProducts;
 	private Inventory inventory;
@@ -41,48 +41,74 @@ public class Product extends LinkedObject {
 									Value.create(description),
 									Value.create(price),
 									Value.create(quantity),
-									Value.create(inventory.checkColor(color)),
 									Value.create(inventory.checkBrand(brand)),
-									Value.create(inventory.checkCategory(category)));
+									Value.create(inventory.checkCategory(category)),
+				 					Value.create(inventory.checkColor(color)));
 
 
 		this.pendingProducts = new ArrayList<AddedProduct>();
 		this.inventory = inventory;
-		this.icon = new ItemIcon(this);
-		//addListener( e -> {icon.updateContent();});
+		super.addListener( new ChangeListener<Value>(){
+			@Override
+			public void changed(ObservableValue<? extends Value> observable,Value oldValue, Value newValue) {
+				icon.updateContent();
+			}
+		});
 		defineBind();
 		link();
+
+		this.color = inventory.getColorsTable().getWithPK(colorFK.get_value());
+		this.brand = inventory.getBrandsTable().getWithPK(brandFK.get_value());
+		this.category = inventory.getCategoriesTable().getWithPK(categoryFK.get_value());
+		this.icon = new ItemIcon(this);
 	}
 
 	public Product(Inventory inventory, RowMirror record) throws Exception {
 		super(record);
 		this.pendingProducts = new ArrayList<AddedProduct>();
 		this.inventory = inventory;
-		this.icon = new ItemIcon(this);
 		this.visible = Value.create(1);
-		//addListener( e -> {icon.updateContent();});
+		super.addListener( new ChangeListener<Value>(){
+			@Override
+			public void changed(ObservableValue<? extends Value> observable,Value oldValue, Value newValue) {
+				icon.updateContent();
+			}
+		});
 		defineBind();
 		link();
+
+		this.color = inventory.getColorsTable().getWithPK(colorFK.get_value());
+		this.brand = inventory.getBrandsTable().getWithPK(brandFK.get_value());
+		this.category = inventory.getCategoriesTable().getWithPK(categoryFK.get_value());
+
+		//System.out.print(inventory.getColorsTable().getCollection());
+		this.icon = new ItemIcon(this);
 	}
 
 	protected void defineBind(){
-		bind("id_producto", code);
-		bind("nombre", name);
-		bind("descripcion", description);
-		bind("precio_unitario", price);
-		bind("stock", quantity);
-		bind("color_producto_id_color_producto", colorFK);
-		bind("marca_producto_id_marca", brandFK);
-		bind("categoria_producto_id_categoria_producto", categoryFK);
+		bind("ID_PRODUCTO", code);
+		bind("NOMBRE", name);
+		bind("DESCRIPCION", description);
+		bind("PRECIO_UNITARIO", price);
+		bind("STOCK", quantity);
+		bind("COLOR_PRODUCTO_ID_COLOR_PRODUCTO", colorFK);
+		bind("MARCA_PRODUCTO_ID_MARCA", brandFK);
+		bind("CATEGORIA_PRODUCTO_ID_CATEGORIA_PRODUCTO", categoryFK);
 	}
 
 	public AddedProduct addToCart(int cant, Cart cart) throws Exception {
 		if(!cart.equals(null)) {
-			AddedProduct addedProduct = new AddedProduct(this, cant, cart);
-			decrement(cant);
-			this.pendingProducts.add(addedProduct);
-			cart.collection.add(addedProduct);
-			return addedProduct;
+			if(!pendingProducts.isEmpty()){
+				pendingProducts.get(0).incrementQuantity(1);
+				return pendingProducts.get(0);
+			}
+			else{
+				AddedProduct addedProduct = new AddedProduct(this, cant, cart);
+				decrement(cant);
+				this.pendingProducts.add(addedProduct);
+				cart.collection.add(addedProduct);
+				return addedProduct;
+			}
 		}
 		else{
 			throw new Exception("Null cart");
@@ -101,7 +127,7 @@ public class Product extends LinkedObject {
 
 	public void addUnits(Inventory inventory, int cant) throws Exception {
 		if(cant >= 0){
-			if(inventory.collection.contains(this)){
+			if(inventory.getCollection().contains(this)){
 				increment(getQuantity() + cant);
 			}
 		}
@@ -112,7 +138,7 @@ public class Product extends LinkedObject {
 
 	public void retireUnits(Inventory inventory, int cant) throws Exception {
 		if(cant >= 0 && getQuantity() >= cant){
-			if(inventory.collection.contains(this)){
+			if(inventory.getCollection().contains(this)){
 				decrement(getQuantity() - cant);
 			}
 		}
@@ -206,41 +232,54 @@ public class Product extends LinkedObject {
 			throw new Exception("Not valid description");
 		}
 	}
-
-	public String getColor() {
-			return color.get_value();
+	public Color getColor() {
+		return color;
 	}
 	public void setColor(String color) throws Exception {
 		if(!color.equals("")){
-			set(this.color, Value.create(inventory.checkColor(color)));
+			set(this.colorFK, Value.create(inventory.checkColor(color)));
+			this.color = inventory.getColorsTable().getWithPK(this.colorFK.get_value());
 		}
 		else{
 			throw new Exception("Not valid color");
 		}
 	}
 
-	public String getBrand() {
-		return brand.get_value();
+	public Brand getBrand() {
+		return brand;
 	}
 	public void setBrand(String brand) throws Exception {
 		if(!brand.equals("")){
-			set(this.brand, Value.create(inventory.checkBrand(brand)));
+			set(this.brandFK, Value.create(inventory.checkBrand(brand)));
+			this.brand = inventory.getBrandsTable().getWithPK(this.brandFK.get_value());
 		}
 		else{
 			throw new Exception("Not valid brand");
 		}
 	}
 
-	public String getCategory() {
-		return category.get_value();
+	public Category getCategory() {
+		return category;
 	}
 	public void setCategory(String category) throws Exception {
 		if(!category.equals("")){
-			set(this.category, Value.create(inventory.checkCategory(category)));
+			set(this.categoryFK, Value.create(inventory.checkCategory(category)));
+			this.category = inventory.getCategoriesTable().getWithPK(this.categoryFK.get_value());
 		}
 		else{
 			throw new Exception("Not valid category");
 		}
+	}
+	public String getBrandString(){
+		return this.brand.getBrand();
+	}
+
+	public String getColorString(){
+		return this.color.getColor();
+	}
+
+	public String getCategoryString(){
+		return this.category.getCategory();
 	}
 
 	public float getPrice() {

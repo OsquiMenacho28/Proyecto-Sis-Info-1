@@ -18,6 +18,7 @@ public class TableMirror {
 	}
 	
 	public void fill() throws Exception {
+		rows.clear();
 	    try {
 	        ResultSet rs = manager.runQuery("select * from " + name);
 	        while (rs.next()) {
@@ -37,6 +38,8 @@ public class TableMirror {
 	            }
 	            RowMirror row = new RowMirror(this, relvar, values);
 	            rows.add(row);
+				row.setTable(this);
+				row.activate();
 	        }
 	        rs.close();
 	    } catch (SQLException e) {

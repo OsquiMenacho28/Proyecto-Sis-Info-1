@@ -7,6 +7,10 @@ public class Int_Value extends Value {
 		super(DataType.INTEGER_TYPE);
 		this.value = value;
 	}
+	public Int_Value(){
+		super(DataType.INTEGER_TYPE);
+		this.value = null;
+	}
 	
 	public Integer get_value() {
 		return value;

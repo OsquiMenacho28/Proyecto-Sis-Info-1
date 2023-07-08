@@ -38,4 +38,32 @@ public abstract class LogIn extends PromptWindow implements Initializable {
         this.load();
         this.show();
     }
+
+    private User validate() {
+        return User.searchDB(User_F.getText(), Password_F.getText());
+    }
+
+    private void neglected() {
+        User_F.clear();
+        Password_F.clear();
+    }
+
+    public void open() {
+        User inputUser = validate();
+        if(inputUser != null) {
+            try {
+                openWindow(inputUser);
+                dispose();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            neglected();
+        }
+    }
+
+    public abstract void openWindow(User user) throws Exception;
 }

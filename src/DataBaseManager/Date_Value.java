@@ -10,6 +10,11 @@ public class Date_Value extends Value {
 		this.value = value;
 	}
 
+	public Date_Value() {
+		super(DataType.DATE_TYPE);
+		this.value = null;
+	}
+
 	public Date get_value() {
 		return value;
 	}

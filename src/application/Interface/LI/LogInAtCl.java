@@ -54,31 +54,8 @@ public class LogInAtCl extends LogIn {
         });
     }
 
-    private User validate() {
-        return User.searchDB(User_F.getText(), Password_F.getText());
-    }
-
-    private void neglected() {
-        User_F.clear();
-        Password_F.clear();
-    }
-
-    public void open() {
-        User inputUser = validate();
-        if(inputUser != null) {
-            try {
-                new SesionAtCl(inputUser);
-                System.out.println("josd");
-                dispose();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            neglected();
-            System.out.println("josdefa");
-        }
+    @Override
+    public void openWindow(User user) throws Exception {
+        new SesionAtCl(user);
     }
 }

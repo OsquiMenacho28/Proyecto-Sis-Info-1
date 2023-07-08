@@ -27,13 +27,10 @@ public class POSsesion {
     }
 
     private Float OpeningCount;
-
     private Float ClosingCount;
     private LocalDateTime beginning;
     private LocalDateTime ending;
     private Cart cart;
-    private SalesList sales;
-    private ClientsList clients;
     private POSOpen POSOpen;
     private SesionAtCl sesion;
 
@@ -41,10 +38,8 @@ public class POSsesion {
         this.OpeningCount = OpeningCount;
         this.beginning = beginning;
         this.ending = ending;
-        this.cart = new Cart(this);
-        this.sales = new SalesList(sesion.getManager());
-        this.clients = new ClientsList(sesion.getManager());
         this.POSOpen = POSOpen;
+        this.cart = new Cart(this);
         this.sesion = POSOpen.getSesion();
     }
     public POSsesion(Float OpeningCount, POSOpen POSOpen) throws Exception {
@@ -66,7 +61,6 @@ public class POSsesion {
     public void commitSale(Client c) throws Exception {
         if(cart.isNotEmpty()){
             Sale sale = new Sale(c, cart, this);
-            sales.add(sale);
             newCart();
         }
     }
@@ -80,7 +74,7 @@ public class POSsesion {
     }
 
     public int getNewSaleNumber(){
-        return sales.getNewPK();
+        return sesion.getSalesList().getNewPK();
     }
 
     public int getCashierNumber(){

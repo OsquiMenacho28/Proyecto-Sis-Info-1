@@ -1,5 +1,6 @@
 package application.Interface.LI;
 
+import application.FlowController.SesionAtCl;
 import application.Interface.PromptWindow;
 import application.FlowController.SesionAdmin;
 import application.FlowController.User;
@@ -54,30 +55,8 @@ public class LogInAdmin extends LogIn {
         });
     }
 
-
-    private User validate() {
-        return User.searchDB(User_F.getText(), Password_F.getText());
-    }
-
-    private void neglected() {
-        User_F.clear();
-        Password_F.clear();
-    }
-
-    public void open() {
-        User inputUser = validate();
-        if(inputUser != null) {
-            try {
-                new SesionAdmin(inputUser);
-                dispose();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            neglected();
-        }
+    @Override
+    public void openWindow(User user) throws Exception {
+        new SesionAdmin(user);
     }
 }

@@ -29,27 +29,23 @@ public class PromptWindow extends GridPane {
 		loader.setController(this);
 
 		createWindow();
-		show();
 	}
 	public PromptWindow(Sesion ses, Stage stage, String FXMLname, PromptWindow origin) throws IOException {
 		this(ses, FXMLname, origin);
 		this.stage = stage;
-		stage.setResizable(true);
-		scene.setRoot(this);
-		show();
+		this.scene = new Scene(this);
+		stage.setScene(scene);
 	}
 
 
 	public PromptWindow(Sesion ses, Stage stage, String FXMLname, PromptWindow origin, String title) throws IOException {
 		this(ses, stage, FXMLname, origin);
 		stage.setTitle(title);
-		show();
 	}
 
 	public PromptWindow(Sesion ses, String FXMLname, PromptWindow origin, String title) throws IOException {
 		this(ses, FXMLname, origin);
 		stage.setTitle(title);
-		show();
 	}
 
 
@@ -67,10 +63,7 @@ public class PromptWindow extends GridPane {
 		this.scene = new Scene(this);
 		stage.setScene(scene);
 
-		stage.setResizable(true);
-		stage.setMaximized(true);
 		//stage.sizeToScene();
-		stage.setResizable(true);
 	}
 	
 	public void dispose() {
@@ -94,6 +87,10 @@ public class PromptWindow extends GridPane {
 		if (origin != null) {
 			origin.show();
 		}
+	}
+
+	public Stage getStage(){
+		return this.stage;
 	}
 }
 

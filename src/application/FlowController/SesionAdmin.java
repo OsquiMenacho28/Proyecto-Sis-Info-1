@@ -34,41 +34,26 @@ public class SesionAdmin extends Sesion {
     public SesionAdmin(User InputUser) throws Exception {
         super(InputUser);
 
-        this.manager = new DBManager("jdbc:mysql://localhost:2808/ferreteria_dimaco_database",
-                "root", "osquimenacho28");
-
-        this.inventory = new InventoryModel.Inventory(manager);
-
         this.InventoryManagement = new InventoryManagement(this, new SelectAccount());
         super.mainWindow = this.InventoryManagement;
-        this.InventoryManagement.hide();
 
         this.AddProd = new AddProd(this, this.InventoryManagement);
-        this.AddProd.hide();
 
         this.DeleteProduct = new DeleteProduct(this, this.InventoryManagement);
-        this.DeleteProduct.hide();
 
         this.EditProduct = new EditProduct(this, this.InventoryManagement);
-        this.EditProduct.hide();
 
         this.EntryConfirmed = new EntryConfirmed(this, this.EntryProduct);
-        this.EntryConfirmed.hide();
 
         this.EntryProduct = new EntryProduct(this, this.InventoryManagement);
-        this.EntryProduct.hide();
 
         this.Metrics = new Metrics(this, this.InventoryManagement);
-        this.Metrics.hide();
 
         this.RemoveConfirmed = new RemoveConfirmed(this, this.EntryProduct);
-        this.RemoveConfirmed.hide();
 
         this.Sales = new Sales(this, this.InventoryManagement);
-        this.Sales.hide();
 
         this.Notifications = new Notifications(this, this.InventoryManagement);
-        this.Notifications.hide();
 
         this.InventoryManagement.show();
     }

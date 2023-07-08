@@ -18,8 +18,7 @@ public class SelectAccount extends PromptWindow implements Initializable {
     Button AtCl_B;
 
     public SelectAccount() throws IOException {
-        super((SesionAdmin) null,"SelectAccount.fxml", null);
-        stage.setTitle("FERRETERÍA DIMACO");
+        super((SesionAdmin) null,"SelectAccount.fxml", null, "FERRETERÍA DIMACO");
         this.load();
     }
 
@@ -27,7 +26,8 @@ public class SelectAccount extends PromptWindow implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
         Admin_B.setOnAction((e) -> {
             try {
-                LogInAdmin logInAdmin = new LogInAdmin(null, this);
+                LogInAdmin logInAdmin = new LogInAdmin(this.stage, this);
+                dispose();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -35,7 +35,8 @@ public class SelectAccount extends PromptWindow implements Initializable {
 
         AtCl_B.setOnAction((e) -> {
             try {
-                LogInAtCl logInAtCl = new LogInAtCl(null, this);
+                LogInAtCl logInAtCl = new LogInAtCl(this.stage, this);
+                dispose();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

@@ -1,28 +1,29 @@
 package DataBaseManager;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ObservableValueBase;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class LinkedObject {
+public abstract class LinkedObject implements ObservableValue<Value> {
 
     protected Boolean linked;
     private RowMirror tuple;
     private HashMap<Value, String> bindDefinition;
     private HashMap<String, Value> bindState;
-    private ArrayList<ChangeListener<Object>> changeListeners;
-
+    private List<ChangeListener<? super Value>> changeListeners;
+    private List<InvalidationListener> invalidationListeners;
     public LinkedObject(RowMirror record) throws Exception {
         this.tuple =record;
-        if(record.isActive()){
-            record.activate();
-            record.add();
-        }
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();
-        this.changeListeners = new ArrayList<ChangeListener<Object>>();
+        this.changeListeners = new ArrayList<ChangeListener<? super Value>>();
+        this.invalidationListeners = new ArrayList<InvalidationListener>();
         this.linked = false;
         clearBindings();
     }
@@ -31,6 +32,8 @@ public class LinkedObject {
         this.tuple = new RowMirror(relvar, values);
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();
+        this.changeListeners = new ArrayList<ChangeListener<? super Value>>();
+        this.invalidationListeners = new ArrayList<InvalidationListener>();
         this.linked = false;
         clearBindings();
     }
@@ -39,16 +42,17 @@ public class LinkedObject {
         this.tuple = new RowMirror(relvar, values);
         this.bindDefinition = new HashMap<Value, String>();
         this.bindState = new HashMap<String, Value>();
+        this.changeListeners = new ArrayList<ChangeListener<? super Value>>();
+        this.invalidationListeners = new ArrayList<InvalidationListener>();
        this.linked = false;
        clearBindings();
     }
 
-    public void addListener(ChangeListener<Object> listener) {
-        changeListeners.add(listener);
-    }
+    protected abstract void defineBind();
 
     protected void bind(String relvar_column, Value atribute){
-        atribute = getValue(relvar_column);
+        atribute.set_value(this.getValue(relvar_column).get_value());
+
         if(bindDefinition.containsKey(atribute)){
             String last_column = bindDefinition.get(atribute);
             bindState.put(last_column, null);
@@ -78,10 +82,10 @@ public class LinkedObject {
         }
     }
 
-    private boolean checkBindings(){
+    public boolean checkBindings(){
         boolean s = true;
         for(String f: bindState.keySet()){
-            if(bindState.get(f) != null){
+            if(bindState.get(f) == null){
                 s =false;
                 break;
             }
@@ -91,39 +95,32 @@ public class LinkedObject {
 
     public void link() throws Exception {
         if(checkBindings()){
-            if(this.tuple.isActive()){
-                for(Value val : bindDefinition.keySet()){
-                    val.set_value(this.getValue(bindDefinition.get(val)));
-                }
-            }
-            else{
+            if(!this.tuple.isActive()){
                 if(this.tuple.getTable() != null) {
+
                     this.tuple.add();
-                }
-                else{
-                    throw new Exception("No table to link");
+                    this.linked = true;
                 }
             }
-            this.linked = true;
         }
     }
 
     public void link(TableMirror table) throws Exception {
         if(checkBindings()){
-            this.tuple.add(table);
-            this.linked = true;
+            this.tuple.setTable(table);
+            link();
         }
     }
 
     public void set(Value atribute, Value newValue) throws SQLException {
         if(this.bindDefinition.containsKey(atribute)){
-            atribute.set_value(newValue);
+            atribute.set_value(newValue.get_value());
             this.tuple.edit(bindDefinition.get(atribute), newValue);
-            this.fireValueChangedEvent();
+            this.notifyListeners(atribute, newValue);
         }
     }
     public Value getValue(String column){
-        return bindState.get(column);
+        return tuple.get_value(column);
     }
 
     public Integer getID(){return tuple.get_pk_val();}
@@ -135,15 +132,61 @@ public class LinkedObject {
     public void deactivate() throws SQLException {
         this.linked = false;
         this.tuple.deactivate();
+        tuple.table.remove(tuple);
     }
 
     public boolean isLinked(){
         return linked;
     }
 
-    public void fireValueChangedEvent() {
-        for (ChangeListener <Object> listener: changeListeners) {
-            listener.changed(null, null, null);
+    public boolean isActive(){
+        return tuple.isActive();
+    }
+
+    private void notifyListeners(Value oldValue, Value newValue) {
+        for (ChangeListener<? super Value> listener : changeListeners) {
+            listener.changed(this, oldValue, newValue);
         }
+
+        for (InvalidationListener listener : invalidationListeners) {
+            listener.invalidated(this);
+        }
+    }
+
+    public HashMap<String, Value> getBindState(){
+        return bindState;
+    }
+
+    public HashMap<Value, String> getBindDefinition(){
+        return bindDefinition;
+    }
+
+    @Override
+    public void addListener(ChangeListener<? super Value> listener) {
+        changeListeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(ChangeListener<? super Value> listener) {
+        changeListeners.remove(listener);
+    }
+
+    @Override
+    public Value getValue() {
+        return null;
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListeners.remove(listener);
+    }
+
+    public RowMirror getTuple(){
+        return this.tuple;
     }
 }

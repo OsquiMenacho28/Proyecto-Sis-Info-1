@@ -23,6 +23,7 @@ import java.util.Optional;
 
 public class SesionAtCl extends Sesion{
 
+	private application.Interface.LI.SelectAccount SelectAccount;
 	private application.Interface.POS.POSOpening POSOpening;
 	private application.Interface.POS.POSOpen POSOpen;
 	private application.Interface.POS.POSClosure POSClosure;
@@ -36,22 +37,16 @@ public class SesionAtCl extends Sesion{
 
 	private ArrayList<POSsesion> POSsesions;
 
-	private InventoryModel.Inventory inventory;
-	private DBManager manager;
-
 	public SesionAtCl(User InputUser) throws Exception {
 		super(InputUser);
 
-		this.manager = new DBManager("jdbc:mysql://localhost:2808/ferreteria_dimaco_database",
-				"root", "osquimenacho28");
+		this.SelectAccount = new SelectAccount();
 
-		this.inventory = new InventoryModel.Inventory(manager);
-
-		this.POSOpening = new POSOpening(this, new SelectAccount());
+		this.POSOpening = new POSOpening(this, this.SelectAccount);
 		super.mainWindow = this.POSOpening;
 		this.POSOpening.hide();
 
-		this.POSOpen = new POSOpen(this, this.POSOpening, this.inventory);
+		this.POSOpen = new POSOpen(this, this.POSOpening);
 		this.POSOpen.hide();
 
 		this.POSClosure = new POSClosure(0, 0, this, this.POSOpen);
@@ -69,7 +64,7 @@ public class SesionAtCl extends Sesion{
 		this.PaymentConfirmed = new PaymentConfirmed(this, this.POSOpen);
 		this.PaymentConfirmed.hide();
 
-		this.GenerateInvoice = new GenerateInvoice(this, new Stage(StageStyle.UNDECORATED), this.POSOpen);
+		this.GenerateInvoice = new GenerateInvoice(this, this.POSOpen);
 		this.GenerateInvoice.hide();
 
 		this.Sales = new Sales(this, this.POSOpen);
@@ -87,16 +82,20 @@ public class SesionAtCl extends Sesion{
 		this.showPOSOpen();
 		blurPOS();
 		this.showPOSOpening();
+		POSOpening.getStage().setAlwaysOnTop(true);
 	}
 
+	public void end(){
+		this.SelectAccount.show();
+	}
 	public void openPOS(Float OpeningCount) throws Exception {
-		if(!POSOpen.isActive()){
-			this.POSOpening.hide();
-			this.showPOSOpen();
-			POSsesion pos = new POSsesion(OpeningCount, this.POSOpen);
-			POSsesions.add(pos);
-			this.POSOpen.activate(pos);
-		}
+		POSOpening.hide();
+		unblurPOS();
+
+		POSsesion ses = new POSsesion(OpeningCount, this.POSOpen);
+		POSOpen.activate(ses);
+		this.POSsesions.add(ses);
+		showPOSOpen();
 	}
 	public void closePOSrequest(POSsesion POSsesion) throws IOException{
 		if(POSOpen.isActive()) {
@@ -165,6 +164,7 @@ public class SesionAtCl extends Sesion{
 		Optional <ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			POSOpen.hide();
+
 			try {
 				new SelectAccount();
 			} catch (IOException e) {

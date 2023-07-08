@@ -13,7 +13,7 @@ public class Cart {
     private Float cartTotal;
     private POSsesion sesion;
     private TableView<AddedProduct> CartList_T;
-    public ObservableList <AddedProduct> collection;
+    public ObservableList<AddedProduct> collection;
     public Cart(POSsesion sesion){
         this(sesion, new ArrayList<AddedProduct>());
     }
@@ -23,7 +23,7 @@ public class Cart {
         this.cartTotal = 0f;
         this.sesion = sesion;
         this.CartList_T = sesion.getPOSOpen().getCartTable();
-
+        CartList_T.setItems(this.collection);
         collection.addListener((ListChangeListener<? super AddedProduct>) e -> {
             CartList_T.refresh();
             sesion.getPOSOpen().setTotalLabel();

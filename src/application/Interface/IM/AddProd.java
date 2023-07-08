@@ -250,7 +250,6 @@ public class AddProd extends AdminPromptWindow implements Initializable{
 					color,
 					brand,
 					category);
-
 			sesion.addProductToInventory(aux);
 		}
 		

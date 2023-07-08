@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="500.0" style="-fx-background-color: white;" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="gridPane" alignment="center" hgap="10.0" maxWidth="1203.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" style="-fx-background-color: white;" styleClass="Grid_Container" stylesheets="@../../../styleFiles/POSOpen.css" type="GridPane" vgap="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" />
         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
@@ -24,7 +24,7 @@
         <RowConstraints maxHeight="500.0" minHeight="-Infinity" prefHeight="218.00002034505206" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
     </rowConstraints>
-    <HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #01516e;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
+    <HBox maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="799.0" style="-fx-background-color: #01516e;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
         <children>
             <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="460.0" HBox.hgrow="ALWAYS">
                 <children>
@@ -68,15 +68,13 @@
          <Cursor fx:constant="HAND" />
       </cursor>
     </Button>
-    <TableView fx:id="Inventory_T" maxHeight="400.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="496.0" styleClass="OrderList" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+    <TableView fx:id="Inventory_T" maxHeight="400.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" styleClass="OrderList" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
         <columns>
-            <TableColumn fx:id="ProductColumn" maxWidth="1.7976931348623157E308" minWidth="69.99999749660492" prefWidth="71.33331048488617" text="Código de Producto" />
-            <TableColumn fx:id="NameColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="194.6667251586914" text="Nombre Producto" />
-            <TableColumn fx:id="DescColumn" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="-1.0" text="Descripción" />
-            <TableColumn fx:id="CantColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Cantidad" />
-            <TableColumn prefWidth="75.0" text="Marca" />
-            <TableColumn prefWidth="75.0" text="Categoría" />
-            <TableColumn prefWidth="75.0" text="Stock" />
+            <TableColumn fx:id="CodeColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="164.0" resizable="false" text="Código de Producto" />
+            <TableColumn fx:id="NameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="200.0" resizable="false" text="Nombre Producto" />
+            <TableColumn fx:id="CantColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="297.0" resizable="false" text="Stock" />
+            <TableColumn fx:id="BrandColumn" editable="false" minWidth="-Infinity" prefWidth="132.0" resizable="false" text="Marca" />
+            <TableColumn fx:id="CatColumn" editable="false" minWidth="-Infinity" prefWidth="117.0" resizable="false" text="Categoría" />
         </columns>
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

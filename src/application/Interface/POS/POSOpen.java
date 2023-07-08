@@ -1,5 +1,6 @@
 package application.Interface.POS;
 
+import DataBaseManager.Value;
 import InventoryModel.Brand;
 import InventoryModel.Category;
 import InventoryModel.Inventory;
@@ -13,6 +14,7 @@ import application.Interface.PromptWindow;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import org.apache.commons.text.similarity.JaccardDistance;
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -125,9 +128,10 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 	private AddedProduct focusedItem;
 	private ObservableList<AddedProduct> selectedItems;
 	private ObservableList<Node> visibleProducts;
-	public POSOpen(SesionAtCl ses, PromptWindow origin, Inventory inventory) throws IOException {
+	public POSOpen(SesionAtCl ses, PromptWindow origin) throws IOException {
 		super(ses, "POSOpen.fxml", origin, "PUNTO DE VENTA");
-		this.inventory = inventory;
+		super.stage.setMaximized(true);
+		this.inventory = ses.getInventory();
 		this.cart = null;
 		this.POSsesion = null;
 		this.load();
@@ -186,6 +190,8 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 		if(POSsesion != null){
 			this.POSsesion = POSsesion;
 			this.cart = POSsesion.newCart();
+			cart.collection.addListener((ListChangeListener<? super AddedProduct>) e -> setTotalLabel());
+			CartList_T.setItems(cart.collection);
 		}
 	}
 
@@ -271,11 +277,11 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			}
 		});
 
-		Clear_B.setOnAction(actionEvent -> cart.clear());
+		Clear_B.setOnAction(actionEvent -> {
+			if(cart != null) cart.clear();
+		});
 
 		CartList_T.prefWidthProperty().bind(LeftPane.widthProperty());
-		cart.collection.addListener((ListChangeListener<? super AddedProduct>) e -> setTotalLabel());
-
 		ItemColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<AddedProduct, String>, ObservableValue<String>>(){
 			@Override
 			public ObservableValue<String> call(TableColumn.CellDataFeatures<AddedProduct, String> addedProductStringCellDataFeatures) {
@@ -362,7 +368,6 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 				}
 			}
 		});
-		CartList_T.setItems(cart.collection);
 
 		ListScroll.setFitToWidth(true);
 		SearchProduct_F.textProperty().addListener(e -> {
@@ -374,9 +379,17 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			codeSearch();
 		});
 
-		CategoryFilter_C.setItems(inventory.getCategoriesTable().collection);
-		BrandFilter_C.setItems(inventory.getBrandsTable().collection);
+		CategoryFilter_C.setItems(inventory.getCategoriesTable().getCollection());
+		BrandFilter_C.setItems(inventory.getBrandsTable().getCollection());
 
+		Category deselect;
+		try {
+			deselect = new Category(Inventory.categoryRV, Value.create(-1), Value.create("QUITAR FILTRO"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		CategoryFilter_C.getItems().add(deselect);
 		CategoryFilter_C.setCellFactory(new Callback<ListView<Category>, ListCell<Category>>() {
 			@Override
 			public ListCell<Category> call(ListView<Category> param) {
@@ -391,6 +404,23 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 						}
 					}
 				};
+			}
+		});
+
+		CategoryFilter_C.setConverter(new StringConverter<Category>() {
+			@Override
+			public String toString(Category item) {
+				if (item == null) {
+					return null;
+				} else {
+					return item.getCategory();
+				}
+			}
+
+			@Override
+			public Category fromString(String string) {
+				// This method is not used for ComboBox
+				return null;
 			}
 		});
 
@@ -411,15 +441,46 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 			}
 		});
 
+		Brand deselect1;
+		try {
+			deselect1 = new Brand(Inventory.brandRV, Value.create(-1), Value.create("QUITAR FILTRO"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		BrandFilter_C.getItems().add(deselect1);
+		BrandFilter_C.setConverter(new StringConverter<Brand>() {
+			@Override
+			public String toString(Brand item) {
+				if (item == null) {
+					return null;
+				} else {
+					return item.getBrand();
+				}
+			}
+
+			@Override
+			public Brand fromString(String string) {
+				// This method is not used for ComboBox
+				return null;
+			}
+		});
+
 		CategoryFilter_C.valueProperty().addListener(e -> {
+			if(CategoryFilter_C.getValue().equals(deselect)){
+				CategoryFilter_C.setValue(null);
+			}
 			getVisibleItems();
 		});
 
 		BrandFilter_C.valueProperty().addListener(e -> {
+			if(BrandFilter_C.getValue().equals(deselect1)){
+				BrandFilter_C.setValue(null);
+			}
 			getVisibleItems();
 		});
 
-		this.visibleProducts = ProductList.getChildren();
+		this.visibleProducts = FXCollections.observableArrayList();
 
 
 		//Update visible products in case the inventory is changed
@@ -445,6 +506,8 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 				}
 			}
 		});
+
+		getVisibleItems();
 	}
 
 	public void getVisibleItems(){
@@ -464,18 +527,21 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 				visibleProducts.add(icon);
 
 				if(cat != null){
-					if(cat.getCode() != icon.getProduct().getCode()){
+					if(cat.getCode() != icon.getProduct().getCategory().getCode()){
 						visibleProducts.remove(icon);
 					}
 				}
 
 				if(brand != null){
-					if(brand.getCode() != icon.getProduct().getCode()){
+					if(brand.getCode() != icon.getProduct().getBrand().getCode()){
 						visibleProducts.remove(icon);
 					}
 				}
 			}
 		}
+		//System.out.println(visibleProducts);
+		ProductList.getChildren().clear();
+		ProductList.getChildren().addAll(visibleProducts);
 	}
 
 	public void setTotalLabel() {
@@ -485,11 +551,15 @@ public class POSOpen extends AtClPromptWindow implements Initializable {
 	private void nameSearch(){
 		String productQuery = SearchProduct_F.getText();
 		visibleProducts.sort((Comparator) new NameComparator(productQuery));
+		ProductList.getChildren().clear();
+		ProductList.getChildren().addAll(visibleProducts);
 	}
 
 	private void codeSearch(){
 		String codeQuery = SearchCode_F.getText();
 		visibleProducts.sort((Comparator) new CodeComparator(codeQuery));
+		ProductList.getChildren().clear();
+		ProductList.getChildren().addAll(visibleProducts);
 	}
 
 	public TableView<AddedProduct> getCartTable(){

@@ -6,34 +6,34 @@ import java.util.ArrayList;
 
 public class Brand extends LinkedObject {
 
-    Int_Value pk;
-    String_Value brand;
+    Int_Value pk = Value.create(0);
+    String_Value brand = Value.create("");
 
     public Brand(RowMirror record) throws Exception {
         super(record);
-        bindDefinition();
+        defineBind();
         link();
     }
 
     public Brand(RelVar relvar, ArrayList<Value> values) throws Exception {
         super(relvar, values);
-        bindDefinition();
+        defineBind();
         link();
     }
 
     public Brand(RelVar relvar, Value... values) throws Exception {
         super(relvar, values);
-        bindDefinition();
+        defineBind();
         link();
     }
-
-    public void bindDefinition(){
-        bind("id_marca", pk);
-        bind("marca", brand);
+    @Override
+    public void defineBind(){
+        bind("ID_MARCA", pk);
+        bind("MARCA", brand);
     }
 
     public String getBrand(){
-        return this.brand.to_string();
+        return this.brand.get_value();
     }
 
     public int getCode(){

@@ -5,32 +5,35 @@ import DataBaseManager.*;
 import java.sql.SQLException;
 
 public class Client extends LinkedObject {
-	private Int_Value code;
-	private String_Value name;
-	private Int_Value NIT;
+	private Int_Value code = new Int_Value();
+	private String_Value name = new String_Value();
+	private Int_Value NIT = new Int_Value();
 	private static final int documentTypeCode = 1;
 
-	public Client(ClientsList list, String name, int documentTypeCode, int NIT) throws Exception {
+	public Client(ClientsList list,int code, String name, int NIT) throws Exception {
 		super(ClientsList.clientRV,
-				Value.create(list.getNewPK()),
+				Value.create(code),
 				Value.create(name),
 				Value.create(NIT));
-		bindDefinition();
+		defineBind();
 		link();
 	}
 
 	public Client(RowMirror row) throws Exception {
 		super(row);
-		bindDefinition();
+		defineBind();
 		link();
 	}
 
-	private void bindDefinition(){
-		bind("id_cliente", code);
-		bind("nombre", name);
-		bind("nit", NIT);
+	protected void defineBind(){
+		bind("ID_CLIENTE", code);
+		bind("NOMBRE", name);
+		bind("NIT", NIT);
 	}
 
+	public int getCode(){
+		return code.get_value();
+	}
 	public String getName() {
 		return name.get_value();
 	}

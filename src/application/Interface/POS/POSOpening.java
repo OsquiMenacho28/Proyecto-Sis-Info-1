@@ -1,13 +1,16 @@
 package application.Interface.POS;
 
 import application.FlowController.SesionAtCl;
+import application.Interface.AtClPromptWindow;
 import application.Interface.PromptWindow;
+import application.Interface.generic.NumberPad;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.util.converter.FloatStringConverter;
 
 import java.awt.*;
@@ -16,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class POSOpening extends PromptWindow implements Initializable{
+public class POSOpening extends AtClPromptWindow implements Initializable{
 	
 	@FXML
 	TextField CashierField;
@@ -27,18 +30,19 @@ public class POSOpening extends PromptWindow implements Initializable{
 	@FXML
 	Button CloseButton;
 
+	@FXML
+	GridPane Grid_Container;
+
 	Boolean flag;
 
 	Float OpeningCount;
-	private SesionAtCl sesion;
 	
 	public POSOpening(SesionAtCl ses, PromptWindow origin) throws IOException {
-		super(ses, "POSOpening.fxml", origin);
+		super(ses, "POSOpening.fxml", origin, "APERTURA DE CAJA");
 		this.OpeningCount = (float) 0.0;
 		this.flag = false;
-		stage.setTitle("APERTURA DE CAJA");
-		stage.setWidth(702);
-		stage.setHeight(350);
+		//stage.setWidth(702);
+		//stage.setHeight(350);
 		this.load();
 	}
 
@@ -86,7 +90,9 @@ public class POSOpening extends PromptWindow implements Initializable{
 
 		BackButton.setOnAction(e -> back());
 
-		CloseButton.setOnAction(e -> { if (flag) {try {
+		CloseButton.setOnAction(e -> { if (flag) {
+
+			try {
 			open();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -94,10 +100,19 @@ public class POSOpening extends PromptWindow implements Initializable{
 			throw new RuntimeException(ex);
 		}
 		} });
+
+		try {
+			NumberPad pad = new NumberPad(CashierField);
+			Grid_Container.add(pad, 0, 1, 1, 2);
+			Grid_Container.requestLayout();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+
 	}
 
 	public void open() throws Exception {
-		this.hide();
 		sesion.openPOS(OpeningCount);
 	}
 }

@@ -6,6 +6,11 @@ public class Float_Value extends Value {
 		super(DataType.FLOAT_TYPE);
 		this.value = value;
 	}
+
+	public Float_Value(){
+		super(DataType.FLOAT_TYPE);
+		this.value = null;
+	}
 	
 	public Float get_value() {
 		return value;

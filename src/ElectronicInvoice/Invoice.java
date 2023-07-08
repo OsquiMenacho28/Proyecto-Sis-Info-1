@@ -35,8 +35,8 @@ public class Invoice {
     private static final String numbersLettersCUFD = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ+=abcdefghijklmnopqrstuvwxyz";
     private static SecureRandom secureRandom = new SecureRandom();
 
-    public Invoice(Client client, Sale sale) throws Exception {
-        this.client = client;
+    public Invoice(Sale sale) throws Exception {
+        this.client = sale.getClient();
         this.sale = sale;
         createXML();
         generateAndDownloadPDF();

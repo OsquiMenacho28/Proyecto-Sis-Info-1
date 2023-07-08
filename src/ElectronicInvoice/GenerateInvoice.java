@@ -1,5 +1,6 @@
 package ElectronicInvoice;
 
+import SalesModel.Sale;
 import application.FlowController.SesionAtCl;
 import application.Interface.AtClPromptWindow;
 import application.Interface.PromptWindow;
@@ -35,16 +36,15 @@ public class GenerateInvoice extends AtClPromptWindow {
     @FXML
     private Label countDownLabel;
 
-    public GenerateInvoice(SesionAtCl ses, Stage stage, PromptWindow origin) throws Exception {
-        super(ses, stage, "GenerateInvoice.fxml", origin);
+    public GenerateInvoice(SesionAtCl ses, PromptWindow origin) throws Exception {
+        super(ses, "GenerateInvoice.fxml", origin);
         stage.setWidth(413);
         stage.setHeight(247);
         this.load();
-        generateInvoice();
     }
 
-    private void generateInvoice() throws Exception {
-        Invoice invoiceGenerated = new Invoice(null, null);
+    private void generateInvoice(Sale sale) throws Exception {
+        Invoice invoiceGenerated = new Invoice(sale);
         String invoiceFileName = "Factura" + Invoice.getInvoiceNumber() + ".pdf";
         String invoiceFilePath = "C:/Users/usuario/Downloads/" + invoiceFileName;
         try {
